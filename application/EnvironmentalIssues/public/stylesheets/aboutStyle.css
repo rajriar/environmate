@@ -45,12 +45,8 @@ h3 {
 .pic-size {
     height: 200px;
     width: 260px;
-    align: center;
-}
-
-.pic-size2 {
-    height: 200px;
-    align: center;
+    left-margin: auto;
+    right-margin: auto;
 }
 
 .centered-form {
