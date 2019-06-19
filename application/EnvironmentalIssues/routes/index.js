@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 //about page
-router.get("/about", function(req, res, next) {
-    res.render("about.ejs");
+router.get('/about', function(req, res, next) {
+    res.render('about/about', { title: 'Team 1',});
 });
 
 module.exports = router;
