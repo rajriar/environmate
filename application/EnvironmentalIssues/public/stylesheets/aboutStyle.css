@@ -1,0 +1,73 @@
+#bio {
+    align-content: center;
+}
+
+html {
+    height: 100%;
+}
+
+#content {
+    text-align: center;
+    padding-top: 10%;
+    text-shadow: 0px 4px 3px black, 0px 8px 10px black;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 4em;
+}
+
+h3 {
+    font-size: 1.5em;
+    text-decoration:
+}
+
+#center-align {
+    text-align: center;
+}
+
+.jumbotron {
+    color: #16153d;
+}
+
+#center {
+    text-align: center;
+}
+
+.gallery-body {
+    background-color: #16153d;
+}
+
+.contact-body {
+    background-color: #16153d;
+}
+
+.pic-size {
+    height: 200px;
+    width: 260px;
+    align: center;
+}
+
+.pic-size2 {
+    height: 200px;
+    align: center;
+}
+
+.centered-form {
+    margin-top: 60px;
+}
+
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+.box {
+    padding-left: 125px;
+    padding-top: 30px;
+}
+
+#description {
+    padding-left: 200px;
+    width: 600px;
+}
