@@ -9,7 +9,7 @@
 
 1. Server URL or IP  -- ec2-13-57-37-217.us-west-1.compute.amazonaws.com   13.57.37.217
 2. SSH username   -- ubuntu
-3. SSH password or key.   -- in folder
+3. SSH password or key.   -- in folder  password : csc6481
     <br> If a ssh key is used please upload the key to the credentials folder.
 4. Database URL or IP and port used -- no database uploaded currently
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
