@@ -1,24 +1,21 @@
 body {
-<<<<<<< HEAD
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
     color: #00B7FF;
-=======
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  display: table-cell;
-  vertical-align: middle;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 html {
-  display: table;
-  margin: auto;
+    display: table;
+    margin: auto;
 }
 
 a {
-  color: #00B7FF;
->>>>>>> fe5a2422cce14063e85e131bd397cee1d24461e9
+    color: #00B7FF;
 }
