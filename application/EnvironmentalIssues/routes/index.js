@@ -5,10 +5,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'CSC 648 Team 1 Home Page' });
 });
-
 //about page
 router.get('/about', function(req, res, next) {
+
     res.render('about/about', { title: 'Team 1',});
 });
-
 module.exports = router;
