@@ -1,21 +1,15 @@
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-    color: #00B7FF;
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    display: table-cell;
-    vertical-align: middle;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 html {
-    display: table;
-    margin: auto;
+  display: table;
+  margin: auto;
 }
 
 a {
-    color: black;
+  color: #00B7FF;
 }
