@@ -43,6 +43,7 @@ h3 {
 }
 
 .pic-size {
+<<<<<<< Updated upstream
     height: 200px;
     width: 260px;
     align: center;
@@ -51,6 +52,12 @@ h3 {
 .pic-size2 {
     height: 200px;
     align: center;
+=======
+    max-height: 220px;
+    width: auto;
+    height: auto;
+    align-items: center;
+>>>>>>> Stashed changes
 }
 
 .centered-form {
@@ -68,6 +75,23 @@ h3 {
 }
 
 #description {
+<<<<<<< Updated upstream
     padding-left: 200px;
     width: 600px;
+=======
+    padding-left: 250px;
+    width: 700px;
+}
+
+#name {
+    text-align: center;
+}
+
+.bottom-row {}
+
+.top-row {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%
+>>>>>>> Stashed changes
 }
