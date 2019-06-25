@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>About Us</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/stylesheets/aboutStyle.css">
@@ -19,7 +19,7 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="#" class="navbar-brand">CSC 648 Environmental Issues Team 01</a>
+                    <a href="/" class="navbar-brand">CSC 648 Environmental Issues Team 01</a>
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -87,82 +87,84 @@
         <div class="container">
             <div class="jumbotron">
                 <h1 id="center">
-                    <%= title %>
+                    <%=title%>
                 </h1>
-                <h2 id="center">Team Number 01</h2>
-                <p>BASIC ABOUT DESCRIPTION DUMMY TEXT: Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repudiandae similique adipisci et dolores atque dolore, nobis delectus reprehenderit. Maxime perferendis quaerat incidunt ex ab. Vero
-                    temporibus nam cumque odit?</p>
+                <h2 id="center">About Us</h2>
+                <p id="center"> A brief introduction to this site's contributors. </p>
             </div>
         </div>
         <div class="container">
-            <div class="row">
-
-                <figure class="col-lg-4">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Front End Lead" src="">
-                        </a>
-                    </div>
+            <div class="row top-row">
+                <a href="/about/raj">
+                    <figure class="col-lg-4">
+                        <div class="thumbnail pic-size">
+                            <h6 id="center-align">Raj - Front-End Lead</h6>
+                            <img alt="Front-End Lead" src="http://clipart-library.com/images/BiaEg4n8T.jpg">
+                </a>
+                </figure>
+                <a href="/about/michael">
+                    <figure class="col-lg-4">
+                        <div class="thumbnail pic-size">
+                            <h6 id="center-align">Michael - Team Lead</h6>
+                            <img alt="Team Lead" src="http://clipart-library.com/images/BiaEg4n8T.jpg">
+                </a>
+                </figure>
+                <a href="/about/jonathan">
+                    <figure class="col-lg-4">
+                        <div class="thumbnail pic-size">
+                            <h6 id="center-align">Jonathon - Back-End Lead</h6>
+                            <img alt="Back-End Lead" src="http://clipart-library.com/images/BiaEg4n8T.jpg">
+                </a>
+                </div>
                 </figure>
 
-                <figure class="col-lg-4">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Team Lead" src="">
-                        </a>
-                    </div>
-                </figure>
+                </div>
 
-                <figure class="col-lg-4">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Back End Lead" src="">
-                        </a>
+                <div class="row bottom-row">
+                    <a href="/about/angie">
+                        <figure class="col-lg-3">
+                            <div class="thumbnail pic-size">
+                                <h6 id="center-align">Angie - Front-End</h6>
+                                <img alt="Front-End" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-X8M0gsrWHF8mRy3N-uhjGXPA9UVoVqDeL_lOmghgRgUvdAXy">
+                    </a>
                     </div>
-                </figure>
+                    </figure>
 
+                    <a href="/about/carlos">
+                        <figure class="col-lg-3">
+                            <div class="thumbnail pic-size">
+                                <h6 id="center-align">Carlos - Front-End</h6>
+                                <img alt="Front-End" src="http://clipart-library.com/images/BiaEg4n8T.jpg">
+                    </a>
+                    </div>
+                    </figure>
+
+                    <figure class="col-lg-3">
+                        <a href="/about/johnathan">
+                            <div class="thumbnail pic-size">
+                                <h6 id="center-align">Johnathan - Back-End</h6>
+                                <img alt="Back-End" src="http://clipart-library.com/images/BiaEg4n8T.jpg">
+                        </a>
+                        </div>
+
+                    </figure>
+                    <a href="/about/sandhya">
+                        <figure class="col-lg-3">
+                            <div class="thumbnail pic-size ">
+                                <h6 id="center-align">Sandhya - Back-End</h6>
+
+                                <img alt="Back-End" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-X8M0gsrWHF8mRy3N-uhjGXPA9UVoVqDeL_lOmghgRgUvdAXy">
+                    </a>
+                    </div>
+                    </figure>
+                </div>
+
+                </div>
             </div>
 
-            <div class="row">
-                <figure class="col-lg-3">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Team Member" src="">
-                        </a>
-                    </div>
-                </figure>
-
-                <figure class="col-lg-3">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Team Member" src="">
-                        </a>
-                    </div>
-                </figure>
-
-                <figure class="col-lg-3">
-                    <div class="thumbnail pic-size">
-                        <a href="">
-                            <img alt="Team Member" src="">
-                        </a>
-                    </div>
-                </figure>
-
-                <figure class="col-lg-3">
-                    <div " class="thumbnail pic-size ">
-                                <a href=" ">
-                                    <img alt="Team Member " src=" " >
-                                </a>
-                            </div>
-                        </figure>
-                    </div>
-
-            </div>
-        </div>
-
-        <!-- container -->
-        <<script src="http://code.jquery.com/jquery-2.1.4.js "></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+            <!-- container -->
+            <<script src="http://code.jquery.com/jquery-2.1.4.js "></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
 </body>
 
 </html>
