@@ -43,10 +43,11 @@ h3 {
 }
 
 .pic-size {
-    height: 200px;
-    width: 260px;
-    left-margin: auto;
-    right-margin: auto;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    align: center;
 }
 
 .centered-form {
@@ -70,4 +71,11 @@ h3 {
 
 #name {
     text-align: center;
+}
+
+.bottom-row {}
+
+.top-row {
+    padding-left: 10%;
+    padding-right: 10%;
 }
