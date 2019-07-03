@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+router.use('/forms', require('./forms'));
+
 /* Main about page */
 router.get('/', function (req, res, next) {
     res.render('about/about', { title: 'Team 1', });
@@ -33,5 +35,7 @@ router.get('/raj', function (req, res, next) {
 router.get('/sandhya', function (req, res, next) {
     res.render('about/sandhya', { title: 'Team 1', });
 });
+
+
 
 module.exports = router;

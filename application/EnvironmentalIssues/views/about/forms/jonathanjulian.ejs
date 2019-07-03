@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSC 642 Summer 2019 Individual Assignment Jonathan Julian</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href= "/stylesheets/jjform.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class = "unique">
+    <div class = "container-full">
+            <h1>Registration Form</h1>
+        <form action="/about/forms/confirmation">
+            <div class = "row form contact"> <!--Name information-->
+                <div class = "col-sm-2">
+                    First Name*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-2">
+                    <input type="text" name = "firstName">
+                </div>
+                <div class="col-sm-2"></div>
+                <div class = "col-sm-2 col-offset-sm-7">
+                    Last Name*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-9">
+                    <input type = "text" name = "lastName">
+                </div>
+            </div>  <!--End Name Info-->
+            <div class = "row form contact"> <!--Email information-->
+                <div class = "col-sm-2">
+                    Email*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-2">
+                    <input type="text" name = "email">
+                </div>
+                <div class="col-sm-2"></div>
+                <div class = "col-sm-2 col-offset-sm-7">
+                    Re-Enter Email*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-9">
+                    <input type = "text" name = "reEmail">
+                </div>
+            </div> <!--End Email info-->
+            <div class="row form contact"><!--Phone-->
+                <div class = "col-sm-2">
+                    Phone*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-2">
+                    <input type="text" name = "phone">
+                </div>
+            </div><!--end phone-->
+            
+
+            <div class = "row form" id="spacing"> <!--Questions-->
+                <div class = "col-sm-2">
+                    Education Level:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-2">
+                    <select name = "education">
+                        <option value="NULL">Select One</option>
+                        <option value="hs">High School/GED</option>
+                        <option value="college">College</option>
+                        <option value="masters">Graduate Studies</option>
+                        <option value="PhD">Ph.D</option>
+                    </select>
+                </div>
+                <div class = "col-sm-2"></div>
+                <div class = "col-sm-2 col-offset-sm-7">
+                    Annual Income
+                </div>
+                <div class = "col-sm-3 col-offset-sm-9">
+                    <select name = "income">
+                        <option value="NULL">Select One</option>
+                        <option value=">50">$0 - $50,000</option>
+                        <option value="50-100">$50,000 - $100,000</option>
+                        <option value="100+">$100,000 +</option>
+                    </select>
+                </div>
+            </div><!--end Questions-->
+
+            <div class = "row form" id="spacing">  <!--Address-->
+                <div class = "col-sm-2">
+                    Street Address*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-3">
+                    <input type="text" name = "address">
+                </div>  
+                <div class='col-sm-2'></div>
+                <div class = "col-sm-2 col-offset-sm-7">
+                    Zip Code*:
+                </div>
+                <div class = "col-sm-3 col-offset-sm-9">
+                    <input type="text" name="zipCode">
+                </div>
+            </div> <!--end Address-->
+
+            <div class ="row form" id="spacing"> <!-- TOU-->
+                <div class = "col-sm-9">
+                    By selecting the check box you agree to the terms and conditions of this site.  Please contact us if there are questions.*
+                </div>
+                <div class = "col-sm-3 col-offset-sm-9 checkbox">
+                    <input type="checkbox" name="TOU">
+                </div>
+            </div><!--end TOU-->
+
+            
+
+            <div class ="row form"><!--Buttons-->
+                <div class="form col-sm-6">
+                    <input type="reset" name=" Cancel" value="Clear">
+                </div>
+                <div class="form col-sm-6 col-offset-sm-6">
+                    <input type="submit" name="Submit" value="Send">
+                </div>
+            </div> <!--end buttons-->
+        </form> <!--end form-->
+    </div><!--container div-->
+</body>
+
+</html>
