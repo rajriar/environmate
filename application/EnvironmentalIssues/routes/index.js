@@ -9,6 +9,4 @@ router.use('/users', require('./users.js'));
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'CSC 648 Team 1 Home Page' });
 });
-
-
 module.exports = router;
