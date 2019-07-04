@@ -43,14 +43,14 @@ h3 {
 }
 
 .pic-size {
-    height: 200px;
-    width: 260px;
-    align: center;
+   max-height: 200px;
+   max-width: 260px;
+   align-content:center;
 }
 
 .pic-size2 {
     height: 200px;
-    align: center;
+   
 
     max-height: 220px;
     width: auto;
