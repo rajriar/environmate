@@ -25,4 +25,8 @@ router.get('/confirmation', function (req, res, next){
     res.send(req.check('firstName').isAlpha());
 });
 
+router.post('/confirmation', function (req, res, next){
+    res.render('about/forms/confirmation', {data: req.body});
+});
+
 module.exports = router;

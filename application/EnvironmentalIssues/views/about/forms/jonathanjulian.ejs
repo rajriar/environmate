@@ -14,7 +14,7 @@
 <body class = "unique">
     <div class = "container-full">
             <h1>Registration Form</h1>
-        <form action="/about/forms/confirmation">
+        <form action="/about/forms/confirmation" method = "POST">
             <div class = "row form contact"> <!--Name information-->
                 <div class = "col-sm-2">
                     First Name*:
@@ -62,10 +62,10 @@
                 <div class = "col-sm-3 col-offset-sm-2">
                     <select name = "education">
                         <option value="NULL">Select One</option>
-                        <option value="hs">High School/GED</option>
-                        <option value="college">College</option>
-                        <option value="masters">Graduate Studies</option>
-                        <option value="PhD">Ph.D</option>
+                        <option value="High School/GED">High School/GED</option>
+                        <option value="College">College</option>
+                        <option value="Graduate Studies">Graduate Studies</option>
+                        <option value="Ph.D">Ph.D</option>
                     </select>
                 </div>
                 <div class = "col-sm-2"></div>
@@ -75,9 +75,9 @@
                 <div class = "col-sm-3 col-offset-sm-9">
                     <select name = "income">
                         <option value="NULL">Select One</option>
-                        <option value=">50">$0 - $50,000</option>
-                        <option value="50-100">$50,000 - $100,000</option>
-                        <option value="100+">$100,000 +</option>
+                        <option value="$0 - $50,000">$0 - $50,000</option>
+                        <option value="$50,000 - $100,000">$50,000 - $100,000</option>
+                        <option value="$100,000 +">$100,000 +</option>
                     </select>
                 </div>
             </div><!--end Questions-->
