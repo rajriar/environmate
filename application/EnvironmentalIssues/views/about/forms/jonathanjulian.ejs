@@ -14,20 +14,20 @@
 <body class = "unique">
     <div class = "container-full">
             <h1>Registration Form</h1>
-        <form action="/about/forms/confirmation">
+        <form name="registration" action="/about/forms/confirmation" onsubmit="return validateForm()" method = "POST">
             <div class = "row form contact"> <!--Name information-->
                 <div class = "col-sm-2">
                     First Name*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-2">
-                    <input type="text" name = "firstName">
+                    <input type="text" name = "firstName" required minlength="2" maxlength="20">
                 </div>
                 <div class="col-sm-2"></div>
                 <div class = "col-sm-2 col-offset-sm-7">
                     Last Name*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-9">
-                    <input type = "text" name = "lastName">
+                    <input type = "text" name = "lastName" minlength="2" maxlength="20">
                 </div>
             </div>  <!--End Name Info-->
             <div class = "row form contact"> <!--Email information-->
@@ -35,22 +35,22 @@
                     Email*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-2">
-                    <input type="text" name = "email">
+                    <input type="email" name = "email">
                 </div>
                 <div class="col-sm-2"></div>
                 <div class = "col-sm-2 col-offset-sm-7">
                     Re-Enter Email*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-9">
-                    <input type = "text" name = "reEmail">
+                    <input type = "email" name = "reEmail">
                 </div>
             </div> <!--End Email info-->
             <div class="row form contact"><!--Phone-->
                 <div class = "col-sm-2">
-                    Phone*:
+                    Phone*: ###-####
                 </div>
                 <div class = "col-sm-3 col-offset-sm-2">
-                    <input type="text" name = "phone">
+                    <input type="tel" name = "phone" required pattern="[0-9]{3}-[0-9]{4}">
                 </div>
             </div><!--end phone-->
             
@@ -61,11 +61,11 @@
                 </div>
                 <div class = "col-sm-3 col-offset-sm-2">
                     <select name = "education">
-                        <option value="NULL">Select One</option>
-                        <option value="hs">High School/GED</option>
-                        <option value="college">College</option>
-                        <option value="masters">Graduate Studies</option>
-                        <option value="PhD">Ph.D</option>
+                        <option value="Not Provided">Select One</option>
+                        <option value="High School/GED">High School/GED</option>
+                        <option value="College">College</option>
+                        <option value="Graduate Studies">Graduate Studies</option>
+                        <option value="Ph.D">Ph.D</option>
                     </select>
                 </div>
                 <div class = "col-sm-2"></div>
@@ -74,10 +74,10 @@
                 </div>
                 <div class = "col-sm-3 col-offset-sm-9">
                     <select name = "income">
-                        <option value="NULL">Select One</option>
-                        <option value=">50">$0 - $50,000</option>
-                        <option value="50-100">$50,000 - $100,000</option>
-                        <option value="100+">$100,000 +</option>
+                        <option value="Not Provided">Select One</option>
+                        <option value="$0 - $50,000">$0 - $50,000</option>
+                        <option value="$50,000 - $100,000">$50,000 - $100,000</option>
+                        <option value="$100,000 +">$100,000 +</option>
                     </select>
                 </div>
             </div><!--end Questions-->
@@ -87,14 +87,14 @@
                     Street Address*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-3">
-                    <input type="text" name = "address">
+                    <input type="text" name = "address" required maxlength="35">
                 </div>  
                 <div class='col-sm-2'></div>
                 <div class = "col-sm-2 col-offset-sm-7">
                     Zip Code*:
                 </div>
                 <div class = "col-sm-3 col-offset-sm-9">
-                    <input type="text" name="zipCode">
+                    <input type="text" name="zipCode" required minlength="5" maxlength="5">
                 </div>
             </div> <!--end Address-->
 
@@ -103,7 +103,7 @@
                     By selecting the check box you agree to the terms and conditions of this site.  Please contact us if there are questions.*
                 </div>
                 <div class = "col-sm-3 col-offset-sm-9 checkbox">
-                    <input type="checkbox" name="TOU">
+                    <input type="checkbox" name="TOU" required>
                 </div>
             </div><!--end TOU-->
 
@@ -121,4 +121,17 @@
     </div><!--container div-->
 </body>
 
+
+<script>
+function validateForm() {
+  var email = document.forms["registration"]["email"].value;
+  var reEmail = document.forms["registration"]["reEmail"].value;
+  if (email != reEmail) {
+    alert("Emails do not match");
+    return false;
+  }
+}
+
+
+</script>
 </html>
