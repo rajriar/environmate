@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap" async defer></script>
 
 </head>
 
@@ -36,12 +37,24 @@
                     <div class="col-md-6 form contact">
                             Phone: <%= data.phone%>
                     </div>  
-                    <div class="col-md-6 form col-offset-md-6">
+                    <div class="col-md-6 form col-offset-md-6" >
                             Address: <%= data.address%>, <%= data.zipCode%>
                     </div>
                 </div>
 
+                <div id="map"></div>
     </div><!--container div-->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap&language=en&region=US"
+    async defer></script>
+    <script>
+        function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: 35.717, lng: 139.731}
+        });
+      }
+    </script>
 </body>
 
 </html>

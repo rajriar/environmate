@@ -8,58 +8,79 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
 <body class = "unique">
+    
+<script>
+        function initMap() {
+          var myLatLng = {lat: -25.363, lng: 131.044};
+  
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: myLatLng
+          });
+  
+          var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hello World!'
+          });
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap">
+      </script>
     <div class = "container-full">
             <h1>Registration Form</h1>
         <form name="registration" action="/about/forms/confirmation" onsubmit="return validateForm()" method = "POST">
             <div class = "row form contact"> <!--Name information-->
-                <div class = "col-sm-2">
+                <div class = "col-md-2">
                     First Name*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-2">
+                <div class = "col-md-3 col-offset-md-2">
                     <input type="text" name = "firstName" required minlength="2" maxlength="20">
                 </div>
-                <div class="col-sm-2"></div>
-                <div class = "col-sm-2 col-offset-sm-7">
+                <div class="col-md-2"></div>
+                <div class = "col-md-2 col-offset-md-7">
                     Last Name*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-9">
+                <div class = "col-md-3 col-offset-md-9">
                     <input type = "text" name = "lastName" required minlength="2" maxlength="20">
                 </div>
             </div>  <!--End Name Info-->
             <div class = "row form contact"> <!--Email information-->
-                <div class = "col-sm-2">
+                <div class = "col-md-2">
                     Email*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-2">
+                <div class = "col-md-3 col-offset-md-2">
                     <input type="email" name = "email">
                 </div>
-                <div class="col-sm-2"></div>
-                <div class = "col-sm-2 col-offset-sm-7">
+                <div class="col-md-2"></div>
+                <div class = "col-md-2 col-offset-md-7">
                     Re-Enter Email*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-9">
+                <div class = "col-md-3 col-offset-md-9">
                     <input type = "email" name = "reEmail">
                 </div>
             </div> <!--End Email info-->
             <div class="row form contact"><!--Phone-->
-                <div class = "col-sm-2">
+                <div class = "col-md-2">
                     Phone*: ###-####
                 </div>
-                <div class = "col-sm-3 col-offset-sm-2">
+                <div class = "col-md-3 col-offset-md-2">
                     <input type="tel" name = "phone" required pattern="[0-9]{3}-[0-9]{4}">
                 </div>
             </div><!--end phone-->
             
 
             <div class = "row form" id="spacing"> <!--Questions-->
-                <div class = "col-sm-2">
+                <div class = "col-md-2">
                     Education Level:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-2">
+                <div class = "col-md-3 col-offset-md-2">
                     <select name = "education">
                         <option value="Not Provided">Select One</option>
                         <option value="High School/GED">High School/GED</option>
@@ -68,11 +89,11 @@
                         <option value="Ph.D">Ph.D</option>
                     </select>
                 </div>
-                <div class = "col-sm-2"></div>
-                <div class = "col-sm-2 col-offset-sm-7">
+                <div class = "col-md-2"></div>
+                <div class = "col-md-2 col-offset-md-7">
                     Annual Income
                 </div>
-                <div class = "col-sm-3 col-offset-sm-9">
+                <div class = "col-md-3 col-offset-md-9">
                     <select name = "income">
                         <option value="Not Provided">Select One</option>
                         <option value="$0 - $50,000">$0 - $50,000</option>
@@ -83,41 +104,47 @@
             </div><!--end Questions-->
 
             <div class = "row form" id="spacing">  <!--Address-->
-                <div class = "col-sm-2">
+                <div class = "col-md-2">
                     Street Address*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-3">
+                <div class = "col-md-3 col-offset-md-3">
                     <input type="text" name = "address" required maxlength="35">
                 </div>  
-                <div class='col-sm-2'></div>
-                <div class = "col-sm-2 col-offset-sm-7">
+                <div class='col-md-2'></div>
+                <div class = "col-md-2 col-offset-md-7">
                     Zip Code*:
                 </div>
-                <div class = "col-sm-3 col-offset-sm-9">
+                <div class = "col-md-3 col-offset-md-9">
                     <input type="text" name="zipCode" required minlength="5" maxlength="5">
                 </div>
             </div> <!--end Address-->
 
             <div class ="row form" id="spacing"> <!-- TOU-->
-                <div class = "col-sm-9">
+                <div class = "col-md-9">
                     By selecting the check box you agree to the terms and conditions of this site.  Please contact us if there are questions.*
                 </div>
-                <div class = "col-sm-3 col-offset-sm-9 checkbox">
+                <div class = "col-md-3 col-offset-md-9 checkbox">
                     <input type="checkbox" name="TOU" required>
                 </div>
             </div><!--end TOU-->
-
-            
+            <div class="row">
+                <div class = "text-xs-center" id="spacing">
+                    <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Lf0XawUAAAAAGRLqNdNBytt4eOMBRVQeDk36_EF">
+                    </div>
+                </div>    
+            </div>
+            <span id="captcha" style="margin-left:100px;color:red" />
 
             <div class ="row form"><!--Buttons-->
-                <div class="form col-sm-6">
+                <div class="form col-md-6">
                     <input type="reset" name=" Cancel" value="Clear">
                 </div>
-                <div class="form col-sm-6 col-offset-sm-6">
+                <div class="form col-md-6 col-offset-md-6">
                     <input type="submit" name="Submit" value="Send">
                 </div>
             </div> <!--end buttons-->
         </form> <!--end form-->
+        <div id="map"></div>
     </div><!--container div-->
 </body>
 
@@ -130,6 +157,19 @@ function validateForm() {
     alert("Emails do not match");
     return false;
   }
+  var v = grecaptcha.getResponse();
+    if(v.length == 0)
+    {
+        alert("Captcha is required");
+        return false;
+    }
+    else
+    {
+        return true; 
+    }
+
+    //production key: 6LfeXawUAAAAAEwnB2o4oyL6WOK_-qTTewwJ_m-O
+    //testing key: 6Lf0XawUAAAAAGRLqNdNBytt4eOMBRVQeDk36_EF
 }
 
 

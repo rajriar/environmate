@@ -85,3 +85,13 @@ select{
     background-color: green; /* Green */
     color: white;
   }
+
+  .g-recaptcha{
+      display: inline-block;
+  }
+  .text-xs-center{
+      text-align: center;
+  }
+  #map {
+    height: 100%;
+  }
