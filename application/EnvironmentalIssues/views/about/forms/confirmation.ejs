@@ -8,53 +8,79 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap" async defer></script>
-
+<style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+          height: 100%;
+        }
+      </style>
 </head>
 
-<body class = "unique">
-    <div class = "container-full">
-        <h1>Confirmation</h1>
-        <div class = "row">
-            <div class="col-md-6 form contact">
-                Name: <%= data.firstName%> <%= data.lastName%>
-            </div>  
-            <div class="col-md-6 form col-offset-md-6">
-                    Education Level: <%= data.education%>
-            </div>
-        </div>
-
-        <div class = "row">
+<body>
+        
+        <div class ="unique"> <!--wrapper div-->
+            <div class = "container-full"> <!--container div-->
+                <h1>Confirmation</h1>
+            <div class = "row"><!--row div-->
                 <div class="col-md-6 form contact">
-                        Email: <%= data.email%>
+                    Name: edit
                 </div>  
                 <div class="col-md-6 form col-offset-md-6">
-                        Income: <%= data.income%>
+                        Education Level: edit
                 </div>
-            </div>
-
-            <div class = "row">
+            </div> <!--end row div-->
+    
+            <div class = "row"> <!-- row 2 div-->
                     <div class="col-md-6 form contact">
-                            Phone: <%= data.phone%>
+                            Email: edit
                     </div>  
-                    <div class="col-md-6 form col-offset-md-6" >
-                            Address: <%= data.address%>, <%= data.zipCode%>
+                    <div class="col-md-6 form col-offset-md-6">
+                            Income: edit
                     </div>
-                </div>
+                </div>  <!--end row 2 div-->
+    
+                <div class = "row"><!-- row 3 div-->
+                        <div class="col-md-6 form contact">
+                                Phone: edit
+                        </div>  
+                        <div class="col-md-6 form col-offset-md-6" >
+                                <div>Address</div><div id="address">1645 calabasa dr, 95648</div>
+                        </div>
+                    </div> <!--end row 3 div-->
+                </div><!--end container div-->
+            </div><!--end wrapper div-->
+        <div id="map"></div>
 
-                <div id="map"></div>
-    </div><!--container div-->
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap&language=en&region=US"
-    async defer></script>
-    <script>
-        function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: 35.717, lng: 139.731}
-        });
-      }
-    </script>
 </body>
-
+<script>
+        function initMap() {
+          var geocoder = new google.maps.Geocoder();
+          var latLong = geocodeAddress(geocoder, map);
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: {latLong}
+          });
+        }
+  
+        function geocodeAddress(geocoder, resultsMap) {
+          var address = document.getElementById('address').value;
+          geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {
+              resultsMap.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+              });
+            } else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap">
+      </script>
+  
+        
 </html>

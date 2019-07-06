@@ -20,8 +20,11 @@ h1{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    overflow: hidden;
-    background-repeat: repeat-y;   
+    overflow: auto;
+    background-repeat: repeat-y;  
+    height:auto;
+    margin: 0;
+    padding: 0;
 }
 .form{
     padding-left: 35px;
@@ -94,4 +97,9 @@ select{
   }
   #map {
     height: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }

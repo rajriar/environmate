@@ -12,27 +12,8 @@
 
 </head>
 
-<body class = "unique">
-    
-<script>
-        function initMap() {
-          var myLatLng = {lat: -25.363, lng: 131.044};
-  
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: myLatLng
-          });
-  
-          var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Hello World!'
-          });
-        }
-      </script>
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJyqr8Uk_kgC7xdJT2BirbY8EXUsA7l5w&callback=initMap">
-      </script>
+<body>
+    <div class ="unique">
     <div class = "container-full">
             <h1>Registration Form</h1>
         <form name="registration" action="/about/forms/confirmation" onsubmit="return validateForm()" method = "POST">
@@ -144,8 +125,8 @@
                 </div>
             </div> <!--end buttons-->
         </form> <!--end form-->
-        <div id="map"></div>
     </div><!--container div-->
+</div>
 </body>
 
 

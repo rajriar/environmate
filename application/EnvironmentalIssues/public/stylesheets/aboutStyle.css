@@ -19,7 +19,6 @@ h1 {
 
 h3 {
     font-size: 1.5em;
-    text-decoration:
 }
 
 #center-align {
@@ -85,7 +84,7 @@ h3 {
     text-align: center;
 }
 
-.bottom-row {}
+.bottom-row {padding-bottom: 10%}
 
 .top-row {
     padding-left: 10%;

@@ -13,7 +13,7 @@ router.get('/jonathanjulian', function (req, res, next){
 });
 
 router.get('/confirmation', function (req, res, next){
-    res.send('confirmation fail');
+    res.render('about/forms/confirmation');
 });
 
 router.post('/confirmation', function (req, res, next){
