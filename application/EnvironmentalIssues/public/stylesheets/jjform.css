@@ -29,8 +29,8 @@ h1{
 .form{
     padding-left: 35px;
     padding-right: 35px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 18px;
     box-align: center;
     overflow: auto;
@@ -39,7 +39,7 @@ h1{
     background: peachpuff;
 }
 #spacing{
-    padding-top: 40px;
+    margin-top: 30px;
 }
 input[type=submit]{
     width:100%;
@@ -62,17 +62,16 @@ input[type=reset]:hover{
 input[type=text]{
     width:100%;
 }
-input[type=checkbox]{
-    position: relative;
-}
+
 .checkbox input[type="checkbox"] {
-    /* add these */
     position: absolute;
-    top: 50%;
+    top: 30%;
+    right: 50%;
     left: 50%;
     width: 20px;
     height: 20px;
     margin: 0;
+
   }
 select{
     width:100%;
@@ -95,6 +94,7 @@ select{
   .text-xs-center{
       text-align: center;
   }
+
 
   #map {
     margin: 20px;

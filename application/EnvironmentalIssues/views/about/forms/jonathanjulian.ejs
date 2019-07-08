@@ -22,14 +22,14 @@
                     First Name*:
                 </div>
                 <div class = "col-md-3 col-offset-md-2">
-                    <input type="text" name = "firstName" required minlength="2" maxlength="20">
+                    <input type="text" name = "firstName" required pattern=[a-zA-Z-]{2,20} placeholder="First Name">
                 </div>
                 <div class="col-md-2"></div>
                 <div class = "col-md-2 col-offset-md-7">
                     Last Name*:
                 </div>
                 <div class = "col-md-3 col-offset-md-9">
-                    <input type = "text" name = "lastName" required minlength="2" maxlength="20">
+                    <input type = "text" name = "lastName" required pattern=[a-zA-Z-]{2,20} placeholder="Last Name">
                 </div>
             </div>  <!--End Name Info-->
             <div class = "row form contact"> <!--Email information-->
@@ -37,22 +37,22 @@
                     Email*:
                 </div>
                 <div class = "col-md-3 col-offset-md-2">
-                    <input type="email" name = "email">
+                    <input type="email" name = "email" placeholder="Email Address">
                 </div>
                 <div class="col-md-2"></div>
                 <div class = "col-md-2 col-offset-md-7">
                     Re-Enter Email*:
                 </div>
                 <div class = "col-md-3 col-offset-md-9">
-                    <input type = "email" name = "reEmail">
+                    <input type = "email" name = "reEmail" placeholder="Re-enter Email Address">
                 </div>
             </div> <!--End Email info-->
             <div class="row form contact"><!--Phone-->
                 <div class = "col-md-2">
-                    Phone*: ###-####
+                    Phone*: #######
                 </div>
                 <div class = "col-md-3 col-offset-md-2">
-                    <input type="tel" name = "phone" required pattern="[0-9]{3}-[0-9]{4}">
+                    <input type="tel" name = "phone" required pattern="[0-9]{7}" placeholder="ex: 1234567">
                 </div>
             </div><!--end phone-->
             
@@ -89,19 +89,20 @@
                     Street Address*:
                 </div>
                 <div class = "col-md-3 col-offset-md-3">
-                    <input type="text" name = "address" required maxlength="35">
+                    <input type="text" name = "address" required maxlength="35" pattern=[0-9]{3,5}\s[a-zA-Z]{3,5}[a-zA-Z\s\.#]{0,25}
+                     placeholder="ex: 123 main street">
                 </div>  
                 <div class='col-md-2'></div>
                 <div class = "col-md-2 col-offset-md-7">
                     Zip Code*:
                 </div>
                 <div class = "col-md-3 col-offset-md-9">
-                    <input type="text" name="zipCode" required minlength="5" maxlength="5">
+                    <input type="text" name="zipCode" required pattern=[0-9]{5} placeholder="ex. 12345">
                 </div>
             </div> <!--end Address-->
 
-            <div class ="row form" id="spacing"> <!-- TOU-->
-                <div class = "col-md-9">
+            <div class ="row form contact" id="spacing"> <!-- TOU-->
+                <div class = "col-md-9 ">
                     By selecting the check box you agree to the terms and conditions of this site.  Please contact us if there are questions.*
                 </div>
                 <div class = "col-md-3 col-offset-md-9 checkbox">
