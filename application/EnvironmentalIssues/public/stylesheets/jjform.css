@@ -97,10 +97,10 @@ select{
   }
 
   #map {
-    margin: 60px;
-    padding: 40px;
+    margin: 20px;
+    padding: 20px;
     min-height: 320px;
-    min-width: 50%;
+    min-width: 90%;
     
     display: inline-block;
   }
