@@ -10,5 +10,14 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'CSC 648 Team 1 Home Page' });
 });
 
+router.get('/header', function (req, res, next){
+    res.render('header');
+});
+
+
+
+router.get('/footer', function (req, res, next){
+    res.render('footer');
+});
 
 module.exports = router;
