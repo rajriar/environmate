@@ -1,102 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <style>
-        onsubmitted {
-            margin-left: 70px;
-            font-weight: bold;
-            float: left;
-            clear: left;
-            width: 100px;
-            text-align: left;
-            margin-right: 10px;
-            font-family: sans-serif, bold, Arial, Helvetica;
-            font-size: 14px;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
-        div {
-            box-sizing: border-box;
-            width: 100%;
-            border: 100px solid black;
-            float: left;
-            align-content: center;
-            align-items: center;
-        }
-
-        form {
-            margin: 0 auto;
-            width: 600px;
-        }
-    </style>
+    <!---------------CAPTCHA------------->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
-<body>
-    <h3 style="text-align: center">CSC 642 Summer 2019 Individual Assignment Carlos Lopez</h3>
-    <h5 style="text-align: center"> REGISTRATION FORM </h5>
-    <form name="formLayout" action="/about/forms/carlosConfirm" method="POST" onsubmit="return onsubmitted()">
+<body class="container">
+    <div style="text-align: center" class="alert alert-primary" role="alert">
+        CSC 642 Summer 2019 Individual Assignment Carlos Lopez
+    </div>
+    <title> REGISTRATION FORM </title>
 
-        <p>First Name:* <br><input maxlength="40" minlength="1" type="text" size=50 name="firstName"> </p><br>
-        <p>Last Name:* <br><input maxlength="40" minlength="1" type="text" size=50 name="lastName"> </p><br>
-        <p>Address:* <br><input maxlength="40" minlength="1" type="text" size=50 name="Address"> </p><br>
-        <p>City: <br><input maxlength="40" minlength="1" type="text" size=50 name="city"> </p><br>
-        <p>Zip Code:* <br><input maxlength="5" minlength="5" placeholder="12345" type="text" pattern="[0-9]*" size=6
-                name="zip"> </p><br>
-        <p>State: <br>
-            <select type="text" value="" name="state">
-                <option>Choose One</option>
-                <option>AL</option>
-                <option>CA</option>
-                <option>NV</option>
-                <option>AK</option>
-                <option>CA</option>
-                <option>WA</option>
-            </select></p><br>
-        <p>Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password"> </p><br>
-        <p>Re-Enter Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password-r"> </p>
-        <br>
-        <p>Telephone:* <br><input placeholder="0001234567" type="tel" pattern="[0-9]*" size=50 name="Telephone"> </p>
-        <br>
-        <p>E-mail Address:* <br><input maxlength="40" type="email" size=50 name="Email"> </p><br>
-        <p>Re-Enter E-mail Address:* <br><input maxlength="40" type="email" size=50 name="Email-r"> </p><br>
+    <div class="container">
 
-        <p>Education Level: <br>
-            <select type="text" value="" name="education">
-                <option>Choose One</option>
-                <option>High School</option>
-                <option>GED</option>
-                <option>Some College</option>
-                <option>Bachelors Degree</option>
-                <option>Masters Degree</option>
-                <option>P.H.D</option>
-            </select>
-        </p><br>
+        <form name="formLayout" action="/about/forms/carlosConfirm" method="POST" onsubmit="return onsubmitted()">
 
-        <p>Yearly Income: <br>
-            <select type="text" value="" name="income">
-                <option>Choose One</option>
-                <option> $0 - $50,000</option>
-                <option>$50,000 - $75,000</option>
-                <option>$75,000 - $100,000</option>
-                <option> +$100,000</option>
-            </select>
-        </p><br>
-        <form><b>
+            <p>First Name:* <br><input maxlength="40" minlength="3" type="text" size=50 name="firstName"> </p><br>
+            <p>Last Name:* <br><input maxlength="40" minlength="3" type="text" size=50 name="lastName"> </p><br>
+            <p>Address:* <br><input maxlength="40" minlength="3" type="text" size=50 name="Address"> </p><br>
+            <p>City: <br><input maxlength="40" minlength="3" type="text" size=50 name="city"> </p><br>
+            <p>Zip Code:* <br><input maxlength="5" minlength="5" placeholder="12345" type="text" pattern="[0-9]*" size=6
+                    name="zip"> </p><br>
+            <p>State: <br>
+                <select type="text" value="" name="state">
+                    <option>Choose One</option>
+                    <option>AL</option>
+                    <option>CA</option>
+                    <option>NV</option>
+                    <option>AK</option>
+                    <option>NY</option>
+                    <option>WA</option>
+                </select></p><br>
+            <p>Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password"> </p><br>
+            <p>Re-Enter Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password-r">
+            </p>
+            <br>
+            <p>Telephone:* <br><input maxlength="10" minlength="10" placeholder="0001234567" type="tel" pattern="[0-9]*"
+                    size=50 name="Telephone"> </p>
+            <br>
+            <p>E-mail Address:* <br><input maxlength="40" minlength="6" type="email" size=50 name="Email"> </p><br>
+            <p>Re-Enter E-mail Address:* <br><input maxlength="40" minlength="6" type="email" size=50 name="Email-r">
+            </p>
+            <br>
+
+            <p>Education Level: <br>
+                <select type="text" value="" name="education">
+                    <option>Choose One</option>
+                    <option>High School</option>
+                    <option>GED</option>
+                    <option>Some College</option>
+                    <option>Bachelors Degree</option>
+                    <option>Masters Degree</option>
+                    <option>Doctors Degree</option>
+                </select>
+            </p><br>
+
+            <p>Yearly Income: <br>
+                <select type="text" value="" name="income">
+                    <option>Choose One</option>
+                    <option> $0 - $50,000</option>
+                    <option>$50,000 - $75,000</option>
+                    <option>$75,000 - $100,000</option>
+                    <option> +$100,000</option>
+                </select>
+            </p><br>
+            <b>
                 <input type="checkbox" name="checkbox" value="check" id="agree" />
-                I have read and agree to the Terms and Conditions and Privacy Policy 
-                <b>
+                I have read and agree to the Terms and Conditions and Privacy Policy
+            </b>
+            <br>
+
+            <div class="g-recaptcha" data-sitekey="6Lc36KwUAAAAAMEE-ErJqxeJCDsNYWfdEQOtlCf0"></div>
+            <br />
+
+            <div class="row" style="margin-bottom: 20px">
+                <div class="col">
+                    <input class="btn btn-outline-danger btn-lg" type="reset" value="Cancel" name="Reset">
+                </div>
+                <div class="col">
+                    <input class="btn btn-success btn-lg" type="submit" value="Submit" name="Submit"
+                        style="text-align: right">
+                </div>
+            </div>
         </form>
-        <p> <br>Comments: <br><textarea cols="50" name="Comment"></textarea></p>
-        <p style="text-align:right">
-            <input type="reset" value="Cancel" name="Reset">
-            <input type="submit" value="Submit" name="Submit">
-        </p>
+
         <script>
             function onsubmitted() {
                 var fname = document.forms["formLayout"]["firstName"];
@@ -104,14 +106,12 @@
                 var email = document.forms["formLayout"]["Email"];
                 var emailR = document.forms["formLayout"]["Email-r"];
                 var phone = document.forms["formLayout"]["Telephone"];
-                // var education = document.forms["formLayout"]["education"];
                 var password = document.forms["formLayout"]["Password"];
                 var pwRepeat = document.forms["formLayout"]["Password-r"];
                 var address = document.forms["formLayout"]["Address"];
-                // var city = document.forms["formLayout"]["city"];
-                // var state = document.forms["formLayout"]["state"];
                 var zip = document.forms["formLayout"]["zip"];
                 var checkbox = document.forms["formLayout"]["checkbox"];
+                var cap = grecaptcha.getResponse();
 
                 if (fname.value == "") {
                     window.alert("Please enter a first name.");
@@ -135,12 +135,6 @@
                     zip.focus();
                     return false;
                 }
-                // if (state.value == "") {
-                //     window.alert("Please choose a state.");
-                //     state.focus();
-                //     return false;    
-                // }
-
                 if (password.value == "") {
                     window.alert("Please enter your password");
                     password.focus();
@@ -169,12 +163,18 @@
                     return false;
                 }
                 if (!checkbox.checked) {
-                    alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy');
+                    window.alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy');
+                    return false;
+                }
+                if (cap.length == 0) {
+                    window.alert("Captcha is required");
                     return false;
                 }
                 return true;
-            }</script>
+            }
+        </script>
 
+    </div>
 </body>
 
 </html>
