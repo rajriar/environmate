@@ -14,8 +14,6 @@ router.get('/header', function (req, res, next){
     res.render('header');
 });
 
-
-
 router.get('/footer', function (req, res, next){
     res.render('footer');
 });
