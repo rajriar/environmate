@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <%- include ../views/partials/head.ejs%>
+    <%- include ../views/partials/head.ejs%>
 </head>
 
-<body class = "container">
+<body class="container">
     <header>
         <% include ../views/partials/header.ejs%>
     </header>
-  <main>
-    <h1><%= title %></h1>
-    <p><a href="/about">Welcome to <%= title %><br>
+    <main>
+        <h1>
+            <%= title %>
+        </h1>
+        <p><a href="/about">Welcome to <%= title %><br>
       Click here to learn more about our team
     </a></p>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" id="refineSearch"><span id="selected">Categories</span></button>
-        <div class="dropdown-menu">
-          <option class="dropdown-item" id="userLname" value="all">All</option>
-            <div role="separator" class="dropdown-divider"></div>
-          <option class="dropdown-item" id="userLname" value="User Last Name">User Last Name</option>
-            <div role="separator" class="dropdown-divider"></div>
-          <option class="dropdown-item" id="userEmail" value="User Email">User Email</option>
-            <div role="separator" class="dropdown-divider"></div>
-          <option class="dropdown-item" id="userRole" value="User Role">User Role</option>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="refineSearch"><span id="selected">Categories</span></button>
+                <div class="dropdown-menu">
+                    <option class="dropdown-item" id="userLname" value="all">All</option>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <option class="dropdown-item" id="userLname" value="User Last Name">User Last Name</option>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <option class="dropdown-item" id="userEmail" value="User Email">User Email</option>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <option class="dropdown-item" id="userRole" value="User Role">User Role</option>
+                </div>
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search">
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Search"></div>
         </div>
-      </div>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search">
-      <div class="input-group-append">
-        <input class="btn btn-primary" type="submit" value="Search"></div>
-    </div>
-  <script>
-    //--------do not touch this lol------------ 
-    $('.dropdown-menu option').click(function () {
-      $('#selected').text($(this).text());
-    });
-    //--------do not touch this lol------------
-  </script>
-  </main>
-  <%-include ../views/partials/footer.ejs%>
+        <script>
+            //--------do not touch this lol------------
+            $('.dropdown-menu option').click(function() {
+                $('#selected').text($(this).text());
+            });
+            //--------do not touch this lol------------
+        </script>
+    </main>
+    <footer>
+        <%-include ../views/partials/footer.ejs%>
+    </footer>
 </body>
 
 </html>
