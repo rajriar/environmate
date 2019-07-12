@@ -1,180 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <!---------------CAPTCHA------------->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-</head>
+  </head>
 
-<body class="container">
+  <body>
     <div style="text-align: center" class="alert alert-primary" role="alert">
-        CSC 642 Summer 2019 Individual Assignment Carlos Lopez
+      CSC 642 Summer 2019 Individual Assignment Carlos Lopez
     </div>
-    <title> REGISTRATION FORM </title>
+    <title>REGISTRATION FORM</title>
 
     <div class="container">
-
-        <form name="formLayout" action="/about/forms/carlosConfirm" method="POST" onsubmit="return onsubmitted()">
-
-            <p>First Name:* <br><input maxlength="40" minlength="3" type="text" size=50 name="firstName"> </p><br>
-            <p>Last Name:* <br><input maxlength="40" minlength="3" type="text" size=50 name="lastName"> </p><br>
-            <p>Address:* <br><input maxlength="40" minlength="3" type="text" size=50 name="Address"> </p><br>
-            <p>City: <br><input maxlength="40" minlength="3" type="text" size=50 name="city"> </p><br>
-            <p>Zip Code:* <br><input maxlength="5" minlength="5" placeholder="12345" type="text" pattern="[0-9]*" size=6
-                    name="zip"> </p><br>
-            <p>State: <br>
-                <select type="text" value="" name="state">
-                    <option>Choose One</option>
-                    <option>AL</option>
-                    <option>CA</option>
-                    <option>NV</option>
-                    <option>AK</option>
-                    <option>NY</option>
-                    <option>WA</option>
-                </select></p><br>
-            <p>Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password"> </p><br>
-            <p>Re-Enter Password:* <br><input maxlength="40" minlength="8" type="password" size=50 name="Password-r">
-            </p>
-            <br>
-            <p>Telephone:* <br><input maxlength="10" minlength="10" placeholder="0001234567" type="tel" pattern="[0-9]*"
-                    size=50 name="Telephone"> </p>
-            <br>
-            <p>E-mail Address:* <br><input maxlength="40" minlength="6" type="email" size=50 name="Email"> </p><br>
-            <p>Re-Enter E-mail Address:* <br><input maxlength="40" minlength="6" type="email" size=50 name="Email-r">
-            </p>
-            <br>
-
-            <p>Education Level: <br>
-                <select type="text" value="" name="education">
-                    <option>Choose One</option>
-                    <option>High School</option>
-                    <option>GED</option>
-                    <option>Some College</option>
-                    <option>Bachelors Degree</option>
-                    <option>Masters Degree</option>
-                    <option>Doctors Degree</option>
-                </select>
-            </p><br>
-
-            <p>Yearly Income: <br>
-                <select type="text" value="" name="income">
-                    <option>Choose One</option>
-                    <option> $0 - $50,000</option>
-                    <option>$50,000 - $75,000</option>
-                    <option>$75,000 - $100,000</option>
-                    <option> +$100,000</option>
-                </select>
-            </p><br>
-            <b>
-                <input type="checkbox" name="checkbox" value="check" id="agree" />
-                I have read and agree to the Terms and Conditions and Privacy Policy
-            </b>
-            <br>
-
-            <div class="g-recaptcha" data-sitekey="6Lc36KwUAAAAAMEE-ErJqxeJCDsNYWfdEQOtlCf0"></div>
-            <br />
-
-            <div class="row" style="margin-bottom: 20px">
-                <div class="col">
-                    <input class="btn btn-outline-danger btn-lg" type="reset" value="Cancel" name="Reset">
-                </div>
-                <div class="col">
-                    <input class="btn btn-success btn-lg" type="submit" value="Submit" name="Submit"
-                        style="text-align: right">
-                </div>
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">REGISTRATION FORM</h4>
+        <form
+          class="needs-validation"
+          novalidate=""
+          name="formLayout"
+          action="/about/forms/carlosConfirm"
+          method="POST"
+          onsubmit="return onsubmitted()"
+        >
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="firstName"
+                >First name:<span style="color: red"><b>*</b></span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                required
+                maxlength="40"
+                minlength="1"
+              />
+              <div class="invalid-feedback">
+                First name is required.
+              </div>
             </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName"
+                >Last name:<span style="color: red"><b>*</b></span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                required
+                maxlength="40"
+                minlength="1"
+              />
+              <div class="invalid-feedback">
+                Last name is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address"
+              >Address:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="Address"
+              placeholder="1234 Main St"
+              required
+              maxlength="40"
+              minlength="3"
+              placeholder=" 3 characters minimum"
+            />
+            <div class="invalid-feedback">
+              Please enter your address.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5 mb-3">
+              <label for="country">Country</label>
+              <select class="form-control" id="country">
+                <option value="">Choose...</option>
+                <option>United States</option>
+              </select>
+              <!-- <div class="invalid-feedback">
+                Please select a valid country.
+              </div> -->
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="state">State</label>
+              <select class="form-control" id="state">
+                <option value="">Choose...</option>
+                <option>CA</option>
+                <option>NV</option>
+                <option>WA</option>
+                <option>OR</option>
+                <option>UT</option>
+              </select>
+              <!-- <div class="invalid-feedback">
+                Please provide a valid state.
+              </div> -->
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="zip"
+                >Zip:<span style="color: red"><b>*</b></span></label
+              >
+              <input
+                type="tel"
+                class="form-control"
+                name="zip"
+                required
+                maxlength="5"
+                minlength="5"
+                placeholder="12345"
+              />
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password"
+              >Password:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              class="form-control"
+              name="Password"
+              required
+              maxlength="40"
+              minlength="8"
+              type="password"
+              placeholder="8 characters minimum"
+            />
+            <div class="invalid-feedback">
+              Please enter a password.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password-r"
+              >Re-enter Password:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              class="form-control"
+              name="Password-r"
+              required
+              maxlength="40"
+              minlength="8"
+              type="password"
+              placeholder="8 characters minimum"
+            />
+            <div class="invalid-feedback">
+              Please re-enter your password.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="telephone"
+              >Telephone:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              type="tel"
+              class="form-control"
+              name="Telephone"
+              required
+              maxlength="12"
+              minlength="12"
+              placeholder="510-123-4567"
+            />
+            <div class="invalid-feedback">
+              Please enter a telephone number.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email">
+              Email:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              type="email"
+              class="form-control"
+              name="Email"
+              placeholder="you@example.com"
+              required
+              maxlength="40"
+              minlength="6"
+            />
+            <div class="invalid-feedback">
+              Please enter a valid email address.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email-r">
+              Re-enter Email:<span style="color: red"><b>*</b></span></label
+            >
+            <input
+              type="email"
+              class="form-control"
+              placeholder="you@example.com"
+              required
+              maxlength="40"
+              minlength="6"
+              name="Email-r"
+            />
+            <div class="invalid-feedback">
+              Please re-enter your email address.
+            </div>
+            <br />
+            <div class="form-group mb-4">
+              <label for="income">Annual Income:</label>
+              <select class="form-control" id="income">
+                <option value="">Choose One</option>
+                <option> $0 - $50,000</option>
+                <option>$50,000 - $75,000</option>
+                <option>$75,000 - $100,000</option>
+                <option> +$100,000</option>
+              </select>
+              <div class="invalid-feedback">
+                Please choose an annual income.
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="edu">Education:</label>
+              <select class="form-control" id="edu">
+                <option value="">Choose One</option>
+                <option>High School</option>
+                <option>GED</option>
+                <option>Some College</option>
+                <option>Bachelors Degree</option>
+                <option>Masters Degree</option>
+                <option>Doctors Degree</option>
+              </select>
+              <div class="invalid-feedback">
+                Please choose an education field.
+              </div>
+            </div>
+          </div>
+          <hr class="mb-4" />
+          <b>
+            <input type="checkbox" name="checkbox" value="check" id="agree" />
+            I have read and agree to the Terms and Conditions and Privacy Policy
+          </b>
+          <br /><br />
+          <div
+            class="g-recaptcha"
+            data-sitekey="6Lc36KwUAAAAAMEE-ErJqxeJCDsNYWfdEQOtlCf0"
+          ></div>
+          <hr class="mb-4" />
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col">
+              <input
+                class="btn btn-outline-danger btn-lg"
+                type="reset"
+                value="Cancel"
+                name="Reset"
+              />
+            </div>
+            <div class="col">
+              <input
+                class="btn btn-success btn-lg"
+                type="submit"
+                value="Submit"
+                name="Submit"
+                style="float: right"
+              />
+            </div>
+          </div>
         </form>
+      </div>
 
-        <script>
-            function onsubmitted() {
-                var fname = document.forms["formLayout"]["firstName"];
-                var lname = document.forms["formLayout"]["lastName"];
-                var email = document.forms["formLayout"]["Email"];
-                var emailR = document.forms["formLayout"]["Email-r"];
-                var phone = document.forms["formLayout"]["Telephone"];
-                var password = document.forms["formLayout"]["Password"];
-                var pwRepeat = document.forms["formLayout"]["Password-r"];
-                var address = document.forms["formLayout"]["Address"];
-                var zip = document.forms["formLayout"]["zip"];
-                var checkbox = document.forms["formLayout"]["checkbox"];
-                var cap = grecaptcha.getResponse();
+      <script>
+        function onsubmitted() {
+          var email = document.forms["formLayout"]["Email"];
+          var emailR = document.forms["formLayout"]["Email-r"];
+          var password = document.forms["formLayout"]["Password"];
+          var pwRepeat = document.forms["formLayout"]["Password-r"];
+          var checkbox = document.forms["formLayout"]["checkbox"];
+          var cap = grecaptcha.getResponse();
 
-                if (fname.value == "") {
-                    window.alert("Please enter a first name.");
-                    fname.focus();
-                    return false;
-                }
+          if (password.value != pwRepeat.value) {
+            window.alert("You're passwords do not match.");
+            pwRepeat.focus();
+            return false;
+          }
 
-                if (lname.value == "") {
-                    window.alert("Please enter a last name.");
-                    lname.focus();
-                    return false;
-                }
-                if (address.value == "") {
-                    window.alert("Please enter your address.");
-                    address.focus();
-                    return false;
-                }
-
-                if (zip.value == "") {
-                    window.alert("Please enter a zip code.");
-                    zip.focus();
-                    return false;
-                }
-                if (password.value == "") {
-                    window.alert("Please enter your password");
-                    password.focus();
-                    return false;
-                }
-                if (password.value != pwRepeat.value) {
-                    window.alert("You're passwords do not match.");
-                    pwRepeat.focus();
-                    return false;
-                }
-                if (phone.value == "") {
-                    window.alert("Please enter your telephone number.");
-                    phone.focus();
-                    return false;
-                }
-
-                if (email.value == "") {
-                    window.alert("Please enter a valid e-mail address.");
-                    email.focus();
-                    return false;
-                }
-
-                if (email.value != emailR.value) {
-                    window.alert("You're emails do not match.");
-                    emailR.focus();
-                    return false;
-                }
-                if (!checkbox.checked) {
-                    window.alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy');
-                    return false;
-                }
-                if (cap.length == 0) {
-                    window.alert("Captcha is required");
-                    return false;
-                }
-                return true;
-            }
-        </script>
-
+          if (email.value != emailR.value) {
+            window.alert("You're emails do not match.");
+            emailR.focus();
+            return false;
+          }
+          if (!checkbox.checked) {
+            window.alert(
+              "Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy"
+            );
+            return false;
+          }
+          if (cap.length == 0) {
+            window.alert("Captcha is required");
+            return false;
+          }
+          return true;
+        }
+      </script>
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          "use strict";
+          window.addEventListener(
+            "load",
+            function() {
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.getElementsByClassName("needs-validation");
+              // Loop over them and prevent submission
+              var validation = Array.prototype.filter.call(forms, function(
+                form
+              ) {
+                form.addEventListener(
+                  "submit",
+                  function(event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                  },
+                  false
+                );
+              });
+            },
+            false
+          );
+        })();
+      </script>
     </div>
-</body>
-
+  </body>
 </html>
