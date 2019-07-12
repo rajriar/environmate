@@ -16,30 +16,21 @@
         <p><a href="/about">Welcome to <%= title %><br>
       Click here to learn more about our team
     </a></p>
+        <form name = "search" action="/results">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="refineSearch"><span id="selected">Categories</span></button>
-                <div class="dropdown-menu">
-                    <option class="dropdown-item" id="userLname" value="all">All</option>
-                    <div role="separator" class="dropdown-divider"></div>
-                    <option class="dropdown-item" id="userLname" value="User Last Name">User Last Name</option>
-                    <div role="separator" class="dropdown-divider"></div>
-                    <option class="dropdown-item" id="userEmail" value="User Email">User Email</option>
-                    <div role="separator" class="dropdown-divider"></div>
-                    <option class="dropdown-item" id="userRole" value="User Role">User Role</option>
-                </div>
+                    <select name = "search_field" required>
+                        <option value="">Choose One</option>
+                        <option value="FIRST_NAME">First Name</option>
+                        <option value="LAST_NAME">Last Name</option>
+                        <option value="ROLE">Role</option>
+                    </select>
             </div>
-            <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search">
+            <input name = "search_text" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search">
             <div class="input-group-append">
                 <input class="btn btn-primary" type="submit" value="Search"></div>
         </div>
-        <script>
-            //--------do not touch this lol------------
-            $('.dropdown-menu option').click(function() {
-                $('#selected').text($(this).text());
-            });
-            //--------do not touch this lol------------
-        </script>
+    </form>
     </main>
     <footer>
         <%-include ../views/partials/footer.ejs%>
