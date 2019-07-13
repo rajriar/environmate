@@ -1,6 +1,6 @@
 .container-full {
     height:100%;
-    background: rgba(252,242,218, .95);
+    background: rgba(255, 255, 255, 0.95);
     margin-left: 35px;
     margin-right: 35px;
     margin-top: 30px;
@@ -36,7 +36,7 @@ h1{
     overflow: auto;
 }
 .contact{
-    background: peachpuff;
+    background: rgba(223, 223, 223, 0.70);
 }
 #spacing{
     margin-top: 30px;

@@ -1,19 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <!-- ------------------Mapbox------------------- -->
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- --------------- googleMaps----------- -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBGGCku0W5qjQ4PAhqMgVL96CKuRzXWY0&callback=initMap"
+        async defer></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div */
+        /* * element that contains the map.  */
+        #map {
+            height: inherit;
+            width: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 80%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
 
 <body>
-    <h3>Results verification Page Carlos Lopez</h3>
-    <!-- <p>Thank you <%= data.firstName %> <%= data.lastName %> </p>
-    <p>We've recieved your information as follows:</p>
-    <ul>
-        <li>Your Email: <%= data.Email %></li>
-        <li><%= data.Password %> </li>
-        <li><%= data.Telephone %> </li>
-        <li> <%= data.Address %></li>
-        <li> <%= data.Comment %></li>
-    </ul> -->
+    <div style="text-align: center" class="alert alert-success" role="alert">
+        Results Verification Page Carlos Lopez
+    </div>
+
+
+    <div class="card" style="width: 25rem; margin: auto">
+        <div class="card-body">
+            <h5 class="card-title">Confirmation!</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Hey <%= data.firstName %> <%= data.lastName %></h6>
+            <p class="card-text">We've got your required information as follows:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Address: </b> <%= data.Address %></li>
+                <li class="list-group-item"><b>Zip: </b><%= data.zip %></li>
+                <!-- <li class="list-group-item"><%= data.Password %> </li> -->
+                <li class="list-group-item"><b>Telephone: </b><%= data.Telephone %> </li>
+                <li class="list-group-item"><b>Email: </b><%= data.Email %></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- --------------- googleMaps----------- -->
+
+    <!-- AIzaSyDBGGCku0W5qjQ4PAhqMgVL96CKuRzXWY0 -->
+    
+    <div id="map" style="border-top: 2px solid lightgray"></div>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.772537, lng: -122.420679},
+                zoom: 8
+
+            });
+        }   
+    </script>
 </body>
 
 </html>
