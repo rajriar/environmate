@@ -12,7 +12,7 @@ var find = function(request, callback){
 
         }
     });
-    
+    db.end();
 }
 
 
