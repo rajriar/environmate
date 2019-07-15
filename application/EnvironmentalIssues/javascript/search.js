@@ -16,6 +16,7 @@ var find = function(request, callback){
         }
     });
     db.close();
+
 }
 
 
