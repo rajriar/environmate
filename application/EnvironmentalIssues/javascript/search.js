@@ -19,7 +19,7 @@ var find = function(request, callback){
 }
 
 var close = function(request){
-    db.close();
+    db.end();
 }
 
 module.exports = {
