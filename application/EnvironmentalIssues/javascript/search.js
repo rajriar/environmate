@@ -15,11 +15,14 @@ var find = function(request, callback){
             
         } 
     });
-    db.end();
 
 }
 
+var close = function(request){
+    db.close();
+}
 
 module.exports = {
-    find: find
+    find: find,
+    close: close
 };
