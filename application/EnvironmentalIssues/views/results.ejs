@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  </head>
+  <body>
+      <table class="table table-inverse">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Date Of Birth</th>
+              <th>Member Since</th>
+    
+            </tr>
+          </thead>
+    
+          <tbody>
+            <% for(var i=0; i < data.length; i++) { %>
+           <tr>
+    
+             <td><%= data[i].FIRST_NAME %> <%=data[i].LAST_NAME%></td>
+             <td><%= data[i].USER_EMAIL %></td>
+             <td><%= data[i].role_name %></td>
+             <td><%= data[i].DATE_OF_BIRTH %></td>
+             <td><%= data[i].SIGNUP_DATE %></td>
+    
+    
+           </tr>
+        <% } %>
+          </tbody>
+    
+        </table>
+
+  </body>
+
+</html>

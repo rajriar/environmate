@@ -1,0 +1,118 @@
+.container-full {
+    height:100%;
+    background: rgba(255, 255, 255, 0.95);
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-top: 30px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+  }
+h1{
+    text-align: center;
+    font-size: 28px;
+    font-weight: 1000;
+}
+.unique{
+    background-image: url(https://i.pinimg.com/originals/4d/39/96/4d39967cfaf52941188cd58860f990b4.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: auto;
+    background-repeat: repeat-y;  
+    height:auto;
+    margin: 0;
+    padding: 0;
+}
+.form{
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    box-align: center;
+    overflow: auto;
+}
+.contact{
+    background: rgba(223, 223, 223, 0.70);
+}
+#spacing{
+    margin-top: 30px;
+}
+input[type=submit]{
+    width:100%;
+    background-color:green;
+    color:white;
+}
+input[type=submit]:hover{
+    background-color: white;
+    color:green;
+}
+input[type=reset]{
+    width:100%;
+    background-color:green;
+    color:white;
+}
+input[type=reset]:hover{
+    background-color: white;
+    color:green;
+}
+input[type=text]{
+    width:100%;
+}
+
+.checkbox input[type="checkbox"] {
+    position: absolute;
+    top: 30%;
+    right: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+
+  }
+select{
+    width:100%;
+}
+
+.button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    width:100%
+  }
+  
+  .button:hover {
+    background-color: green; /* Green */
+    color: white;
+  }
+
+  .g-recaptcha{
+      display: inline-block;
+  }
+  .text-xs-center{
+      text-align: center;
+  }
+
+
+  #map {
+    margin: 20px;
+    padding: 20px;
+    min-height: 320px;
+    min-width: 90%;
+    
+    display: inline-block;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url(https://i.pinimg.com/originals/4d/39/96/4d39967cfaf52941188cd58860f990b4.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: auto;
+    background-repeat: repeat-y;  
+    height:auto;
+  }

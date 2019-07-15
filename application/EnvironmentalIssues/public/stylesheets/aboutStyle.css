@@ -19,7 +19,6 @@ h1 {
 
 h3 {
     font-size: 1.5em;
-    text-decoration:
 }
 
 #center-align {
@@ -43,14 +42,19 @@ h3 {
 }
 
 .pic-size {
-    height: 200px;
-    width: 260px;
-    align: center;
+   max-height: 200px;
+   max-width: 200px;
+   align-content:center;
 }
 
 .pic-size2 {
     height: 200px;
-    align: center;
+   
+    max-height: 220px;
+    width: auto;
+    height: auto;
+    align-items: center;
+
 }
 
 .centered-form {
@@ -70,4 +74,24 @@ h3 {
 #description {
     padding-left: 200px;
     width: 600px;
+
+    padding-left: 250px;
+    width: 700px;
+}
+
+#name {
+    text-align: center;
+}
+
+.bottom-row {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%
+}
+
+.top-row {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%
+
 }

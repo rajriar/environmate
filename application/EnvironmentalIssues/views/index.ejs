@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+    <%- include ../views/partials/head.ejs%>
+</head>
+
+<body class="container">
+    <header>
+        <% include ../views/partials/header.ejs%>
+    </header>
+    <main>
+        <h1>
+            <%= title %>
+        </h1>
+        <p><a href="/about">Welcome to <%= title %><br>
+      Click here to learn more about our team
+    </a></p>
+        <form name = "search" action="/results">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                    <select name = "search_field" required>
+                        <option value="">Choose One</option>
+                        <option value="FIRST_NAME">First Name</option>
+                        <option value="LAST_NAME">Last Name</option>
+                        <option value="ROLE">Role</option>
+                    </select>
+            </div>
+            <input name = "search_text" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search" maxlength="20">
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Search"></div>
+        </div>
+    </form>
+    </main>
+    <footer>
+        <%-include ../views/partials/footer.ejs%>
+    </footer>
+</body>
+
 </html>
