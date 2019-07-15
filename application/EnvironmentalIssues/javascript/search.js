@@ -1,4 +1,4 @@
-//const db = require('./dbConnection');
+const db = require('./dbConnection');
 
 var find = function(request, callback){
     var sql = "SELECT  u.*,r.role_name FROM USERS u INNER JOIN ROLES r on u.role = r.role_id WHERE u."+request.query.search_field +" like '%" + request.query.search_text + "%'";
