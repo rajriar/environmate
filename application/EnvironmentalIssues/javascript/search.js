@@ -12,8 +12,9 @@ var find = function(request, callback){
     db.query(sql, function (err, result) {
         if (err) callback(err, null);
         else{ callback(null, result);
-            db.close();
+            
         }
+        db.close();
     });
     
 
