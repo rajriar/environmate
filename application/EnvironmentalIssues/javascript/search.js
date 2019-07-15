@@ -1,4 +1,3 @@
-
 const db = require('./dbConnection');
 
 var find = function(request, callback){
@@ -17,14 +16,16 @@ var find = function(request, callback){
         if (err) callback(err, null);
         else{ callback(null, result);
             
-        }
-        db.close();
+        } 
     });
-    
 
 }
 
+var close = function(request){
+    db.end();
+}
 
 module.exports = {
-    find: find
+    find: find,
+    close: close
 };

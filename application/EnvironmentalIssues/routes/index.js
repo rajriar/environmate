@@ -23,6 +23,7 @@ router.get('/results', function(req,res,next){
             });
         }
     });
+    //search.close(req);
 });
 
 router.get('/header', function (req, res, next){
