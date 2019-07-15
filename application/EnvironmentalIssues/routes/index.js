@@ -13,22 +13,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/results', function(req,res,next){
-
     search.find(req, function(err,data){
         if (err){
             res.send('Error querying Database');
         }
         else{
-            console.log(data);
             res.render('results',{
                 data : JSON.parse(JSON.stringify(data))
             });
         }
     });
-
-    
-    
-
 });
 
 router.get('/header', function (req, res, next){
