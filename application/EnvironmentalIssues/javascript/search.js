@@ -17,10 +17,9 @@ var find = function(request, callback){
         if (err) callback(err, null);
         else{ callback(null, result);
             
-        }
-        db.close();
+        } 
     });
-    
+    db.close();
 
 }
 
