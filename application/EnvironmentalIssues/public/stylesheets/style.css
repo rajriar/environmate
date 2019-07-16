@@ -1,14 +1,63 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-html {
-  display: table;
-  margin: auto;
+    font: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+body {
+    background-image: url("https://newvitruvian.com/images/environment-clipart-environmental-background-9.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: lato;
+    color: white;
+}
+
+.pic-size2 {
+    height: 200px;
+    max-height: 220px;
+    width: auto;
+    height: auto;
+    align-items: center;
+
+}
+
+html {
+    height: 100%;
+}
+
+#content {
+    text-align: center;
+    padding-top: 10%;
+}
+
+h1 {
+    text-shadow: 0px 4px 3px black, 0px 8px 10px green;
+}
+
+.environmate-index {
+    font-size: 8em;
+}
+
+.mission-statement {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 0px 4px 3px black, 0px 8px 10px green;
+}
+
+.footer-text {
+    color: white;
+    font-size: 1em;
+    margin-top: 10%;
+}
+
+.results{
+    height:80%;
+    position:fixed;
+    overflow: auto;
+}
+.container{
+    margin: 30px;
+    padding:10px;
 }
