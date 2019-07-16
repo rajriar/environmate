@@ -51,3 +51,13 @@ h1 {
     font-size: 1em;
     margin-top: 10%;
 }
+
+.results{
+    height:80%;
+    position:fixed;
+    overflow: auto;
+}
+.container{
+    margin: 30px;
+    padding:10px;
+}
