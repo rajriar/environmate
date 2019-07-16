@@ -19,7 +19,8 @@ router.get('/results', function(req,res,next){
         }
         else{
             res.render('results',{
-                data : JSON.parse(JSON.stringify(data))
+                data : JSON.parse(JSON.stringify(data)),
+                title: "Results page"
             });
         }
     });
