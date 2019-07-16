@@ -1,34 +1,34 @@
 module.exports = (sequelize, type) => {
     return sequelize.define('Incedents', {
         incident_ID: {
-            type: Int
+            type: type.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false
         },
-        type: {
-            type: Int
+        id_Type: {
+            type: type.INTEGER,
+            allowNull: false
         },
-        date: {
-            type: Date
-        },
-        location: {
-            type: Int
-        },
-        image: {
-            type: Blob
-        },
-        zip_Code: {
-            type: Int
+        id_Location: {
+            type: type.INTEGER,
+            allowNull: false
         },
         description: {
-            type: String
+            type: String,
+            allowNull: false
         },
-        user_ID: {
-            type: Int
+        id_User: {
+            type: type.INTEGER,
+            allowNull: false
         },
-        status: {
-            type: Int
+        id_Status: {
+            type: type.INTEGER,
+            allowNull: false,
         },
-        reported_Time: {
-            type: Date
+        reported_Date_Time: {
+            type: type.DATE,
+            allowNull: false
         }
     })
 };
