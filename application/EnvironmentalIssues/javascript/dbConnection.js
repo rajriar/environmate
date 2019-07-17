@@ -1,8 +1,8 @@
 var mysql = require('mysql')
 var connection = mysql.createConnection({
-  host: '127.0.0.1', //change to Localhost
+  host: 'localhost', //change to Localhost
   user: 'root', //change to root
-  password: 'csc6481',
+  password: 'root',
   database: 'EnvironMate'
 })
 
