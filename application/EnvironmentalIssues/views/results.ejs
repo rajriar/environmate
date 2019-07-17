@@ -1,19 +1,32 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <head>
+        <%- include ../views/partials/head.ejs%>
 
-  </head>
+        <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    </head>
+    
+    <header>
+        <% include ../views/partials/header.ejs%>
+
+    </header>
   <body>
-      <table class="table table-inverse">
+    <h1><%title%></h1>
+  
+    <div class = "container">
+      <div class = "results">
+      <table class="table-dark">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Date Of Birth</th>
-              <th>Member Since</th>
+              <th>Incident ID</th>
+              <th>Description</th>
+              <th>Reported on</th>
+              <th>Incident Type</th>
+            <th>Status</th>
+              <th>Location</th>
+              <th>Zip Code</th>
+              <th>IMAGE</th>
     
             </tr>
           </thead>
@@ -21,20 +34,26 @@
           <tbody>
             <% for(var i=0; i < data.length; i++) { %>
            <tr>
-    
-             <td><%= data[i].FIRST_NAME %> <%=data[i].LAST_NAME%></td>
-             <td><%= data[i].USER_EMAIL %></td>
-             <td><%= data[i].role_name %></td>
-             <td><%= data[i].DATE_OF_BIRTH %></td>
-             <td><%= data[i].SIGNUP_DATE %></td>
-    
+             <td><%= data[i].INCIDENT_ID %></td>
+             <td><%= data[i].DESCRIPTION %></td>
+             <td><%= data[i].REPORTED_DATE_TIME %></td>
+             <td><%= data[i].TYPE_NAME %></td>
+             <td><%= data[i].STATUS_NAME %></td>
+             <td><%= data[i].LOCATION_NAME %></td>
+             <td><%= data[i].ZIP_CODE %></td>
+             <td>
+               <img class="pic-size2" src = "data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"/>
+
+               </td>
+             
     
            </tr>
         <% } %>
           </tbody>
     
         </table>
-
+      </div> <!--end results div-->
+    </div> <!-- End container div-->
   </body>
 
 </html>
