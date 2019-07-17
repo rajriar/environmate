@@ -1,16 +1,16 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('Images', {
-        image_ID: {
+    return sequelize.define('IMAGE', {
+        IMAGE_ID: {
             type: type.INTEGER,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true
         },
-        image: {
+        IMAGE: {
             type: Sequelize.TEXT('long'),
             defaultValue: null
         },
-        id_Incident: {
+        ID_INCIDENT: {
             type: type.INTEGER,
             allowNull: false
         }

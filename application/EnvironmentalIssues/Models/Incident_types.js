@@ -1,12 +1,12 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('Incedent_types', {
-        type_ID: {
+    return sequelize.define('INCIDENT_TYPE', {
+        TYPE_ID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true
         },
-        type_Name: {
+        TYPE_NAME: {
             type: Datatypes.STRING,
             allowNull: false
         },

@@ -1,32 +1,32 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('Incedents', {
-        incident_ID: {
+    return sequelize.define('INCIDENTS', {
+        INCIDENT_ID: {
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        id_Type: {
+        ID_TYPE: {
             type: type.INTEGER,
             allowNull: false
         },
-        id_Location: {
+        ID_LOCATION: {
             type: type.INTEGER,
             allowNull: false
         },
-        description: {
+        DESCRIPTION: {
             type: String,
             allowNull: false
         },
-        id_User: {
+        ID_USER: {
             type: type.INTEGER,
             allowNull: false
         },
-        id_Status: {
+        ID_STATUS: {
             type: type.INTEGER,
             allowNull: false,
         },
-        reported_Date_Time: {
+        REPORTED_DATE_TIME: {
             type: type.DATE,
             allowNull: false
         }
