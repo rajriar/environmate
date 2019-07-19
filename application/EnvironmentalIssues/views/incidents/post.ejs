@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include ../partials/head.ejs%>
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<header>
+    <% include ../partials/header.ejs%>
+</header>
+
+<body>
+
+    <div class="container container-fluid">
+        <div class="card card-center">
+            <div class="col-md-12 text-md-center">
+                <h1>Post Incident</h1>
+            </div>
+            <div></div>
+
+            <div class="card-body">
+                <div class="input-group">
+                    <label class="col-xs-12 col-sm-2 control-label"><h5>Zipcode*</h5> </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="input-group">
+                    <label class="col-xs-12 col-sm-2 control-label">
+                        <h5>Location*</h5>
+                    </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+
+            <div class="card-body">
+                <span>
+                    <label class="col-xs-12 col-sm-2 control-label">
+                        <h5>Incident type</h5>
+                    </label>
+                    <span class="dropdown">
+                        <button class="btn btn-default dropdown-toggle  dropdown-width" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            Incident type
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="padding:15px 25px" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <div></div>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </span>
+                </span>
+            
+            </div>
+            <div class="card-body container-fluid">
+                <div class="input-group">
+                    <label class="col-xs-12 col-sm-2 control-label">
+                        <h5>Description</h5>
+                    </label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="card-body container-fluid">
+                <div class="input-group">
+                    <label class="col-xs-12 col-sm-2 control-label">
+                        <h5>Upload Image</h5>
+                    </label>
+                    <a>
+                        <img src="..." alt="..." class="img-thumbnail">
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-default btn-md center-block" Style="width: 100px;">Cancel</button>
+                    <button class="btn btn-primary btn-md center-block" Style="width: 100px;">Post</button>           
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
+</html>

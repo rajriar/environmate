@@ -20,7 +20,6 @@ body {
     width: auto;
     height: auto;
     align-items: center;
-
 }
 
 html {
@@ -52,12 +51,30 @@ h1 {
     margin-top: 10%;
 }
 
-.results{
-    height:80%;
-    position:fixed;
+.results {
+    height: 80%;
+    position: fixed;
     overflow: auto;
 }
-.container{
+
+.container {
     margin: 30px;
-    padding:10px;
+    padding: 10px;
+}
+
+.card-center {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 80px;
+    padding-right: 125px;
+    position: fixed;
+    overflow: auto;
+}
+
+.dropdown-width {
+    size: 50px;
+}
+
+.post-span-button{
+    float: right;
 }

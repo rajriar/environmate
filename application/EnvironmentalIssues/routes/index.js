@@ -27,6 +27,10 @@ router.get('/results', function(req,res,next){
     //search.close(req);
 });
 
+router.get('/post', function(req, res, next) {
+    res.render('incidents/post', {title: 'Post report an incident.'})
+});
+
 router.get('/header', function (req, res, next){
     res.render('header');
 });
