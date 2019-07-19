@@ -4,20 +4,18 @@
               <span class="navbar-toggler-icon"></span>
             </button>
 
-    <div class="collapse navbar-collapse input-group-btn search-panel" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="input-group">
-            <div class="input-group-btn search-panel">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     <span id="search_concept">Filter by</span>
                                 </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">type</a></li>
-                    <li><a href="#">keyword</a></li>
-                    <li><a href="#">zipode</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">all</a></li>
-                </ul>
-            </div>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">type</a></li>
+                <li><a href="#">keyword</a></li>
+                <li><a href="#">zipode</a></li>
+                <li class="divider"></li>
+                <li><a href="#">all</a></li>
+            </ul>
             <input type="hidden" name="search_param" value="all" id="search_param">
             <input type="text" class="form-control" name="x" placeholder="Search term...">
             <button type="button" class="btn btn-success">
@@ -39,12 +37,13 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                   </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">My Profile</a>
-                <a class="dropdown-item" href="#">View Incidents</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/about">About</a>
-            </div>
-        </li>
-    </ul>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">My Profile</a>
+                    <a class="dropdown-item" href="#">View Incidents</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/about">About</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>

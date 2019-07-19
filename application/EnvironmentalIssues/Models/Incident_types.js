@@ -1,16 +1,14 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('Incedent_type', {
-        status_ID: {
-            type: Int
+    return sequelize.define('incident_type', {
+        TYPE_ID: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            autoIncrement: true
         },
-        status: {
-            type: String
+        TYPE_NAME: {
+            type: Datatypes.STRING,
+            allowNull: false
         },
-        changed_On: {
-            type: Date
-        },
-        change_By: {
-            type: Int
-        }
     })
 };
