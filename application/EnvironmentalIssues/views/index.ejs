@@ -36,8 +36,22 @@
             </div>
         </div>
     </main>
+</body>    
     <footer>
         <%-include ../views/partials/footer.ejs%>
     </footer>
 
-    </html>
+        <script>
+            $(document).on("click",".new_user",function(){
+                $('#loginPopup').modal('hide');
+                $('#signupPopup').modal('show');
+            });
+        </script>
+        <script>
+            $(document).on("click",".registered_user",function(){
+                $('#signupPopup').modal('hide');
+                $('#loginPopup').modal('show');
+            });
+        </script>
+
+</html>

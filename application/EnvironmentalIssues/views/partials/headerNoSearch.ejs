@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">EnvironMate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,12 +9,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Post Incident</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up</a>
-            </li>
+            <!-- Button trigger for log in -->
+            <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#loginPopup">
+              Log In
+            </button>
+
+            <!-- Button trigger for sign up -->
+            <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#signupPopup">
+              Sign Up
+            </button>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
@@ -27,4 +31,84 @@
             </li>
         </ul>
     </div>
+
+    <!-- Sign Up Modal -->
+        <div class="modal fade sign-up" id="signupPopup" tabindex="-1" role="dialog" aria-labelledby="signupPopupTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="signupPopupTitle">Sign Up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="signup-group">
+                    <label for="name">First Name</label>
+                    <input type="name" class="form-control" id="signupFirstName" aria-describedby="nameHelp" placeholder="Enter First Name">
+                </div>
+                <div class="signup-group">
+                    <label for="name">Last Name</label>
+                    <input type="name" class="form-control" id="signupLastName" aria-describedby="nameHelp" placeholder="Enter Last Name">
+                </div>
+                <div class="signup-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="signup-group">
+                    <label for="examplePassowrd">Password</label>
+                    <input type="password" class="form-control" id="examplePassword" placeholder="Password">
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+                    <label class="custom-control-label" for="customControlValidation1">Confirm you're over 18 years of age, or have consent of an adult to create an account. </label>
+                    <div class="invalid-feedback">You must be over 18 years of age, or have consent of an adult to create an account.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Sign Up</button>
+            </div>
+            <div class="d-flex justify-content-center" div id="log-in-switch-message">
+                    <p><small>Already have an account? <a data-target="#loginPopup" data-toggle="modal" class="d-flex justify-content-center form-text text-muted registered_user" id="log-in-switch-txt" 
+                    href="#loginPopup">Log In</a></small></p> 
+            </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Sign Up Modal -->
+
+        <!-- Log In Modal -->
+        <div class="modal fade login-in" id="loginPopup" tabindex="-1" role="dialog" aria-labelledby="loginPopupTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="loginPopupTitle">Log In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="login-group">
+                    <label for="exampleInputEmail">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  </div>
+                  <div class="login-group">
+                    <label for="examplePassword">Password</label>
+                    <input type="password" class="form-control" id="examplePassword" placeholder="Password">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Log In</button>
+                </div>
+                <div class="d-flex justify-content-center" id="sign-in-switch-message">
+                    <p><small>Don't have an account? <a data-target="#signupPopup" data-toggle="modal" class="d-flex justify-content-center form-text text-muted new_user" id="sign-in-switch-txt" 
+                    href="#signupPopup"> Sign Up</a></small></p> 
+                </div>
+              
+            </div>
+          </div>
+        </div>
+        <!-- End of Log In Modal -->
 </nav>
+
