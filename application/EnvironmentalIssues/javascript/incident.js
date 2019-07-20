@@ -5,7 +5,7 @@ const router = express.Router();
 //var app = express();
 router.use(express.json());
 
-//const incidentDB = require("../models/incidents.js");
+const incidentDB = require("../models/incidents.js");
 //require('moment')().format('YYYY-MM-DD HH:mm:ss');
 
 router.post('/report', function(req, res,next) {
@@ -62,7 +62,7 @@ router.put("/edit/:incident_ID", function(req,res,next) {
             result){
             if (err)
                throw err;
-            res.json({"message":"updated incident"})
+            res.json({"success":"updated incident","incident_ID":incident_Id})
             });
         }  
     });
@@ -85,7 +85,7 @@ router.delete('/delete/:incident_ID',function(req,res){
                 result){
                 if (err)
                    throw err;
-                res.json({"message":"deleted incident"})
+                res.json({"success":"deleted incident","incident_ID":incident_Id})
                 });
         }
         else{
@@ -95,6 +95,27 @@ router.delete('/delete/:incident_ID',function(req,res){
     
     
 });
+
+
+router.get('/',function(req,res){
+    db.query('SELECT * FROM INCIDENTS' , function(err,
+        result){
+        if (err)
+            throw err;
+        //console.log(result);
+        res.json({"incidents": result});
+    });
+    //res.json({"incident_ID": result[0].INCIDENT_ID});
+});
+
+router.get('/view',function(req,res){
+
+    incidentDB.findAll().then(Incidents => {
+        console.log("All users:", JSON.stringify(Incidents, null, 4));
+      });
+});
+
+
 
 
 module.exports = router;
