@@ -10,7 +10,7 @@ router.post('/login', (req, res) => {
 
   models.users.findOne({
     where: {
-      userid: req.body.USER_ID
+      USER_ID: req.body.userid
     }
   }).then(async (user) => {
     if (!user && !await user.comparePassword(req.body.password)) {
@@ -40,14 +40,15 @@ router.post("/register", (req, res, next) => {
     }
 
     models.User.create({
-      userid: req.body.USER_ID,
-      email: req.body.EMAIL,
-      password: req.body.PASSWORD,
-      firstname: req.body.FIRST_NAME,
-      lastname: req.body.LAST_NAME,
-      dateofbirth: req.body.DATE_OF_BIRTH,
-      inactive: false,
-      idrole: "1"
+      USER_ID: req.body.userid,
+      USER_EMAIL: req.body.email,
+      PASSWORD: req.body.password,
+      FIRST_NAME: req.body.firstname,
+      LAST_NAME: req.body.lastname,
+      DATE_OF_BIRTH: req.body.dateofbirth,
+      SIGNUP_DATE: new Date(),
+      INACTIVE: false,
+      ID_ROLE: "1"
     });
 
     return res.status(200).json({ result: "New user has been created!" });
