@@ -1,18 +1,25 @@
-module.exports = (sequelize, type) => {
-    return sequelize.define('image', {
-        IMAGE_ID: {
-            type: type.INTEGER,
-            primaryKey: true,
-            allowNull: false,
-            autoIncrement: true
-        },
-        IMAGE: {
-            type: Sequelize.TEXT('long'),
-            defaultValue: null
-        },
-        ID_INCIDENT: {
-            type: type.INTEGER,
-            allowNull: false
-        }
-    })
+/* jshint indent: 1 */
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define('image', {
+		imageId: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			primaryKey: true,
+			autoIncrement: true,
+			field: 'IMAGE_ID'
+		},
+		image: {
+			type: DataTypes.TEXT,
+			allowNull: true,
+			field: 'IMAGE'
+		},
+		idIncident: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			field: 'ID_INCIDENT'
+		}
+	}, {
+		tableName: 'image'
+	});
 };

@@ -1,20 +1,21 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('incidentType', {
-		typeId: {
+	return sequelize.define('zipCodes', {
+		zipId: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'TYPE_ID'
+			field: 'ZIP_ID'
 		},
-		typeName: {
-			type: DataTypes.STRING(45),
+		zipCode: {
+			type: DataTypes.INTEGER(5),
 			allowNull: false,
-			field: 'TYPE_NAME'
+			unique: true,
+			field: 'ZIP_CODE'
 		}
 	}, {
-		tableName: 'incident_type'
+		tableName: 'zip_codes'
 	});
 };

@@ -5,7 +5,7 @@ const router = express.Router();
 //var app = express();
 router.use(express.json());
 
-const incidentDB = require("../models/incidents.js");
+const models = require('../models');
 //require('moment')().format('YYYY-MM-DD HH:mm:ss');
 
 router.post('/report', function(req, res,next) {
@@ -22,7 +22,7 @@ router.post('/report', function(req, res,next) {
         REPORTED_DATE_TIME : new Date()
 
     }
-    db.query('INSERT INTO INCIDENTS SET ?', incidentDelails, function(err,
+    db.query('INSERT INTO incidents SET ?', incidentDelails, function(err,
         result) {
         console.log(result[0]);
         const incident_Id = result.insertId;
@@ -98,7 +98,7 @@ router.delete('/delete/:incident_ID',function(req,res){
 
 
 router.get('/',function(req,res){
-    db.query('SELECT * FROM INCIDENTS' , function(err,
+    db.query('SELECT * FROM incidents' , function(err,
         result){
         if (err)
             throw err;
@@ -108,10 +108,13 @@ router.get('/',function(req,res){
     //res.json({"incident_ID": result[0].INCIDENT_ID});
 });
 
+
+
 router.get('/view',function(req,res){
 
-    incidentDB.findAll().then(Incidents => {
-        console.log("All users:", JSON.stringify(Incidents, null, 4));
+    models.incidents.findAll().then(posts => {
+        console.log("All users:", JSON.stringify(posts));
+        res.json({"incidents":posts });
       });
 });
 
