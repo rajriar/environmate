@@ -8,6 +8,7 @@ module.exports = (sequelize, type) => {
         USER_EMAIL: {
             type: type.STRING,
             allowNull: false,
+            unique: true,
             required: [true, 'Email required']
         },
         PASSWORD: {
@@ -22,7 +23,7 @@ module.exports = (sequelize, type) => {
             type: type.STRING,
             allowNull: false
         },
-        DATE_OF_BIRTCH: {
+        DATE_OF_BIRTH: {
             type: type.DATE,
             allowNull: false
         },
@@ -38,11 +39,25 @@ module.exports = (sequelize, type) => {
             type: Int,
             allowNull: false
         }
-    });
-
-    User.associate = (models) => {
-        User.hasMany(models.Message);
+    },{
+        hooks:{
+            beforeCreate: (user, options) => {
+                return bcrypt.hash(user.PASSWORD, 10)
+                .then(hash => {
+                    users.PASSWORD = hash;
+                    console.log(user.PASSWORD);
+                })
+                .catch(err => {
+                    throw new Error();
+                });
+                }
+            }
+        }
+    );
+    
+    User.prototype.comparePassword = async function(PASSWORD) {
+        return await bcrypt.compare(PASSWORD, this.PASSWORD);
     };
 
     return User;
-}
+};
