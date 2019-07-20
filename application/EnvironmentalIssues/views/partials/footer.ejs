@@ -16,6 +16,17 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(function() {
+        $('#edit-password').on('click', function(e) {
+            $('.password-info').css('display', 'inline');
+            $('.personal-info').css('display', 'inline');
+            $('.save-buttons').css('display', 'none');
+            e.preventDefault();
+        });
+    });
+</script>
 </body>
 
 </html>

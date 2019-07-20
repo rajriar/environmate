@@ -2,8 +2,8 @@ var mysql = require('mysql')
 var connection = mysql.createConnection({
   host: 'localhost', //change to Localhost
   user: 'root', //change to root
-  password: 'root',
-  database: 'EnvironMate'
+  password: 'csc6481',
+  database: 'environmate'
 })
 
 if(connection.state === 'disconnected'){
