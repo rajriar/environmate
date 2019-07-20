@@ -6,6 +6,7 @@ var search = require('../javascript/search.js');
 router.use('/about', require('./about.js'));
 router.use('/about/forms', require('./forms.js'));
 router.use('/users', require('./users.js'));
+router.use('/profile',require('./profile.js'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
