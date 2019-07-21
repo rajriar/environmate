@@ -1,59 +1,53 @@
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <%- include ../views/partials/head.ejs%>
+  <head>
+    <%- include ../views/partials/head.ejs%>
 
-        <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
-    </head>
-    
-    <header>
-        <% include ../views/partials/header.ejs%>
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+  </head>
 
-    </header>
+  <header>
+    <% include ../views/partials/header.ejs%>
+  </header>
   <body>
-    <h1><%title%></h1>
-  
-    <div class = "container">
-      <div class = "results">
-      <table class="table-dark">
+    <div class="container">
+      <div class="results">
+        <table class="table-dark">
           <thead>
             <tr>
               <th>Incident ID</th>
               <th>Description</th>
               <th>Reported on</th>
               <th>Incident Type</th>
-            <th>Status</th>
+              <th>Status</th>
               <th>Location</th>
               <th>Zip Code</th>
               <th>IMAGE</th>
-    
             </tr>
           </thead>
-    
+
           <tbody>
             <% for(var i=0; i < data.length; i++) { %>
-           <tr>
-             <td><%= data[i].INCIDENT_ID %></td>
-             <td><%= data[i].DESCRIPTION %></td>
-             <td><%= data[i].REPORTED_DATE_TIME %></td>
-             <td><%= data[i].TYPE_NAME %></td>
-             <td><%= data[i].STATUS_NAME %></td>
-             <td><%= data[i].LOCATION_NAME %></td>
-             <td><%= data[i].ZIP_CODE %></td>
-             <td>
-               <img class="pic-size2" src = "data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"/>
-
-               </td>
-             
-    
-           </tr>
-        <% } %>
+            <tr>
+              <td><%= data[i].INCIDENT_ID %></td>
+              <td><%= data[i].DESCRIPTION %></td>
+              <td><%= data[i].REPORTED_DATE_TIME %></td>
+              <td><%= data[i].TYPE_NAME %></td>
+              <td><%= data[i].STATUS_NAME %></td>
+              <td><%= data[i].LOCATION_NAME %></td>
+              <td><%= data[i].ZIP_CODE %></td>
+              <td>
+                <img
+                  class="pic-size2"
+                  src="data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"
+                />
+              </td>
+            </tr>
+            <% } %>
           </tbody>
-    
         </table>
-      </div> <!--end results div-->
-    </div> <!-- End container div-->
+      </div>
+      <!--end results div-->
+    </div>
   </body>
-
 </html>
