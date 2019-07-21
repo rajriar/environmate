@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'IMAGE_ID'
 		},
 		image: {
-			type: DataTypes.TEXT,
+			type: DataTypes.BLOB,
 			allowNull: true,
 			field: 'IMAGE'
 		},
@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ID_INCIDENT'
 		}
 	}, {
-		tableName: 'image'
+		tableName: 'image',
+		timestamps : false
 	});
 };
