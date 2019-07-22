@@ -17,6 +17,10 @@
     />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <header>
@@ -167,31 +171,41 @@
                   </div>
                   <div class="col-lg-8">
                     <br />
-                    <img src="/resources/baseline-pin_drop-24px.svg" />
+                    <i class="material-icons" style="vertical-align: bottom"
+                      >pin_drop</i
+                    >
                     <span style="text-align: left" class="addy">
                       <%= data[i].LOCATION_NAME %>
                     </span>
                     <span> |</span>
                     <span id="zip"> <%= data[i].ZIP_CODE %></span>
                     <hr class="m-1" />
-                    <img src="baseline-today-24px.svg" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      today
+                    </i>
                     <span style="text-align: left" class="parseDate">
                       <%= data[i].REPORTED_DATE_TIME %></span
                     >
                     <hr class="m-1" />
-                    <img src="baseline-report-24px.svg" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      report
+                    </i>
                     <span style="text-align: left">
                       <%= data[i].TYPE_NAME %></span
                     >
                     <hr class="m-1" />
-                    <img src="baseline-build-24px.svg" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      build
+                    </i>
                     <span style="text-align: left">
                       <b id="status" class="statusCheck"
                         ><%= data[i].STATUS_NAME %></b
                       ></span
                     >
                     <hr class="m-1" />
-                    <img src="baseline-comment-24px.svg" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      comment
+                    </i>
                     <span style="text-align: left">
                       <%= data[i].DESCRIPTION %>
                     </span>
