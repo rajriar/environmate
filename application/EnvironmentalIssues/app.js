@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index.js');
 var usersRouter = require('./routes/users.js');
 var aboutRoute = require('./routes/about.js');
 var formRoute = require('./routes/forms.js');
-var incidentpost = require('./javascript/incident.js');
+var incidentpost = require('./routes/incident.js');
 
 var app = express();
 

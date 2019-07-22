@@ -10,6 +10,8 @@ const ADMIN = 2;
 const RESOLVED_STATUS = 3;
 const ARCHIVED_STATUS = 4;
 
+
+// Request to create new incidents
 router.post('/report', function(req, res,next) {
 
     console.log('req.body');
@@ -31,10 +33,9 @@ router.post('/report', function(req, res,next) {
           res.json({"incident ID":img.idIncident});
       })
       .catch(function(err) {
-        // Really important for debugging too!
         console.log(`Something bad happened: ${err}`);
         res.json({
-          postIncident: "failed"
+          createIncident: "failed to create incident"
         });
       });
       
@@ -42,7 +43,7 @@ router.post('/report', function(req, res,next) {
 });
 
 
-    
+// Request to update an incident     
 router.put("/edit/incident/:incidentId/userrole/:idUser", function(req,res,next) {
     console.log('req.params');
     console.log(req.params.incidentId);
@@ -80,7 +81,7 @@ router.put("/edit/incident/:incidentId/userrole/:idUser", function(req,res,next)
         // Really important for debugging too!
         console.log(`Something bad happened: ${err}`);
         res.json({
-          putIncident: "failed"
+          updateIncident: "failed to update the incident"
         });
       });
 
@@ -89,7 +90,7 @@ router.put("/edit/incident/:incidentId/userrole/:idUser", function(req,res,next)
 
     
 
-
+// Request to archive an incident by admin
 router.delete('/delete/incident/:incidentId/userrole/:idUser',function(req,res){
     console.log('req.params');
     console.log(req.params.incidentId);
@@ -109,13 +110,13 @@ router.delete('/delete/incident/:incidentId/userrole/:idUser',function(req,res){
           });
     }
     else{
-        res.json({"error": "invalid user role"});
+        res.json({"delete incident": "user role does not have access "});
     }
 });
 
 
 
-
+// Request to view all incidents
 router.get('/view',function(req,res){
 
     models.incidents.findAll().then(posts => {
@@ -125,7 +126,7 @@ router.get('/view',function(req,res){
 });
 
 
-
+// Request to view a specific incident
 router.get('/view/:incidentId',function(req,res){
 
 
