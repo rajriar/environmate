@@ -89,8 +89,6 @@ router.put("/edit/incident/:incidentId/userrole/:idUser", function(req,res,next)
           updateIncident: "failed to update the incident"
         });
       });
-
-
 });
 
     
