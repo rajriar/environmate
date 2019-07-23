@@ -14,38 +14,38 @@ const ARCHIVED_STATUS = 4;
 // Request to create new incidents
 router.post('/report', function(req, res,next) {
 
-    console.log('req.body');
-    console.log(req.body);
-    // create an incident 
-    models.incidents.create({ idType: req.body.idType, idLocation: req.body.idLocation , description:req.body.description, 
-        idUser:req.body.idUser, idStatus:req.body.idStatus,reportedDateTime:new Date()}).then(incident => {
-        console.log("Incident's's auto-generated ID:", incident.incidentId);
-        return incident;  
-      })
-      // add the image of the incident to images folder
-      .then((id) => {
-        // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
-        // console.log(imageData);
-        // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
-        // console.log(bufferBase64);
-        return models.image.create({image : req.body.base64Image , idIncident:id.incidentId});
-      })
-      .then((img)=> {
-          res.json({"incident ID":img.idIncident});
-      })
-      //catch statement for debugging
-      .catch(function(err) {
-        console.log(`Something bad happened: ${err}`);
-        res.json({
-          createIncident: "failed to create incident"
-        });
+  console.log('req.body');
+  console.log(req.body);
+  // create an incident 
+  models.incidents.create({ idType: req.body.idType, idLocation: req.body.idLocation , description:req.body.description, 
+      idUser:req.body.idUser, idStatus:req.body.idStatus,reportedDateTime:new Date()}).then(incident => {
+      console.log("Incident's's auto-generated ID:", incident.incidentId);
+      return incident;  
+    })
+    // add the image of the incident to images folder
+    .then((id) => {
+      // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
+      // console.log(imageData);
+      // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
+      // console.log(bufferBase64);
+      return models.image.create({image : req.body.base64Image , idIncident:id.incidentId});
+    })
+    .then((img)=> {
+        res.send({"incident ID":img.idIncident});
+    })
+    //catch statement for debugging
+    .catch(function(err) {
+      console.log(`Something bad happened: ${err}`);
+      res.json({
+        createIncident: "failed to create incident"
       });
-      
+    });
+    
 
 });
 
-
 // Request to update an incident     
+//change it to post
 router.put("/edit/incident/:incidentId/userrole/:idUser", function(req,res,next) {
     console.log('req.params');
     console.log(req.params.incidentId);
