@@ -1,13 +1,16 @@
 .container-full {
+    border-radius: 25px;
     height:100%;
     background: rgba(255, 255, 255, 0.95);
     margin-left: 35px;
     margin-right: 35px;
     margin-top: 30px;
+    margin-bottom: 30px;
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 15px;
     padding-right: 15px;
+    max-width: 500px;
 
   }
 h1{
@@ -16,12 +19,11 @@ h1{
     font-weight: 1000;
 }
 .unique{
-    background-image: url(https://i.pinimg.com/originals/4d/39/96/4d39967cfaf52941188cd58860f990b4.jpg);
+    background-image: url(https://www.tokkoro.com/picsup/3336228-twilight-people-beach-night.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    overflow: auto;
-    background-repeat: repeat-y;  
+    overflow: auto;  
     height:auto;
     margin: 0;
     padding: 0;
@@ -31,7 +33,7 @@ h1{
     padding-right: 35px;
     padding-top: 5px;
     padding-bottom: 5px;
-    font-size: 18px;
+    font-size: 16px;
     box-align: center;
     overflow: auto;
 }
@@ -41,26 +43,43 @@ h1{
 #spacing{
     margin-top: 30px;
 }
+
+.title{
+    text-align: center;
+}
 input[type=submit]{
+    border-radius: 10px;
     width:100%;
-    background-color:green;
-    color:white;
+    background-color:white;
+    color:black;
 }
 input[type=submit]:hover{
-    background-color: white;
-    color:green;
-}
-input[type=reset]{
-    width:100%;
-    background-color:green;
+    border-radius: 10px;
+    background-color: black;
     color:white;
 }
+input[type=reset]{
+    border-radius: 10px;
+    width:100%;
+    background-color:white;
+    color:black;
+}
 input[type=reset]:hover{
-    background-color: white;
-    color:green;
+    border-radius: 10px;
+    background-color: black;
+    color:white;
 }
 input[type=text]{
+    border-radius: 10px;
     width:100%;
+}
+input[type=email]{
+    border-radius: 10px;
+    width:100%;
+}
+input[type = tel]{
+    border-radius: 10px;
+    width: 100%;
 }
 
 .checkbox input[type="checkbox"] {
@@ -75,6 +94,7 @@ input[type=text]{
   }
 select{
     width:100%;
+    border-radius: 10px;
 }
 
 .button {
@@ -108,7 +128,7 @@ select{
     height: 100%;
     margin: 0;
     padding: 0;
-    background-image: url(https://i.pinimg.com/originals/4d/39/96/4d39967cfaf52941188cd58860f990b4.jpg);
+    background-image: url(https://www.tokkoro.com/picsup/3336228-twilight-people-beach-night.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -116,3 +136,8 @@ select{
     background-repeat: repeat-y;  
     height:auto;
   }
+.border{
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 20px; 
+}

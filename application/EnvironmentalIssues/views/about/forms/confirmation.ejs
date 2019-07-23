@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Results verification page Jonathan Julian Confirmation</title>
+    <title><%title%></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href= "/stylesheets/jjform.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -15,35 +15,41 @@
         <div class ="unique"> <!--wrapper div-->
             <div class = "container-full"> <!--container div-->
                 <h1>Confirmation</h1>
-            <div class = "row"><!--row div-->
-                <div class="col-md-6 form contact">
+              <div class = "border"> <!-- border-->
+                <div class = "row form"><!--name div-->
+                  <div class="col-md-12">
                     Name: <%=data.firstName%> <%=data.lastName%>
-                </div>  
-                <div class="col-md-6 form col-offset-md-6">
-                        Education Level: <%=data.education%>
+                  </div>
                 </div>
-            </div> <!--end row div-->
-    
-            <div class = "row"> <!-- row 2 div-->
-                    <div class="col-md-6 form contact">
-                            Email: <%=data.email%>
-                    </div>  
-                    <div class="col-md-6 form col-offset-md-6">
-                            Income: <%=data.income%>
-                    </div>
-                </div>  <!--end row 2 div-->
-    
-                <div class = "row"><!-- row 3 div-->
-                        <div class="col-md-6 form contact">
-                                Phone: <%=data.phone%>
-                        </div>  
-                        <div class="col-md-6 form col-offset-md-6" >
-                            Address: <%=data.address%>, <%=data.zipCode%>
-                        </div>
-                    </div> <!--end row 3 div-->
-                </div><!--end container div-->
-                <div class="text-xs-center"><div id="map"></div></div>
-            </div><!--end wrapper div-->
+                <div class = "row form"> <!-- email div-->
+                  <div class="col-md-12">
+                    Email: <%=data.email%>
+                  </div> 
+                </div>
+                <div class = "row form"><!-- phone div-->
+                  <div class="col-md-12">
+                    Phone: <%=data.phone%>
+                  </div>
+                </div>
+            </div><!--end border-->
+            <div class = "row form" id = "spacing"><!--income div-->
+                <div class="col-md-12">
+                  Income: <%=data.income%>
+                </div>
+            </div>  
+            <div class = "row form">  <!--education div-->
+              <div class="col-md-12 ">
+                Education Level: <%=data.education%>
+              </div>
+            </div> 
+            <div class = "row form">   <!--address row div-->  
+              <div class="col-md-12 " >
+                Address: <%=data.address%>, <%=data.zipCode%>
+              </div>
+            </div> 
+          <div class="text-xs-center"><div id="map"></div></div> <!-- map div-->
+        </div><!--end container div-->
+        </div><!--end wrapper div-->
         
         
 
