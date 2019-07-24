@@ -1,4 +1,6 @@
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+'use strict';
+
 module.exports = (sequelize, type) => {
     return sequelize.define('users', {
         userId: {
@@ -16,7 +18,7 @@ module.exports = (sequelize, type) => {
             field: 'USER_EMAIL'
         },
         password: {
-            type: type.CHAR,
+            type: type.STRING,
             allowNull: false,
             field: 'PASSWORD'
         },
@@ -65,13 +67,13 @@ module.exports = (sequelize, type) => {
                 }
             }
         },
+    );
+    users.prototype.comparePassword = async function(password) {
+        return await bcrypt.compare(password, this.password);
+    },
 
-        users.prototype.comparePassword = async function(password) {
-            return await bcrypt.compare(password, this.password);
-        },
-    
-        users.associate = (models) => {
-            User.hasMany(models.Message);
-            User.hasMany(models.gamesessions);
-        }
-)};
+    users.associate = (models) => {
+        User.hasMany(models.Message);
+        User.hasMany(models.gamesessions);
+    }
+};

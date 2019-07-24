@@ -6,10 +6,11 @@ router.use(express.json());
 const models = require('../Models');
 
 // router.post('/login', (req, res) => {
-
+//     console.log('req.body');
+//     console.log(req.body);
 //     models.users.findOne({
 //       where: {
-//         USER_ID: req.body.userid
+//         userid: req.body.userid
 //       }
 //     }).then(async (user) => {
 //       if (!user && !await user.comparePassword(req.body.password)) {

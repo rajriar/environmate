@@ -76,18 +76,18 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="needs-validation" novalidate>
+                <form name="login" method="post" action="/login">
                     <div class="modal-body">
                         <div class="login-group">
                             <label for="validationCustom01">Email address</label>
-                            <input type="email" class="form-control" id="validationCustom01" aria-describedby="emailHelp" placeholder="Enter email" required>
+                            <input type="userEmail" name="userEmail" class="form-control" id="validationCustom01" aria-describedby="emailHelp" placeholder="Enter email" required>
                             <div class="invalid-feedback">
                                 Please enter a valid email.
                             </div>
                         </div>
                         <div class="login-group py-2">
                             <label for="examplePassword">Password</label>
-                            <input type="password" class="form-control" id="validationCustom02" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" id="validationCustom02" placeholder="Password" required>
                             <div class="invalid-feedback">
                                 You must enter your password.
                             </div>
