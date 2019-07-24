@@ -26,8 +26,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/about', aboutRoute);
@@ -50,7 +48,5 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-//app.listen(3306);
 
 module.exports = app;

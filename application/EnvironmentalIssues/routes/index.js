@@ -7,7 +7,7 @@ router.use('/about', require('./about.js'));
 router.use('/about/forms', require('./forms.js'));
 router.use('/users', require('./users.js'));
 router.use('/profile',require('./profile.js'));
-router.use('/signup',require('./signup.js'));
+//router.use('/signup',require('./signup.js'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,9 +28,9 @@ router.get('/results', function(req, res, next) {
     //search.close(req);
 });
 
-router.get('/signup', function(req, res, next) {
-    res.render('/signup', { title: "signup"});
-});
+// router.get('/signup', function(req, res, next) {
+//     res.render('/signup', { title: "signup"});
+// });
 
 router.get('/header', function(req, res, next) {
     res.render('header');

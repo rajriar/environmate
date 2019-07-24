@@ -1,5 +1,5 @@
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">EnvironMate</a>
+    <a class="navbar-brand" href="/">EnvironMate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,19 +28,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Post Incident</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Sign Up</a>
-            </li>
+            <!-- Button trigger for log in -->
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginPopup">
+              Log In
+            </button>
+
+            <!-- Button trigger for sign up -->
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#signupPopup">
+              Sign Up
+            </button>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                   </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">My Profile</a>
-                    <a class="dropdown-item" href="#">View Incidents</a>
+                    <a class="dropdown-item" href="/profile">My Profile</a>
+                    <a class="dropdown-item" href="/results">View Incidents</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/about">About</a>
                 </div>

@@ -30,7 +30,7 @@ router.post("/signup", (req, res, next) => {
   
         //if email is already being used
         if (user) {
-            return res.status(400).json({ result: "Email is already used." });
+            return res.status(400).json({ result: "Email in use." });
         }
   
         models.User.create({
@@ -44,7 +44,7 @@ router.post("/signup", (req, res, next) => {
             inactive: false,
             idRole: "1"
         });
-    return res.status(200).json({ result: "New user has been created!" });
+    return res.status(200).json({ result: "Account created." });
     });
 
 });
