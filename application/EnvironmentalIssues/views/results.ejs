@@ -1,59 +1,421 @@
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <%- include ../views/partials/head.ejs%>
+  <head>
+    <%- include ../views/partials/head.ejs%>
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <!-- <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"
+    ></script> -->
+    <!-- BACKEND COMMS -->
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <!-- BACKEND COMMS -->
+  </head>
 
-        <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
-    </head>
-    
-    <header>
-        <% include ../views/partials/header.ejs%>
-
-    </header>
+  <header>
+    <% include ../views/partials/header.ejs%>
+  </header>
   <body>
-    <h1><%title%></h1>
-  
-    <div class = "container">
-      <div class = "results">
-      <table class="table-dark">
-          <thead>
-            <tr>
-              <th>Incident ID</th>
-              <th>Description</th>
-              <th>Reported on</th>
-              <th>Incident Type</th>
-            <th>Status</th>
-              <th>Location</th>
-              <th>Zip Code</th>
-              <th>IMAGE</th>
-    
-            </tr>
-          </thead>
-    
-          <tbody>
-            <% for(var i=0; i < data.length; i++) { %>
-           <tr>
-             <td><%= data[i].INCIDENT_ID %></td>
-             <td><%= data[i].DESCRIPTION %></td>
-             <td><%= data[i].REPORTED_DATE_TIME %></td>
-             <td><%= data[i].TYPE_NAME %></td>
-             <td><%= data[i].STATUS_NAME %></td>
-             <td><%= data[i].LOCATION_NAME %></td>
-             <td><%= data[i].ZIP_CODE %></td>
-             <td>
-               <img class="pic-size2" src = "data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"/>
+    <!-- STANDARD IS COL-LG-12 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- INCIDENTS TEXT START-->
+          <div class="row">
+            <div class="col-lg-7">
+              <h3 style="text-align: center">Incidents</h3>
+            </div>
+          </div>
+          <!-- INCIDENT TEXT END -->
+          <!-- INCIDENTS COL -->
+          <div class="row">
+            <div class="col-lg-7 rounded">
+              <div class="rounded" style="border: 2px solid black">
+                <!-- PARENT CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div class="col-lg-12 rounded">
+                    <br />
+                    <select class="form-control" id="categoryList">
+                      <option selected>Filter by category</option>
+                      <option>Date</option>
+                      <option>Status</option>
+                      <option>Zip</option>
+                      <option>Type</option>
+                      <option>Location</option>
+                    </select>
+                    <hr class="m-3" />
+                  </div>
+                </div>
+                <!-- PARENT CATEGORY END -->
+                <!-- CHILD CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div
+                    class="col-lg-12 rounded"
+                    style="display: none; text-align: center"
+                    id="displayDate"
+                  >
+                    <input
+                      type="text"
+                      id="datepicker"
+                      class=" form-group form-control"
+                      placeholder="Choose Date"
+                    />
+                  </div>
+                </div>
+                <!-- CHILD CATGEGORY END -->
+                <!-- CHILD CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div
+                    class="col-lg-12 rounded"
+                    style="display: none; text-align: center"
+                    id="displayStatus"
+                  >
+                    <select
+                      class="form-control childSelector"
+                      id="statusChildList"
+                    >
+                      <option selected>Choose Status</option>
+                      <% for(var i=0; i < data.length; i++) { %>
+                      <option class="childSelected"
+                        ><%= data[i].STATUS_NAME %></option
+                      >
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <!-- CHILD CATGEGORY END -->
+                <!-- CHILD CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div
+                    class="col-lg-12 rounded"
+                    style="display: none; text-align: center"
+                    id="displayZip"
+                  >
+                    <select class="form-control" id="zipChildList">
+                      <option selected>Choose Zip</option>
+                      <% for(var i=0; i < data.length; i++) { %>
+                      <option><%= data[i].ZIP_CODE %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <!-- CHILD CATGEGORY END -->
+                <!-- CHILD CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div
+                    class="col-lg-12 rounded"
+                    style="display: none; text-align: center"
+                    id="displayType"
+                  >
+                    <select class="form-control" id="typeChildList">
+                      <option selected>Choose Type</option>
+                      <% for(var i=0; i < data.length; i++) { %>
+                      <option><%= data[i].TYPE_NAME %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <!-- CHILD CATGEGORY END -->
+                <!-- CHILD CATEGORY START -->
+                <div class="row" style="margin: 8px">
+                  <div
+                    class="col-lg-12 rounded"
+                    style="display: none; text-align: center;"
+                    id="displayLocation"
+                  >
+                    <select class="form-control" id="locationChildList">
+                      <option selected>Choose Location</option>
+                      <% for(var i=0; i < data.length; i++) { %>
+                      <option><%= data[i].LOCATION_NAME %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <!-- CHILD CATGEGORY END -->
+                <div class="col-lg-12">
+                  <div class="row rounded">
+                    <div class="col-lg-12">
+                      <span id="showingX">Showing 1-</span>
+                      <span class="incidentNumberView"><%= data.length %></span
+                      ><span> of </span
+                      ><span id="totalNumberOfIncidents"
+                        ><%= data.length %></span
+                      ><span> Incidents</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- ONE INCIDENT START-->
 
-               </td>
-             
-    
-           </tr>
-        <% } %>
-          </tbody>
-    
-        </table>
-      </div> <!--end results div-->
-    </div> <!-- End container div-->
+                <% for(var i=0; i < data.length; i++) { %>
+                <div
+                  class="row rounded cardView"
+                  style="border: 3px solid green; margin: 8px"
+                >
+                  <div class="col-lg-4" id="incidentPicture">
+                    <br />
+                    <img
+                      src="data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"
+                      alt="..."
+                      class="img-thumbnail  m-1"
+                      style="width: max-content; height: inherit"
+                    />
+                  </div>
+                  <div class="col-lg-8">
+                    <br />
+                    <i class="material-icons" style="vertical-align: bottom"
+                      >pin_drop</i
+                    >
+                    <span style="text-align: left" class="locationCheck"
+                      ><%= data[i].LOCATION_NAME %></span
+                    >
+                    <span> |</span>
+                    <span id="zip" class="zipCheck"
+                      ><%= data[i].ZIP_CODE %></span
+                    >
+                    <hr class="m-1" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      today
+                    </i>
+                    <span style="text-align: left" class="parseDate"
+                      ><%= data[i].REPORTED_DATE_TIME %></span
+                    >
+                    <hr class="m-1" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      report
+                    </i>
+                    <span style="text-align: left" class="typeCheck"
+                      ><%= data[i].TYPE_NAME %></span
+                    >
+                    <hr class="m-1" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      build
+                    </i>
+                    <span style="text-align: left">
+                      <b id="status" class="statusCheck"
+                        ><%= data[i].STATUS_NAME %></b
+                      ></span
+                    >
+                    <hr class="m-1" />
+                    <i class="material-icons" style="vertical-align: bottom">
+                      comment
+                    </i>
+                    <span style="text-align: left"
+                      ><%= data[i].DESCRIPTION %></span
+                    >
+                    <span style="float: right">
+                      <b>ID:<%= data[i].INCIDENT_ID %></b>
+                    </span>
+                    <br />
+                    <br />
+                  </div>
+                </div>
+                <% } %>
+                <!-- ONE INCIDENT END -->
+              </div>
+            </div>
+            <!-- MAP START-->
+            <div
+              class="col-lg-5 rounded"
+              style="border: 2px solid slategray; height: 800px;  padding: 0"
+            >
+              <div id="map" style="height: 100%;"></div>
+            </div>
+            <!-- MAP END-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // MAP JAVASCRIPT START
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 12
+        });
+        var geocoder = new google.maps.Geocoder();
+        geocodeAddress(geocoder, map);
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementsByClassName("locationCheck");
+        Array.from(address).forEach(function(item) {
+          geocoder.geocode({ address: item.innerText }, function(
+            results,
+            status
+          ) {
+            if (status === "OK") {
+              resultsMap.setCenter({ lat: 37.723396, lng: -122.442264 });
+              var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location,
+                animation: google.maps.Animation.DROP
+              });
+            } else {
+              alert(
+                "Geocode was not successful for the following reason: " + status
+              );
+            }
+          });
+        });
+      }
+      // MAP JAVASCRIPT END
+      let statusColor = document.getElementsByClassName("statusCheck");
+      Array.from(statusColor).forEach(function(item) {
+        switch (item.innerHTML) {
+          case "Resolved":
+            item.style.color = "rgb(47, 197, 17)";
+            break;
+          case "Reviewed":
+            item.style.color = "rgb(244, 247, 64)";
+            break;
+          case "Received":
+            item.style.color = "rgb(64, 137, 247)";
+            break;
+          case "Archived":
+            item.style.color = "rgb(149, 165, 179)";
+            break;
+        }
+      });
+
+      let parseDate = document.getElementsByClassName("parseDate");
+      Array.from(parseDate).forEach(function(item) {
+        let month = item.innerText.substring(5, 7);
+        let day = item.innerText.substring(8, 10);
+        let year = item.innerText.substring(0, 4);
+        const date = new Date(year, month, day);
+        item.innerText = date.toDateString();
+      });
+
+      $("#categoryList").change(function() {
+        var getText = $("#categoryList option:selected").text();
+        switch (getText) {
+          case "Date":
+            refreshDisplayAll();
+            $("#displayStatus").hide();
+            $("#displayZip").hide();
+            $("#displayType").hide();
+            $("#displayLocation").hide();
+            $("#displayDate").slideDown("fast", function() {
+              $("#datepicker").datepicker({
+                onSelect: function() {
+                  var dateObject = $(this).datepicker("getDate");
+                  dateObject = dateObject.toString();
+                  dateObject = dateObject.substring(0, 15);
+                  checkFilterMatch(dateObject, "parseDate");
+                }
+              });
+            });
+            break;
+          case "Status":
+            refreshDisplayAll();
+            $("#displayDate").hide();
+            $("#displayZip").hide();
+            $("#displayType").hide();
+            $("#displayLocation").hide();
+            $("#displayStatus").slideDown("fast", function() {
+              $("#statusChildList").change(function() {
+                var getText = $("#statusChildList option:selected").text();
+                checkFilterMatch(getText, "statusCheck");
+              });
+            });
+            break;
+          case "Zip":
+            refreshDisplayAll();
+            $("#displayDate").hide();
+            $("#displayStatus").hide();
+            $("#displayType").hide();
+            $("#displayLocation").hide();
+            $("#displayZip").slideDown("fast", function() {
+              $("#zipChildList").change(function() {
+                var getText = $("#zipChildList option:selected").text();
+                checkFilterMatch(getText, "zipCheck");
+              });
+            });
+            break;
+          case "Type":
+            refreshDisplayAll();
+            $("#displayDate").hide();
+            $("#displayStatus").hide();
+            $("#displayZip").hide();
+            $("#displayLocation").hide();
+            $("#displayType").slideDown("fast", function() {
+              $("#typeChildList").change(function() {
+                var getText = $("#typeChildList option:selected").text();
+                checkFilterMatch(getText, "typeCheck");
+              });
+            });
+            break;
+          case "Location":
+            refreshDisplayAll();
+            $("#displayType").hide();
+            $("#displayDate").hide();
+            $("#displayStatus").hide();
+            $("#displayZip").hide();
+            $("#displayLocation").slideDown("fast", function() {
+              $("#locationChildList").change(function() {
+                var getText = $("#locationChildList option:selected").text();
+                checkFilterMatch(getText, "locationCheck");
+              });
+            });
+            break;
+          case "Filter by category":
+            refreshDisplayAll();
+            $("#displayType").hide();
+            $("#displayDate").hide();
+            $("#displayStatus").hide();
+            $("#displayZip").hide();
+            $("#displayLocation").hide();
+            break;
+        }
+      });
+
+      function checkFilterMatch(value, className) {
+        let incidentNumberView = 0;
+        let cardView = document.getElementsByClassName("cardView");
+        for (let i = 0; i < cardView.length; i++) {
+          let textPerCard = cardView[i].lastElementChild.getElementsByClassName(
+            className
+          )[0].innerText;
+          if (value == textPerCard) {
+            incidentNumberView++;
+            cardView[i].style.display = "";
+            document.getElementsByClassName(
+              "incidentNumberView"
+            )[0].innerText = incidentNumberView;
+          } else {
+            if (incidentNumberView == 0) {
+              document.getElementsByClassName(
+                "incidentNumberView"
+              )[0].innerText = incidentNumberView;
+            }
+            cardView[i].style.display = "none";
+          }
+        }
+      }
+
+      function refreshDisplayAll() {
+        document.getElementsByClassName(
+          "incidentNumberView"
+        )[0].innerText = document.getElementById(
+          "totalNumberOfIncidents"
+        ).innerText;
+        Array.from(document.getElementsByClassName("cardView")).forEach(
+          function(item) {
+            item.style.display = "";
+          }
+        );
+      }
+    </script>
+    <footer>
+      <!-- <%-include ../views/partials/footer.ejs%> -->
+    </footer>
   </body>
-
 </html>
