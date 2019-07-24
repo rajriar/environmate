@@ -28,10 +28,6 @@ router.get('/results', function(req, res, next) {
     //search.close(req);
 });
 
-// router.get('/signup', function(req, res, next) {
-//     res.render('/signup', { title: "signup"});
-// });
-
 router.get('/header', function(req, res, next) {
     res.render('header');
 });

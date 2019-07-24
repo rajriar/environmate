@@ -6,11 +6,18 @@ var bodyParser = require("body-parser");
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 
+var passport = require('passport');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var env = require('dotenv').config();
+var expressHandlebars = require('express-handlebars');
+
 var indexRouter = require('./routes/index.js');
 var usersRouter = require('./routes/users.js');
 var aboutRoute = require('./routes/about.js');
 var formRoute = require('./routes/forms.js');
 var incidentpost = require('./routes/incident.js');
+var signupRoute = require('./routes/signup.js');
 
 var app = express();
 
@@ -31,7 +38,7 @@ app.use('/users', usersRouter);
 app.use('/about', aboutRoute);
 app.use('/about/forms', formRoute);
 app.use('/incidents',incidentpost);
-
+app.use('/signup', signupRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,5 +55,10 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+//Passport
+app.use(session({ secret: 'secret', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 module.exports = app;

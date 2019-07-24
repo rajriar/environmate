@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 router.use(express.json());
 
 const models = require('../Models');
@@ -22,9 +23,12 @@ const models = require('../Models');
 // });
 
 router.post("/signup", (req, res, next) => {
+    console.log('req.body');
+    console.log(req.body);
+
     models.User.findOne({
       where: {
-        email: req.body.USER_EMAIL
+        email: req.body.userEmail
       }
     }).then(user => {
   
@@ -43,7 +47,11 @@ router.post("/signup", (req, res, next) => {
             signupDate: new Date(),
             inactive: false,
             idRole: "1"
-        });
+        }).then(user => {
+            console.log("User ID: ", user.userId);
+            res.send(req.body)
+            return user;
+        })
     return res.status(200).json({ result: "Account created." });
     });
 
