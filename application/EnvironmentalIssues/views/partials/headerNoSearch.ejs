@@ -1,3 +1,5 @@
+
+<% include modals.ejs%>
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">EnvironMate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,15 +11,13 @@
                 <a class="nav-link" href="/post">Post Incident</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a data-target="#loginPopup" data-toggle="modal" class="nav-link" id="log-in-switch-txt" 
+                href="#loginPopup">Log In</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up</a>
-            </li>
+
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                  </a>
+                <a data-target="#signupPopup" data-toggle="modal" class="nav-link" id="sign-in-switch-txt" 
+                href="#signupPopup"> Sign Up</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/results">View Incidents</a>
