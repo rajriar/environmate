@@ -54,3 +54,20 @@ html {
     margin: 30px;
     padding: 10px;
 }
+
+.card-center {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 80px;
+    padding-right: 125px;
+    position: fixed;
+    overflow: auto;
+}
+
+.dropdown-width {
+    size: 50px;
+}
+
+.post-span-button{
+    float: right;
+}
