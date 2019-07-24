@@ -1,26 +1,25 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('image', {
-		imageId: {
+	return sequelize.define('location', {
+		locationId: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'IMAGE_ID'
+			field: 'LOCATION_ID'
 		},
-		image: {
-			type: DataTypes.TEXT,
-			allowNull: true,
-			field: 'IMAGE'
+		locationName: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+			field: 'LOCATION_NAME'
 		},
-		idIncident: {
+		idZipCode: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			field: 'ID_INCIDENT'
+			field: 'ID_ZIP_CODE'
 		}
 	}, {
-		tableName: 'image',
-		timestamps : false
+		tableName: 'location'
 	});
 };

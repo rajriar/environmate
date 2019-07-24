@@ -1,63 +1,55 @@
-module.exports = (sequelize, type) => {
-    const User = sequelize.define('users', {
-        USER_ID: {
-            type: type.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        USER_EMAIL: {
-            type: type.STRING,
-            allowNull: false,
-            unique: true,
-            required: [true, 'Email required']
-        },
-        PASSWORD: {
-            type: type.CHAR,
-            allowNull: false
-        },
-        FIRST_NAME: {
-            type: type.STRING,
-            allowNull: false
-        },
-        LAST_NAME: {
-            type: type.STRING,
-            allowNull: false
-        },
-        DATE_OF_BIRTH: {
-            type: type.DATE,
-            allowNull: false
-        },
-        INACTIVE: {
-            type: type.BOOLEAN,
-            allowNull: false
-        },
-        SIGNUP_DATE: {
-            type: type.DATE,
-            allowNull: false
-        },
-        ID_ROLE: {
-            type: Int,
-            allowNull: false
-        }
-    },{
-        hooks:{
-            beforeCreate: (user, options) => {
-                return bcrypt.hash(user.PASSWORD, 10)
-                .then(hash => {
-                    users.PASSWORD = hash;
-                    console.log(user.PASSWORD);
-                })
-                .catch(err => {
-                    throw new Error();
-                });
-                }
-            }
-        }
-    );
-    
-    User.prototype.comparePassword = async function(PASSWORD) {
-        return await bcrypt.compare(PASSWORD, this.PASSWORD);
-    };
+/* jshint indent: 1 */
 
-    return User;
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define('users', {
+		userId: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			primaryKey: true,
+			autoIncrement: true,
+			field: 'USER_ID'
+		},
+		userEmail: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+			field: 'USER_EMAIL'
+		},
+		password: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+			field: 'PASSWORD'
+		},
+		firstName: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+			field: 'FIRST_NAME'
+		},
+		lastName: {
+			type: DataTypes.STRING(45),
+			allowNull: false,
+			field: 'LAST_NAME'
+		},
+		dateOfBirth: {
+			type: DataTypes.DATEONLY,
+			allowNull: false,
+			field: 'DATE_OF_BIRTH'
+		},
+		inactive: {
+			type: DataTypes.INTEGER(1),
+			allowNull: false,
+			field: 'INACTIVE'
+		},
+		signupDate: {
+			type: DataTypes.DATEONLY,
+			allowNull: false,
+			field: 'SIGNUP_DATE'
+		},
+		idRole: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			field: 'ID_ROLE'
+		}
+	}, {
+		tableName: 'users'
+	});
 };

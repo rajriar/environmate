@@ -1,34 +1,48 @@
-module.exports = (sequelize, type) => {
-    return sequelize.define('incidents', {
-        INCIDENT_ID: {
-            type: type.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-            allowNull: false
-        },
-        ID_TYPE: {
-            type: type.INTEGER,
-            allowNull: false
-        },
-        ID_LOCATION: {
-            type: type.INTEGER,
-            allowNull: false
-        },
-        DESCRIPTION: {
-            type: String,
-            allowNull: false
-        },
-        ID_USER: {
-            type: type.INTEGER,
-            allowNull: false
-        },
-        ID_STATUS: {
-            type: type.INTEGER,
-            allowNull: false,
-        },
-        REPORTED_DATE_TIME: {
-            type: type.DATE,
-            allowNull: false
-        }
-    })
+/* jshint indent: 1 */
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define('incidents', {
+		incidentId: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			primaryKey: true,
+			autoIncrement: true,
+			field: 'INCIDENT_ID'
+		},
+		idType: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			field: 'ID_TYPE'
+		},
+		idLocation: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			field: 'ID_LOCATION'
+		},
+		description: {
+			type: DataTypes.STRING(200),
+			allowNull: false,
+			field: 'DESCRIPTION'
+		},
+		idUser: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			field: 'ID_USER'
+		},
+		idStatus: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '1',
+			field: 'ID_STATUS'
+		},
+		reportedDateTime: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+			field: 'REPORTED_DATE_TIME'
+		}
+	}, {
+		tableName: 'incidents',
+		timestamps : false
+	});
 };
