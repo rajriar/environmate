@@ -1,5 +1,6 @@
+var bcrypt = require('bcrypt');
 module.exports = (sequelize, type) => {
-    const User = sequelize.define('users', {
+    return sequelize.define('users', {
         userId: {
             type: type.INTEGER,
             allowNull: false,
@@ -48,26 +49,29 @@ module.exports = (sequelize, type) => {
             type: type.INTEGER,
             allowNull: false,
             field: 'ID_ROLE'
-        }
-    },{
-        hooks:{
-            beforeCreate: (user, options) => {
-                return bcrypt.hash(user.password, 10)
-                .then(hash => {
-                    users.password = hash;
-                    console.log(user.password);
-                })
-                .catch(err => {
-                    throw new Error();
+        }}, {
+            createdAt: false,
+            updatedAt: false,
+            hooks:{
+                beforeCreate: (user, options) =>{
+                    return bcrypt.hash(user.password, 10)
+                        .then(hash => {
+                        user.password = hash;
+                        console.log(user.password);
+                    })
+                .catch(err => { 
+                    throw new Error(); 
                 });
                 }
             }
-        }
-    );
-    
-    User.prototype.comparePassword = async function(password) {
-        return await bcrypt.compare(password, this.password);
-    };
+        },
 
-    return User;
-};
+        users.prototype.comparePassword = async function(password) {
+            return await bcrypt.compare(password, this.password);
+        },
+    
+        users.associate = (models) => {
+            User.hasMany(models.Message);
+            User.hasMany(models.gamesessions);
+        }
+)};

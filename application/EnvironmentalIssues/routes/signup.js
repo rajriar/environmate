@@ -22,46 +22,47 @@ const models = require('../Models');
 //     });
 // });
 
-router.post("/signup", (req, res, next) => {
+router.post("/", (req, res, next) => {
     console.log('req.body');
     console.log(req.body);
 
-    models.User.findOne({
+    models.users.findOne({
       where: {
-        email: req.body.userEmail
+        userEmail: req.body.userEmail
       }
     }).then(user => {
   
-        //if email is already being used
+        // if email is already being used
         if (user) {
             return res.status(400).json({ result: "Email in use." });
         }
-  
-        models.User.create({
+
+        models.users.create({
             userId: req.body.userid,
-            userEmail: req.body.email,
+            userEmail: req.body.userEmail,
             password: req.body.password,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            dateofbirth: req.body.dateofbirth,
+            //dateOfBirth: req.body.dateOfBirth,
+            dateOfBirth: new Date(),
             signupDate: new Date(),
             inactive: false,
             idRole: "1"
         }).then(user => {
             console.log("User ID: ", user.userId);
-            res.send(req.body)
+            //res.send(req.body)
             return user;
         })
     return res.status(200).json({ result: "Account created." });
-    });
+    })
 
 });
 
-convertSequilizeToObject = sequelizeResp => {
-    var replacer = app.get("json replacer");
-    var spaces = app.get("json spaces");
-    var body = JSON.stringify(sequelizeResp, replacer, spaces);
-    return JSON.parse(body);
-};
+// convertSequilizeToObject = sequelizeResp => {
+//     var replacer = app.get("json replacer");
+//     var spaces = app.get("json spaces");
+//     var body = JSON.stringify(sequelizeResp, replacer, spaces);
+//     return JSON.parse(body);
+// };
   
 module.exports = router;

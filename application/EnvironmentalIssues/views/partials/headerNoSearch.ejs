@@ -10,21 +10,21 @@
             <li class="nav-item">
                 <a class="nav-link" href="/post">Post Incident</a>
             </li>
-            <li class="nav-item">
+            <%# <li class="nav-item">
                 <a data-target="#loginPopup" data-toggle="modal" class="nav-link" id="log-in-switch-txt" 
                 href="#loginPopup">Log In</a>
             </li>
             <li class="nav-item">
                 <a data-target="#signupPopup" data-toggle="modal" class="nav-link" id="sign-in-switch-txt" 
                 href="#signupPopup"> Sign Up</a>
-            </li>
+            </li> %>
             <!-- Button trigger for log in -->
             <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#loginPopup">
               Log In
             </button>
 
             <!-- Button trigger for sign up -->
-            <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#signupPopup">
+            <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#signupPopup" href="/signup">
               Sign Up
             </button>
             <li class="nav-item dropdown">
@@ -53,22 +53,22 @@
                 </div>
 
                 <!-- Sign up Form -->
-                <form method-"post" action="/signup">
+                <form method="post" action="/signup">
                     <div class="modal-body">
                     
                         <div class="form-row pb-2">
                             <label for="validationCustomFN">First name</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder=" Enter First name" required>
+                            <input type="firstName" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
                         </div>
                             
                         <div class="form-row py-2">
                             <label for="validationCustomLN">Last name</label>
-                            <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Last name" required>
+                            <input type="lastName" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
                         </div>
 
                         <div class="form-row py-2">    
                             <label for="validationCustom01">Email</label>
-                            <input type="email" class="form-control" id="validationCustom03" placeholder="Enter Email" required>
+                            <input type="userEmail" name="userEmail" class="form-control" id="userEmail" placeholder="Enter Email" required>
                             <div class="invalid-feedback">
                                 Please enter a valid email.
                             </div>
