@@ -2,14 +2,7 @@
 <html>
   <head>
     <%- include ../views/partials/head.ejs%>
-
-    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
-
-    <!-- <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"
-    ></script> -->
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
     <link
       href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"
       rel="stylesheet"
@@ -17,10 +10,15 @@
     />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <!-- <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"
+    ></script> -->
+    <!-- BACKEND COMMS -->
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <!-- BACKEND COMMS -->
   </head>
 
   <header>
@@ -146,10 +144,12 @@
                 <div class="col-lg-12">
                   <div class="row rounded">
                     <div class="col-lg-12">
-                      <span
-                        >Showing 1-<%= data.length %> of <%= data.length %>
-                        Incidents</span
-                      >
+                      <span id="showingX">Showing 1-</span>
+                      <span class="incidentNumberView"><%= data.length %></span
+                      ><span> of </span
+                      ><span id="totalNumberOfIncidents"
+                        ><%= data.length %></span
+                      ><span> Incidents</span>
                     </div>
                   </div>
                 </div>
@@ -174,24 +174,26 @@
                     <i class="material-icons" style="vertical-align: bottom"
                       >pin_drop</i
                     >
-                    <span style="text-align: left" class="addy">
-                      <%= data[i].LOCATION_NAME %>
-                    </span>
+                    <span style="text-align: left" class="locationCheck"
+                      ><%= data[i].LOCATION_NAME %></span
+                    >
                     <span> |</span>
-                    <span id="zip"> <%= data[i].ZIP_CODE %></span>
+                    <span id="zip" class="zipCheck"
+                      ><%= data[i].ZIP_CODE %></span
+                    >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       today
                     </i>
-                    <span style="text-align: left" class="parseDate">
-                      <%= data[i].REPORTED_DATE_TIME %></span
+                    <span style="text-align: left" class="parseDate"
+                      ><%= data[i].REPORTED_DATE_TIME %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       report
                     </i>
-                    <span style="text-align: left">
-                      <%= data[i].TYPE_NAME %></span
+                    <span style="text-align: left" class="typeCheck"
+                      ><%= data[i].TYPE_NAME %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
@@ -206,9 +208,9 @@
                     <i class="material-icons" style="vertical-align: bottom">
                       comment
                     </i>
-                    <span style="text-align: left">
-                      <%= data[i].DESCRIPTION %>
-                    </span>
+                    <span style="text-align: left"
+                      ><%= data[i].DESCRIPTION %></span
+                    >
                     <span style="float: right">
                       <b>ID:<%= data[i].INCIDENT_ID %></b>
                     </span>
@@ -218,83 +220,6 @@
                 </div>
                 <% } %>
                 <!-- ONE INCIDENT END -->
-
-                <!-- FILTER EX. START-->
-                <div
-                  class="row rounded"
-                  style="border: 3px solid royalblue; margin: 8px"
-                >
-                  <div class="col-lg-12">
-                    <h2>filter example</h2>
-                    <select
-                      id="mylist"
-                      onchange="myFunction()"
-                      class="form-control"
-                    >
-                      <option selected>Filter by Country</option>
-                      <option>Germany</option>
-                      <option>UK</option>
-                      <option>canada</option>
-                    </select>
-                    <table id="myTable">
-                      <tr>
-                        <td>Alfreds Futterkiste</td>
-                        <td>Germany</td>
-                      </tr>
-                      <tr>
-                        <td>Berglunds snabbkop</td>
-                        <td>Sweden</td>
-                      </tr>
-                      <tr>
-                        <td>Island Trading</td>
-                        <td>UK</td>
-                      </tr>
-                      <tr>
-                        <td>Koniglich Essen</td>
-                        <td>Germany</td>
-                      </tr>
-                      <tr>
-                        <td>Laughing Bacchus Winecellars</td>
-                        <td>Canada</td>
-                      </tr>
-                      <tr>
-                        <td>Magazzini Alimentari Riuniti</td>
-                        <td>Italy</td>
-                      </tr>
-                      <tr>
-                        <td>North/South</td>
-                        <td>UK</td>
-                      </tr>
-                      <tr>
-                        <td>Paris specialites</td>
-                        <td>France</td>
-                      </tr>
-                    </table>
-
-                    <script>
-                      function myFunction() {
-                        var input, filter, table, tr, td, i;
-                        input = document.getElementById("mylist");
-                        filter = input.value.toUpperCase();
-                        table = document.getElementById("myTable");
-                        tr = table.getElementsByTagName("tr");
-                        for (i = 0; i < tr.length; i++) {
-                          td = tr[i].getElementsByTagName("td")[1];
-                          if (td) {
-                            if (
-                              td.innerHTML.toUpperCase().indexOf(filter) > -1
-                            ) {
-                              tr[i].style.display = "";
-                            } else {
-                              tr[i].style.display = "none";
-                            }
-                          }
-                        }
-                      }
-                    </script>
-                  </div>
-                </div>
-                <!-- FILTER EX. END -->
               </div>
             </div>
             <!-- MAP START-->
@@ -320,7 +245,7 @@
       }
 
       function geocodeAddress(geocoder, resultsMap) {
-        var address = document.getElementsByClassName("addy");
+        var address = document.getElementsByClassName("locationCheck");
         Array.from(address).forEach(function(item) {
           geocoder.geocode({ address: item.innerText }, function(
             results,
@@ -373,6 +298,7 @@
         var getText = $("#categoryList option:selected").text();
         switch (getText) {
           case "Date":
+            refreshDisplayAll();
             $("#displayStatus").hide();
             $("#displayZip").hide();
             $("#displayType").hide();
@@ -381,12 +307,15 @@
               $("#datepicker").datepicker({
                 onSelect: function() {
                   var dateObject = $(this).datepicker("getDate");
-                  alert(dateObject);
+                  dateObject = dateObject.toString();
+                  dateObject = dateObject.substring(0, 15);
+                  checkFilterMatch(dateObject, "parseDate");
                 }
               });
             });
             break;
           case "Status":
+            refreshDisplayAll();
             $("#displayDate").hide();
             $("#displayZip").hide();
             $("#displayType").hide();
@@ -394,12 +323,12 @@
             $("#displayStatus").slideDown("fast", function() {
               $("#statusChildList").change(function() {
                 var getText = $("#statusChildList option:selected").text();
-
-                checkFilterMatch(getText, 5);
+                checkFilterMatch(getText, "statusCheck");
               });
             });
             break;
           case "Zip":
+            refreshDisplayAll();
             $("#displayDate").hide();
             $("#displayStatus").hide();
             $("#displayType").hide();
@@ -407,11 +336,12 @@
             $("#displayZip").slideDown("fast", function() {
               $("#zipChildList").change(function() {
                 var getText = $("#zipChildList option:selected").text();
-                alert(getText);
+                checkFilterMatch(getText, "zipCheck");
               });
             });
             break;
           case "Type":
+            refreshDisplayAll();
             $("#displayDate").hide();
             $("#displayStatus").hide();
             $("#displayZip").hide();
@@ -419,11 +349,12 @@
             $("#displayType").slideDown("fast", function() {
               $("#typeChildList").change(function() {
                 var getText = $("#typeChildList option:selected").text();
-                alert(getText);
+                checkFilterMatch(getText, "typeCheck");
               });
             });
             break;
           case "Location":
+            refreshDisplayAll();
             $("#displayType").hide();
             $("#displayDate").hide();
             $("#displayStatus").hide();
@@ -431,11 +362,12 @@
             $("#displayLocation").slideDown("fast", function() {
               $("#locationChildList").change(function() {
                 var getText = $("#locationChildList option:selected").text();
-                alert(getText);
+                checkFilterMatch(getText, "locationCheck");
               });
             });
             break;
           case "Filter by category":
+            refreshDisplayAll();
             $("#displayType").hide();
             $("#displayDate").hide();
             $("#displayStatus").hide();
@@ -445,67 +377,45 @@
         }
       });
 
-      function runFilter(index) {
-        let dropDownList, cardElements, i;
-        let cardView = document.getElementsByClassName("cardView")[index];
-        cardView.style.display = "";
+      function checkFilterMatch(value, className) {
+        let incidentNumberView = 0;
+        let cardView = document.getElementsByClassName("cardView");
+        for (let i = 0; i < cardView.length; i++) {
+          let textPerCard = cardView[i].lastElementChild.getElementsByClassName(
+            className
+          )[0].innerText;
+          if (value == textPerCard) {
+            incidentNumberView++;
+            cardView[i].style.display = "";
+            document.getElementsByClassName(
+              "incidentNumberView"
+            )[0].innerText = incidentNumberView;
+          } else {
+            if (incidentNumberView == 0) {
+              document.getElementsByClassName(
+                "incidentNumberView"
+              )[0].innerText = incidentNumberView;
+            }
+            cardView[i].style.display = "none";
+          }
+        }
       }
 
-      function checkFilterMatch(value, spanIndex) {
-        let cardView = document.getElementsByClassName("cardView");
-
-        Array.from(cardView).forEach(function(item) {
-          for (let i = 0; i < cardView.length; i) {
-            let status = cardView[i].getElementsByTagName("span")[spanIndex];
-            // if (status) {
-            //   if (status.innerText.toUpperCase().indexOf(i) > -1) {
-            //     status.style.display = "";
-            //   } else {
-            //     status.style.display = "none";
-            //   }
-            // }
+      function refreshDisplayAll() {
+        document.getElementsByClassName(
+          "incidentNumberView"
+        )[0].innerText = document.getElementById(
+          "totalNumberOfIncidents"
+        ).innerText;
+        Array.from(document.getElementsByClassName("cardView")).forEach(
+          function(item) {
+            item.style.display = "";
           }
-        });
+        );
       }
     </script>
-    <!-- <div class="container">
-      <div class="results">
-        <table class="table-dark">
-          <thead>
-            <tr>
-              <th>Incident ID</th>
-              <th>Description</th>
-              <th>Reported on</th>
-              <th>Incident Type</th>
-              <th>Status</th>
-              <th>Location</th>
-              <th>Zip Code</th>
-              <th>IMAGE</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% for(var i=0; i < data.length; i++) { %>
-            <tr>
-              <td><%= data[i].INCIDENT_ID %></td>
-              <td><%= data[i].DESCRIPTION %></td>
-              <td><%= data[i].REPORTED_DATE_TIME %></td>
-              <td><%= data[i].TYPE_NAME %></td>
-              <td><%= data[i].STATUS_NAME %></td>
-              <td><%= data[i].LOCATION_NAME %></td>
-              <td><%= data[i].ZIP_CODE %></td>
-              <td>
-                <img
-                  class="pic-size2"
-                  src="data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>"
-                />
-              </td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-      end results div
-    </div> -->
+    <footer>
+      <!-- <%-include ../views/partials/footer.ejs%> -->
+    </footer>
   </body>
 </html>
