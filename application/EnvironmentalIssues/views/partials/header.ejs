@@ -1,3 +1,4 @@
+<p>SFSU Software Engineering Project CSC 648-848, Summer 2019. For Demonstration Only</p>
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">EnvironMate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -5,28 +6,26 @@
             </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="input-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span id="search_concept">Filter by</span>
-                                </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">type</a></li>
-                <li><a href="#">keyword</a></li>
-                <li><a href="#">zipode</a></li>
-                <li class="divider"></li>
-                <li><a href="#">all</a></li>
-            </ul>
-            <input type="hidden" name="search_param" value="all" id="search_param">
-            <input type="text" class="form-control" name="x" placeholder="Search term...">
-            <button type="button" class="btn btn-success">
-                             Search
-                          </button>
-        </div>
+        <form name="search" action="/results" class="nav-search-bar">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <select name="search_field" required>
+                        <option value="ALL">ALL</option>
+                        <option value="ZIP">ZIP CODE</option>
+                        <option value="STATUS">STATUS</option>
+                        <option value="TYPE">TYPE</option>
+                    </select>
+                </div>
+                <input name="search_text" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search" maxlength="20">
+                <div class="input-group-append">
+                    <input class="btn btn-success" type="submit" value="Search"></div>
+            </div>
+        </form>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/post">Post Incident</a>
+                <a class="nav-link" href="/incidents/report">Post Incident</a>
             </li>
             <!-- Button trigger for log in -->
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginPopup">
