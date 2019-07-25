@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 'use strict';
 
 module.exports = (sequelize, type) => {
-    return sequelize.define('users', {
+    const users = sequelize.define('users', {
         userId: {
             type: type.INTEGER,
             allowNull: false,
@@ -66,14 +66,11 @@ module.exports = (sequelize, type) => {
                 });
                 }
             }
-        },
+        }
     );
-    users.prototype.comparePassword = async function(password) {
-        return await bcrypt.compare(password, this.password);
-    },
+    users.prototype.comparePassword = function(password) {
+        return bcrypt.compareSync(password, this.password);
+    };
 
-    users.associate = (models) => {
-        User.hasMany(models.Message);
-        User.hasMany(models.gamesessions);
-    }
+    return users;
 };

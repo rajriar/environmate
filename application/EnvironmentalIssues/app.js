@@ -9,7 +9,6 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var env = require('dotenv').config();
 var expressHandlebars = require('express-handlebars');
 
 var indexRouter = require('./routes/index.js');
@@ -42,6 +41,10 @@ app.use('/incidents',incidentpost);
 app.use('/signup', signupRoute);
 app.use('/login', loginRouter);
 
+app.get('*', function(req, res) {
+    res.redirect('/')
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
@@ -57,10 +60,5 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-//Passport
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 module.exports = app;
