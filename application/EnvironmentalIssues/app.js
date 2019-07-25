@@ -6,7 +6,6 @@ var bodyParser = require("body-parser");
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 
-var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var expressHandlebars = require('express-handlebars');
@@ -41,9 +40,16 @@ app.use('/incidents',incidentpost);
 app.use('/signup', signupRoute);
 app.use('/login', loginRouter);
 
-app.get('*', function(req, res) {
-    res.redirect('/')
-});
+app.use(function(req, res, next) {
+    let cookie = req.cookies.cookieName;
+    if(!cookie) {
+        let newCookie = new Date().getTime().toString();
+        res.cookie('cookieName', newCookie);
+        res.cookies.cookieName = newCookie;
+    }
+    console.log('cookie', cookie);
+    next();
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

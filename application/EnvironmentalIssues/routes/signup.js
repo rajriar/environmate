@@ -55,15 +55,9 @@ router.post("/", (req, res, next) => {
             return user;
         })
     return res.status(200).json({ result: "Account created." });
+    // return res.redirect('index');
     })
 
 });
-
-// convertSequilizeToObject = sequelizeResp => {
-//     var replacer = app.get("json replacer");
-//     var spaces = app.get("json spaces");
-//     var body = JSON.stringify(sequelizeResp, replacer, spaces);
-//     return JSON.parse(body);
-// };
   
 module.exports = router;
