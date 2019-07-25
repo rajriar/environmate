@@ -5,24 +5,6 @@ router.use(express.json());
 
 const models = require('../Models');
 
-// router.post('/login', (req, res) => {
-//     console.log('req.body');
-//     console.log(req.body);
-//     models.users.findOne({
-//       where: {
-//         userid: req.body.userid
-//       }
-//     }).then(async (user) => {
-//       if (!user && !await user.comparePassword(req.body.password)) {
-//         res.status(401).json({ token: null, errorMessage: 'failed!' })
-//       } else {
-//         console.log(user.dataValues);
-//         console.log("logged in");
-//         res.send(user.dataValues);
-//       }
-//     });
-// });
-
 router.post("/", (req, res, next) => {
     console.log('req.body');
     console.log(req.body);
@@ -55,7 +37,6 @@ router.post("/", (req, res, next) => {
             return user;
         })
     return res.status(200).json({ result: "Account created." });
-    // return res.redirect('index');
     })
 
 });
