@@ -44,5 +44,6 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'incidents',
 		timestamps : false
+		
 	});
 };
