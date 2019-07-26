@@ -68,6 +68,11 @@ html {
     size: 50px;
 }
 
-.post-span-button{
+.post-span-button {
     float: right;
+}
+
+.nav-search-bar {
+    margin-left: 50%;
+    margin-top: 10px;
 }
