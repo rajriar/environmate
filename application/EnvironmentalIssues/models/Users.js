@@ -50,6 +50,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ID_ROLE'
 		}
 	}, {
-		tableName: 'users'
+		tableName: 'users',
+		timestamps: false
 	});
 };

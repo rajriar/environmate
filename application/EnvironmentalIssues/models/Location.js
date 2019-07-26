@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ID_ZIP_CODE'
 		}
 	}, {
-		tableName: 'location'
+		tableName: 'location',
+		timestamps: false
 	});
 };

@@ -13,7 +13,46 @@ const ARCHIVED_STATUS = 4;
 // TODO match fields from db
 // get report incident page
 router.get('/report', function (req, res, next) {
-  res.render('../views/incidents/report', { title: 'Post report an incident.' })
+  let _zipcodes      = [];
+  let _locations     = [];
+  let _incidentTypes = [];
+  let _status        = [];
+  
+  models.zipCodes.findAll()
+  .then( results => {
+    results.forEach((zipcode) => {
+      _zipcodes.push(zipcode.dataValues);
+    });
+    return models.location.findAll()
+  })
+  .then( results => {
+    results.forEach((location) => {
+      _locations.push(location.dataValues);
+    });
+    return models.incidentType.findAll();
+  })
+  .then( results => {
+    results.forEach((incidentType) => {
+      _incidentTypes.push(incidentType.dataValues);
+    });
+    return models.incidentType.findAll();
+  })
+  .then(results => {
+    results.forEach((incidentStatus) => {
+      _status.push(incidentStatus.dataValues);
+    });
+  }).then( () => {
+    console.log(_zipcodes, _locations, _incidentTypes)
+
+    res.render('../views/incidents/report', { 
+      title: 'Post an incident.',
+      zipcodes: _zipcodes,
+      locations: _locations,
+      incidentTypes: _incidentTypes,
+      status: _status
+    })
+  })
+  
 });
 
 // TODO map fields to
@@ -47,7 +86,6 @@ router.post('/report', function(req, res,next) {
       });
     });
     
-
 });
 
 // Request to update an incident     
