@@ -10,7 +10,13 @@ const ADMIN = 2;
 const RESOLVED_STATUS = 3;
 const ARCHIVED_STATUS = 4;
 
+// TODO match fields from db
+// get report incident page
+router.get('/report', function (req, res, next) {
+  res.render('../views/incidents/report', { title: 'Post report an incident.' })
+});
 
+// TODO map fields to
 // Request to create new incidents
 router.post('/report', function(req, res,next) {
 
