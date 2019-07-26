@@ -122,7 +122,7 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
 
 
 
-// Request to archive an incident by admin
+// Request to archive an incident only by admin
 router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
   //console.log('req.params');
   //console.log(req.params.incidentId);
