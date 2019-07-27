@@ -13,8 +13,6 @@
       crossorigin="anonymous"
     />
 
-
-    
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -61,8 +59,7 @@
                 class="form-control"
                 name="firstName"
                 required
-                maxlength="40"
-                minlength="1"
+                pattern="[A-Za-z]{1,40}"
               />
               <div class="invalid-feedback">
                 First name is required.
@@ -77,8 +74,7 @@
                 class="form-control"
                 name="lastName"
                 required
-                maxlength="40"
-                minlength="1"
+                pattern="[A-Za-z]{1,40}"
               />
               <div class="invalid-feedback">
                 Last name is required.
