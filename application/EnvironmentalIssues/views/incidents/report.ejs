@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include ../partials/head.ejs%>
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"
+        type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    
+    <!-- BACKEND COMMS -->
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <!-- BACKEND COMMS -->
+</head>
+
+<header>
+    <% include ../partials/header.ejs%>
+</header>
+
+<body>
+
+    <form method="POST" action="/incidents/report" enctype="multipart/form-data">
+    <div class="container container-fluid">
+        <div class="card card-center">
+            <div class="col-md-12 text-md-center">
+                <h1>Post Incident</h1>
+            </div>
+            <div></div>
+
+            <div class="card-body">
+                <label class="control-label">
+                    <h5>Zipcode </h5>
+                </label>
+                <select class="form-control" id="zipcodeSelect" name="zipcode" onchange="updateLocations()" required>
+                    <option value="" disabled selected>Select a zipcode</option>
+                    <% zipcodes.forEach( (zipcode) => { %>
+                    <option value="<%= zipcode.zipId %>"><%= zipcode.zipCode %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="card-body" id="locationCard" style="display: none;">
+                <label class="control-label">
+                    <h5>Location </h5>
+                </label>
+                <select class="form-control" id="locationSelect" name="location" required>
+                    <option disable value="" selected>Select location</option>
+                    <% locations.forEach( (location) => { %>
+                        <option value="<%=JSON.stringify(location)%>"><%= location.locationName %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="card-body">
+                <label class="control-label">
+                    <h5>Incident type</h5>
+                </label>
+                <select class="form-control" id="incidentTypesSelect" name="idType" required>
+                    <option disable value="" selected>Select incident type</option>
+                    <% incidentTypes.forEach( (incident) => { %>
+                    <option value="<%-incident.typeId%>"><%= incident.typeName%></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="card-body container-fluid">
+                <label>
+                    <h5>Description</h5>
+                </label>
+                <textarea class="form-control" name="description" rows="3" 
+                placeholder="Precise descriptions can help speed up process..."></textarea>
+            </div>    
+            
+
+            <div class="card-body container-fluid">
+             
+                    <label>
+                        <h5>Upload a pic</h5>
+                    </label>
+                    <div>
+                        <input type="file" name="pic" accept="image/*" onchange="viewImg(this);" required>
+                        <div class="col-lg-4" id="incidentPicture">
+                            <br />
+                            <img id="inputImage" src="#" alt="..." class="img-thumbnail  m-1"
+                                style="width: max-content; height: inherit" />
+                        </div>
+                    </div>               
+                
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-default btn-md center-block" href="/" Style="width: 100px;">Cancel</a>
+                    <button class="btn btn-primary btn-md center-block" type="submit" Style="width: 100px;">Post</button>           
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    </form>
+
+    <!-- ========= Script =========-->
+    <script>
+        
+        // calls when selected zipcode change
+        var updateLocations = () => {
+            let locationCard   = $('#locationCard');
+            let zipcodeId      = $('#zipcodeSelect option:selected')[0].value;
+            let locations      = $('#locationSelect')[0];
+
+            // hide all locations that does not belong 
+            // to the selected zipcode
+            for (let i = 1; i < locations.length; i++) {
+                let location = locations[i];
+                let locationObj = JSON.parse(location.value);
+
+                if (locationObj.ID_ZIP_CODE != zipcodeId) {
+                    location.style.display = "none";
+                } else {
+                    location.style.display = "block";
+                }
+            }
+
+            if (zipcodeId != '') {
+                locationCard.show();
+            }
+
+            locations.selectedIndex = 0;
+        } 
+        
+
+        // preview the uploaded image
+        var viewImg = (input) => {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#inputImage')
+                        .attr('src', e.target.result)
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+    </script>
+
+
+
+</body>
+
+</html>
