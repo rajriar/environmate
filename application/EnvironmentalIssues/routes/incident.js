@@ -68,7 +68,7 @@ router.get('/report', function (req, res, next) {
 router.post('/report', upload.single('pic') ,function(req, res,next) {
 
   const base64encodedImg = req.file.buffer.toString('base64'); 
-  const userId           = 1; // TODO set appropriately
+  const userId           = req.cookies.user.id;
   const locationObj      = JSON.parse(req.body.location);
 
   // create an incident 
