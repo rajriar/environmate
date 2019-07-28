@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-const models = require('../Models');
+const models = require('../models');
 
 router.post("/", (req, res, next) => {
     console.log('req.body');
@@ -33,10 +33,13 @@ router.post("/", (req, res, next) => {
             idRole: "1"
         }).then(user => {
             console.log("User ID: ", user.userId);
+            return res.status(200).json({ result: "Account created." });
             //res.send(req.body)
             return user;
+        }).catch((error) => {
+            console.log("Error creating a user. Details: ", error)
         })
-    return res.status(200).json({ result: "Account created." });
+
     })
 
 });

@@ -59,7 +59,7 @@ module.exports = (sequelize, type) => {
                     return bcrypt.hash(user.password, 10)
                         .then(hash => {
                         user.password = hash;
-                        console.log(user.password);
+                        console.log("User Password: ", user.password);
                     })
                 .catch(err => { 
                     throw new Error(); 

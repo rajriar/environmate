@@ -6,15 +6,15 @@ var app = express();
 router.use(express.json());
 app.use(cookieParser);
 
-const models = require('../Models');
+const models = require('../models');
 
 router.use(function (req, res, next) {
-  let cookieName = req.cookies.cookieName;
-  if(!cookieName) {
-    let newCookie = Math.random().toString();
-    res.cookie('cookieName', newCookie);
-  }
-  console.log("cooke: " + cookieName);
+  // let cookieName = req.cookies.cookieName;
+  // if(!cookieName) {
+  //   let newCookie = Math.random().toString();
+  //   res.cookie('cookieName', newCookie);
+  // }
+  // console.log("cooke: " + cookieName);
   next();
 })
 
@@ -31,12 +31,20 @@ router.post('/', (req, res, next) => {
       if (!user.comparePassword(req.body.password) || user == null) {
         res.status(401).json({ token: null, errorMessage: 'failed!' })
       } else {
-        console.log(user.dataValues);
-        console.log("logged in");
+        res.cookie('user', {
+          firstName   : user.firstName,
+          lastName    : user.lastName,
+          email       : user.userEmail,
+          id          : user.userId,
+          dateOfBirth : user.dateOfBirth,
+          role        : user.idRole
+        });
+        
+        console.log("logged in as: ", user.dataValues);
       }
+      
       return res.status(200).json("result: logged in as " + user.userEmail);
-      }
-    );
+    });
 });
 
 module.exports = router;
