@@ -56,4 +56,18 @@ router.post('/carlosConfirm', (req, res) => {
 
 
 
+
+// -------------------Angie Cruz Martinez------------------
+
+router.get('/acmartinez', function(req, res) {  res.render('about/forms/acmartinez');});
+router.get('/acmconfirm', function(req, res) {  res.render('about/forms/acmconfirm');});
+router.post('/acmconfirm', function(req, res){  res.render('about/forms/acmconfirm', {data: req.body});});
+
+// -------------------Angie Cruz Martinez------------------
+
+
+
+
+
 module.exports = router;
+

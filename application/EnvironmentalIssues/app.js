@@ -6,11 +6,17 @@ var bodyParser = require("body-parser");
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var expressHandlebars = require('express-handlebars');
+
 var indexRouter = require('./routes/index.js');
 var usersRouter = require('./routes/users.js');
 var aboutRoute = require('./routes/about.js');
 var formRoute = require('./routes/forms.js');
 var incidentpost = require('./routes/incident.js');
+var signupRoute = require('./routes/signup.js');
+var loginRouter = require('./routes/login.js');
 
 var app = express();
 
@@ -26,14 +32,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/about', aboutRoute);
 app.use('/about/forms', formRoute);
 app.use('/incidents',incidentpost);
-
+app.use('/signup', signupRoute);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

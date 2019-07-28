@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ZIP_CODE'
 		}
 	}, {
-		tableName: 'zip_codes'
+		tableName: 'zip_codes',
+		timestamps: false
 	});
 };

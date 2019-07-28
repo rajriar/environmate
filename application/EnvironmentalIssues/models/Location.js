@@ -21,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
 		// 	field: 'ID_ZIP_CODE'
 		// }
 	}, {
-		tableName: 'location'
+		tableName: 'location',
+		timestamps: false
 	});
 	
 	/*
@@ -32,12 +33,10 @@ module.exports = function(sequelize, DataTypes) {
 
 	 */ 
 	location.associate = (models)=>{
-		// location.belongsTo(models.zipCodes,{ //this defaults to assigning the primary key of the table to the field
-		// 	as: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
-		// });
 
-		models.location.hasOne(models.incidents,{
-			as: 'Incident'
+		location.belongsTo(models.zipCodes,{ //this defaults to assigning the primary key of the table to the field
+			foreignKey: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
+
 		});
 
 

@@ -7,6 +7,7 @@ router.use('/about', require('./about.js'));
 router.use('/about/forms', require('./forms.js'));
 router.use('/users', require('./users.js'));
 router.use('/profile',require('./profile.js'));
+//router.use('/signup',require('./signup.js'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
