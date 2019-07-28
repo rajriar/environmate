@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Registration Form</title>
+  </head>
+  <body>
+<!--     <div class= "container-fluid"> -->
+    <p style ="text-align: center; color: white; border: 2px solid rgb(0, 123, 255); background-color: rgb(0, 123, 255);"><small>CSC 642 Summer 2019 Individual Assignment Angie Cruz Martinez</small></p>
+<!--     </div>   -->
+
+    <div class="container-fluid my-3" style="text-align: center; ">
+      <h1>Registration Form</h1>
+      <p> * denotes required fields</p>      
+    </div>  
+    <div class="container-fluid">
+      <form class="needs-validation" novalidate action="/about/forms/acmconfirm" method="POST" >
+
+        <div class="form-row">
+          <div class="col-md-6 mb-4">
+            <label for="first_name">First name *</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="40" required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              Please provide your first name.
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <label for="last_name">Last name *</label>
+            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" maxlength="40"required>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              Please provide your last name.
+            </div>
+          </div>
+        </div>
+        <div class="form row">
+          <div class="col-md-12 mb-4">
+            <label for="address">Address *</label>
+            <input type="text" class="form-control" name="address" id="address" placeholder="100 Park Ave." maxlength = 40 required>
+            <div class="invalid-feedback">
+              Please provide an address.
+            </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-4">
+            <label for="city">City *</label>
+            <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <label for="state">State *</label>
+            <input type="text" class="form-control" name ="state" id="state" placeholder="State" required>
+            <div class="invalid-feedback">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <label for="zipcode">Zip *</label>
+            <input type="zip" class="form-control" name="zipcode" id="zipcode" pattern=[0-9]{5} placeholder="ex. 12345" maxlength="5" required>
+            <div class="invalid-feedback">
+              Please provide a valid zip, 5 digits (ex. 12345).
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-4">
+            <label for="phone_num">Phone Number *</label>
+            <input type="tel" class="form-control" name="phone_num"id="phone_num" pattern=[0-9]{3}-[0-9]{4} placeholder="ex. 123-4567" maxlength="8" required>
+            <div class="invalid-feedback">
+              Please provide a valid phone number, 7 digits with dash (ex. 123-4567).
+          </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <label for="education">Education</label>
+            <select class="custom-select" name="education">
+              <option value="None Selected">Choose One</option>
+              <option value="High School">High School</option>
+              <option value="College">College</option>
+              <option value="Graduate">Graduate Studies</option>
+              <option value="">Ph.D</option>
+            </select>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+          </div>  
+          <div class="col-md-4 mb-4">
+            <label for="income" >Annual Income</label>
+            <select class="custom-select" name="income">
+              <option value="None Selected">Choose One</option>
+              <option value="Less than $50,000">Less than $50,000</option>
+              <option value="$50,000 - $100,000">$50,000 - $100,000</option>
+              <option value="Above $100,000">Above $100,000</option>
+            </select>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+          </div> 
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-4">
+            <label for="first_name">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Email" maxlength="40">
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <label for="last_name">Confirm Email</label>
+            <input type="email" class="form-control" id="confirm_email" placeholder="Confirm your email" maxlength="40">
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              Agree to terms and conditions *
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+    </div>  
+
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
