@@ -21,6 +21,13 @@ router.get('/report', function (req, res, next) {
   let _incidentTypes = [];
   let _status        = [];
   
+  if(!req.cookies.user){
+    // Todo handle unregistered user
+    res.send({
+      msg: "Login to access this page if your a member. Otherwise join by signing up."
+    });
+  }
+
   // fetch necessary stuff from db
   models.zipCodes.findAll()
   .then( results => {
