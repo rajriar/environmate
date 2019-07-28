@@ -99,7 +99,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
       // console.log(bufferBase64);
 
-      return models.image.create({ image: req.body.base64Image, idIncident: id.incidentId });
+      return models.image.create({ image: base64encodedImg, idIncident: id.incidentId });
     })
     //send response with all details of the incident
     .then((img) => {
