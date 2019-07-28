@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 	 */ 
 	location.associate = (models)=>{
 		location.belongsTo(models.zipCodes,{ //this defaults to assigning the primary key of the table to the field
-			as: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
+			foreignKey: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
 		});
 	}
 	return location; //this is returning the object AFTER the associations are built so it's important to return here
