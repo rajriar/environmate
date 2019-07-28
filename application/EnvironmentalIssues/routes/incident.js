@@ -1,5 +1,7 @@
 //const db = require('./dbConnection');
 //const fs = require('fs');
+const multer = require('multer')
+const upload = multer({})
 
 const express = require("express");
 const router = express.Router();
@@ -7,48 +9,103 @@ router.use(express.json());
 
 const models = require('../models');
 const ADMIN = 2;
+const RECEIVED_STATUS = 1;
 const RESOLVED_STATUS = 3;
 const ARCHIVED_STATUS = 4;
 
-// TODO match fields from db
-// get report incident page
+
+// request to get report incident page
 router.get('/report', function (req, res, next) {
-  res.render('../views/incidents/report', { title: 'Post report an incident.' })
+  let _zipcodes      = [];
+  let _locations     = [];
+  let _incidentTypes = [];
+  let _status        = [];
+  
+  // fetch necessary stuff from db
+  models.zipCodes.findAll()
+  .then( results => {
+    results.forEach((zipcode) => {
+      _zipcodes.push(zipcode.dataValues);
+    });
+    return models.location.findAll()
+  })
+  .then( results => {
+    results.forEach((location) => {
+      _locations.push(location.dataValues);
+    });
+    return models.incidentType.findAll();
+  })
+  .then( results => {
+    results.forEach((incidentType) => {
+      _incidentTypes.push(incidentType.dataValues);
+    });
+    return models.incidentType.findAll();
+  })
+  .then(results => {
+    results.forEach((incidentStatus) => {
+      _status.push(incidentStatus.dataValues);
+    });
+  }).then( () => {
+
+    res.render('../views/incidents/report', { 
+      title         : 'Post an incident.',
+      zipcodes      : _zipcodes,
+      locations     : _locations,
+      incidentTypes : _incidentTypes,
+      status        : _status
+    })
+  }).catch( (err) => {
+    console.log(`Error fetching data for report page. Details: ${err}`)
+    res.send({
+      msg: "Error getting data. Try reload."
+    });
+  })
+  
 });
 
-// TODO map fields to
-// Request to create new incidents
-router.post('/report', function(req, res,next) {
 
-  console.log('req.body');
-  console.log(req.body);
+// Request to create new incidents
+router.post('/report', upload.single('pic') ,function(req, res,next) {
+
+  const base64encodedImg = req.file.buffer.toString('base64'); 
+  const userId           = 1; // TODO set appropriately
+  const locationObj      = JSON.parse(req.body.location);
+
   // create an incident 
-  models.incidents.create({ idType: req.body.idType, idLocation: req.body.idLocation , description:req.body.description, 
-      idUser:req.body.idUser, idStatus:req.body.idStatus,reportedDateTime:new Date()}).then(incident => {
+  models.incidents.create({ 
+    idType           : req.body.idType, 
+    idLocation       : locationObj.locationId , 
+    description      : req.body.description, 
+    idUser           : userId, 
+    idStatus         : RECEIVED_STATUS,
+    reportedDateTime : new Date()
+  })
+  .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
       return incident;  
-    })
-    // add the image of the incident to images folder
-    .then((id) => {
+  })
+  // add the image of the incident to images folder
+  .then((id) => {
       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
       // console.log(imageData);
       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
       // console.log(bufferBase64);
-      return models.image.create({image : req.body.base64Image , idIncident:id.incidentId});
-    })
-    .then((img)=> {
+      return models.image.create({ image: base64encodedImg , idIncident:id.incidentId});
+  })
+  .then((img)=> {
+        // TODO use next() -- figure out where to go after creation
         res.send({"incident ID":img.idIncident});
-    })
-    //catch statement for debugging
-    .catch(function(err) {
-      console.log(`Something bad happened: ${err}`);
-      res.json({
-        createIncident: "failed to create incident"
-      });
+  })
+  //catch statement for debugging
+  .catch(function(err) {
+    console.log(`Something bad happened: ${err}`);
+    res.json({
+      createIncident: "failed to create incident"
     });
+  });
     
-
 });
+
 
 // Request to update an incident     
 //change it to post
