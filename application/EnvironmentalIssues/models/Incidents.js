@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('incidents', {
+	const incidents =  sequelize.define('incidents', {
 		incidentId: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -14,11 +14,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			field: 'ID_TYPE'
 		},
-		idLocation: {
-			type: DataTypes.INTEGER(11),
-			allowNull: false,
-			field: 'ID_LOCATION'
-		},
+		// idLocation: {
+		// 	type: DataTypes.INTEGER(11),
+		// 	allowNull: false,
+		// 	field: 'ID_LOCATION'
+		// },
 		description: {
 			type: DataTypes.STRING(200),
 			allowNull: false,
@@ -43,6 +43,16 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	}, {
 		tableName: 'incidents',
-		timestamps : false
+		createdAt: false, 
+		updatedAt: false
 	});
+	
+	incidents.associate = (models)=>{
+		models.incidents.belongsTo(models.location,{
+			as: 'ID_LOCATION',
+			foreignKey: 'ID_LOCATION'
+		});
+	}
+
+	return incidents;
 };

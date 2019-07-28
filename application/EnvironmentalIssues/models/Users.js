@@ -50,6 +50,8 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ID_ROLE'
 		}
 	}, {
-		tableName: 'users'
+		tableName: 'users',
+		createdAt: false, //adds column for entry timestamp automatically
+		updatedAt: false
 	});
 };

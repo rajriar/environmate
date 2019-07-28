@@ -15,6 +15,8 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'TYPE_NAME'
 		}
 	}, {
-		tableName: 'incident_type'
+		tableName: 'incident_type',
+		createdAt: false, 
+		updatedAt: false
 	});
 };

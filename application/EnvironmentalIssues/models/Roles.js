@@ -15,6 +15,8 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'ROLE_NAME'
 		}
 	}, {
-		tableName: 'roles'
+		tableName: 'roles',
+		createdAt: false, 
+		updatedAt: false
 	});
 };

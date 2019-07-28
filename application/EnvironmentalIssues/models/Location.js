@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			field: 'LOCATION_NAME'
 		}
-		// is removed due to the association below.
+		//is removed due to the association below.
 		// idZipCode: {
 		// 	type: DataTypes.INTEGER(11),
 		// 	allowNull: false,
@@ -32,9 +32,16 @@ module.exports = function(sequelize, DataTypes) {
 
 	 */ 
 	location.associate = (models)=>{
-		location.belongsTo(models.zipCodes,{ //this defaults to assigning the primary key of the table to the field
-			as: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
+		// location.belongsTo(models.zipCodes,{ //this defaults to assigning the primary key of the table to the field
+		// 	as: 'ID_ZIP_CODE' //this is the name of the field the primary key will be assigned to. 
+		// });
+
+		models.location.hasOne(models.incidents,{
+			as: 'Incident'
 		});
+
+
+
 	}
 	return location; //this is returning the object AFTER the associations are built so it's important to return here
 };
