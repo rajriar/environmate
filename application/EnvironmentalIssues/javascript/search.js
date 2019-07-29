@@ -1,8 +1,7 @@
-
+const db = require('./dbConnection');
 
 var find = function(request, callback) {
-    
-    const db = require('./dbConnection');
+
 
     //BASE QUERY JOINS ALL "FOREIGN KEY TABLES AND DISPLAYS ALL RESULTS"
     var sql = "SELECT i.INCIDENT_ID, i.DESCRIPTION, i.REPORTED_DATE_TIME," + //GRABS INFO STORED IN INCIDENT TABLE
@@ -33,14 +32,9 @@ var find = function(request, callback) {
 
         }
     });
-    db.end();
-}
 
-var close = function(request) {
-    db.end();
 }
 
 module.exports = {
-    find: find,
-    close: close
-};
+    find: find
+}
