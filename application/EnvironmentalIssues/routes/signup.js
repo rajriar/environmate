@@ -13,8 +13,8 @@ router.post("/", (req, res, next) => {
       where: {
         userEmail: req.body.userEmail
       }
-    }).then(user => {
-  
+    }).then(async user => {
+        
         // if email is already being used
         if (user) {
             return res.status(400).json({ result: "Email in use." });
@@ -28,11 +28,10 @@ router.post("/", (req, res, next) => {
             lastName: req.body.lastName,
             //dateOfBirth: req.body.dateOfBirth,
             dateOfBirth: new Date(),
-            signupDate: new Date(),
-            inactive: false,
-            idRole: "1"
+            inactive: false
         }).then(user => {
             console.log("User ID: ", user.userId);
+            users.setName
             return res.status(200).json({ result: "Account created." });
             //res.send(req.body)
             return user;
