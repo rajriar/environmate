@@ -7,18 +7,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'IMAGE_ID'
+			//field: 'IMAGE_ID'
+			
 		},
 		image: {
 			type: DataTypes.TEXT,
 			allowNull: true,
-			field: 'IMAGE'
+			//field: 'IMAGE'
+			
 		},
-		idIncident: {
-			type: DataTypes.INTEGER(11),
-			allowNull: false,
-			field: 'ID_INCIDENT'
-		}
 	}, {
 		tableName: 'image',
 		timestamps : false
