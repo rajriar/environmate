@@ -17,6 +17,5 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'incident_status',
 		timestamps: false
-
 	});
 };

@@ -39,6 +39,7 @@ router.get('/report', function (req, res, next) {
   })
   .then( results => {
     results.forEach((location) => {
+      console.log(location.dataValues);
       _locations.push(location.dataValues);
     });
     return models.incidentType.findAll();
@@ -74,6 +75,7 @@ router.get('/report', function (req, res, next) {
 
 // Request to create new incidents
 router.post('/report', upload.single('pic') ,function(req, res,next) {
+  console.log(req.body);
 
   const base64encodedImg = req.file.buffer.toString('base64'); 
   const userId           = req.cookies.user.id;
@@ -296,6 +298,25 @@ router.get('/view/:incidentId', function (req, res) {
         console.log(incidentResponse);
         res.json({ incidentResponse });
       })
+  })
+  .catch(function (err) {
+    // catch statement for debugging
+    console.log(`Something bad happened: ${err}`);
+    res.json({
+      viewIncident: `${err}`
+    });
+  });
+});
+
+
+
+
+router.get('/see', function (req, res) {
+  const incident_id = parseInt(req.params.incidentId);
+  models.incidents.sync({ force: true });
+  models.incidentType.gettypes().then(incidents => {
+    // tasks with an id greater than 10 :)
+    console.log(incidents);
   })
   .catch(function (err) {
     // catch statement for debugging

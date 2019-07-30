@@ -21,7 +21,6 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	}, {
 		tableName: 'image',
-		createdAt: false, 
-		updatedAt: false
+		timestamps : false
 	});
 };
