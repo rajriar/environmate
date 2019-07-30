@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require("body-parser");
 var logger = require('morgan');
 var expressValidator = require('express-validator');
-
+var sequelize = require('sequelize');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var expressHandlebars = require('express-handlebars');

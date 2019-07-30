@@ -95,13 +95,15 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       return incident;  
   })
   // add the image of the incident to images folder
-  .then((id) => {
+  .then(async (id) => {
+      console.log(id);
       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
       // console.log(imageData);
       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
       // console.log(bufferBase64);
 
-      return models.image.create({ image: base64encodedImg, idIncident: id.incidentId });
+      var image = await models.image.create({ image: base64encodedImg});
+      image.setIncidentID(id.incidentId);
     })
     //send response with all details of the incident
     .then((img) => {

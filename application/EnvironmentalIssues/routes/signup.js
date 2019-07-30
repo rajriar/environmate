@@ -31,7 +31,7 @@ router.post("/", (req, res, next) => {
             inactive: false
         }).then(user => {
             console.log("User ID: ", user.userId);
-            users.setRole('1');
+            user.setRole('1');
             return res.status(200).json({ result: "Account created." });
             //res.send(req.body)
             return user;

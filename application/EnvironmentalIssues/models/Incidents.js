@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
 		});
 
 		incidents.hasOne(models.image,{ 
-			as: 'Image' ,
+			as: 'IncidentID' ,
 			through: 'IncidentsImages'
 		});
 	}
