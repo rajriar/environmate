@@ -67,11 +67,11 @@ module.exports = (sequelize, type) => {
     );
     (users.prototype.comparePassword = function(password) {
         return bcrypt.compareSync(password, this.password);
-    }),users.associate = models => {
+    }),users.associate = (models) => {
         users.belongsTo(models.Roles, {
             as: 'Role',
             through: 'UserRole'
-        })
+        });
     }
 
 
