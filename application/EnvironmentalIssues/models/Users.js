@@ -43,13 +43,8 @@ module.exports = (sequelize, type) => {
             type: type.BOOLEAN,
             allowNull: false,
             field: 'inactive'
-        },
-        idRole: {
-            type: type.INTEGER,
-            allowNull: false,
-            field: 'ID_ROLE'
-        }}, {
-            createdAt: true,
+        }},{
+            //createdAt: false,
             updatedAt: false,
             hooks:{
                 beforeCreate: (user, options) =>{
