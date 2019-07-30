@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const models = require('../models');
+
 'use strict';
 
 module.exports = (sequelize, type) => {
@@ -41,18 +43,8 @@ module.exports = (sequelize, type) => {
             type: type.BOOLEAN,
             allowNull: false,
             field: 'inactive'
-        },
-        signupDate: {
-            type: type.DATE,
-            allowNull: false,
-            field: 'SIGNUP_DATE'
-        },
-        idRole: {
-            type: type.INTEGER,
-            allowNull: false,
-            field: 'ID_ROLE'
-        }}, {
-            createdAt: false,
+        }},{
+            //createdAt: false,
             updatedAt: false,
             hooks:{
                 beforeCreate: (user, options) =>{
@@ -68,9 +60,15 @@ module.exports = (sequelize, type) => {
             }
         }
     );
-    users.prototype.comparePassword = function(password) {
+    (users.prototype.comparePassword = function(password) {
         return bcrypt.compareSync(password, this.password);
-    };
+    }),users.associate = (models) => {
+        users.belongsTo(models.roles, {
+            as: 'Role',
+            through: 'UserRole'
+        });
+    }
+
 
     return users;
 };
