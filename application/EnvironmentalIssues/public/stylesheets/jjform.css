@@ -71,12 +71,14 @@ input[type=reset]:hover{
 }
 input[type=text]{
     border-radius: 10px;
+
     width:100%;
 }
 input[type=email]{
     border-radius: 10px;
     width:100%;
 }
+
 input[type = tel]{
     border-radius: 10px;
     width: 100%;
@@ -141,3 +143,4 @@ select{
     border: 2px solid black;
     padding: 20px; 
 }
+

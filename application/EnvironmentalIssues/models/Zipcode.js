@@ -7,15 +7,16 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'ZIP_ID'
+			//field: 'ZIP_ID'
 		},
 		zipCode: {
 			type: DataTypes.INTEGER(5),
 			allowNull: false,
 			unique: true,
-			field: 'ZIP_CODE'
+			//field: 'ZIP_CODE'
 		}
 	}, {
-		tableName: 'zip_codes'
+		tableName: 'zip_codes',
+		timestamps: false
 	});
 };

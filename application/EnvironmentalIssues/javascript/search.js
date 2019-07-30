@@ -2,6 +2,7 @@ const db = require('./dbConnection');
 
 var find = function(request, callback) {
 
+
     //BASE QUERY JOINS ALL "FOREIGN KEY TABLES AND DISPLAYS ALL RESULTS"
     var sql = "SELECT i.INCIDENT_ID, i.DESCRIPTION, i.REPORTED_DATE_TIME," + //GRABS INFO STORED IN INCIDENT TABLE
         " it.TYPE_NAME," + //GRABS INCIDENT TYPE
@@ -34,11 +35,6 @@ var find = function(request, callback) {
 
 }
 
-var close = function(request) {
-    db.end();
-}
-
 module.exports = {
-    find: find,
-    close: close
-};
+    find: find
+}

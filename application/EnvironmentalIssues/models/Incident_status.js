@@ -7,14 +7,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'STATUS_ID'
+			//field: 'STATUS_ID'
 		},
 		statusName: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
-			field: 'STATUS_NAME'
+			//field: 'STATUS_NAME'
 		}
 	}, {
-		tableName: 'incident_status'
+		tableName: 'incident_status',
+		timestamps: false
 	});
 };
