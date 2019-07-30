@@ -123,6 +123,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 });
 
 
+
 // Request to update an incident     
 //change it to post
 router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) {
@@ -307,26 +308,6 @@ router.get('/view/:incidentId', function (req, res) {
     });
   });
 });
-
-
-
-
-router.get('/see', function (req, res) {
-  const incident_id = parseInt(req.params.incidentId);
-  models.incidents.sync({ force: true });
-  models.incidentType.gettypes().then(incidents => {
-    // tasks with an id greater than 10 :)
-    console.log(incidents);
-  })
-  .catch(function (err) {
-    // catch statement for debugging
-    console.log(`Something bad happened: ${err}`);
-    res.json({
-      viewIncident: `${err}`
-    });
-  });
-});
-
 
 
 
