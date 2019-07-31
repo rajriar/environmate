@@ -20,4 +20,5 @@ module.exports = function(sequelize, DataTypes) {
 		tableName: 'image',
 		timestamps : false
 	});
+	
 };

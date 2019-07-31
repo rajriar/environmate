@@ -39,7 +39,7 @@ router.get('/report', function (req, res, next) {
   })
   .then( results => {
     results.forEach((location) => {
-      console.log(location.dataValues);
+      //console.log(location.dataValues);
       _locations.push(location.dataValues);
     });
     return models.incidentType.findAll();
@@ -74,6 +74,57 @@ router.get('/report', function (req, res, next) {
 
 
 // Request to create new incidents
+// router.post('/report', upload.single('pic') ,function(req, res,next) {
+//   console.log(req.body);
+
+//   const base64encodedImg = req.file.buffer.toString('base64'); 
+//   const userId           = req.cookies.user.id;
+//   const locationObj      = JSON.parse(req.body.location);
+
+//   // create an incident 
+//   models.incidents.create({ 
+//     idType           : req.body.idType, 
+//     idLocation       : locationObj.locationId , 
+//     description      : req.body.description, 
+//     idUser           : userId, 
+//     idStatus         : RECEIVED_STATUS,
+//     reportedDateTime : new Date()
+//   })
+//   .then(incident => {
+//       console.log("Incident's's auto-generated ID:", incident.incidentId);
+//       return incident;  
+//   })
+//   // add the image of the incident to images folder
+//   .then(async (id) => {
+//       console.log(id);
+//       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
+//       // console.log(imageData);
+//       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
+//       // console.log(bufferBase64);
+
+//       var image = await models.image.create({ image: base64encodedImg});
+//       image.setIncidentID(id.incidentId);
+//     })
+//     //send response with all details of the incident
+//     .then((img) => {
+//       models.incidents.findByPk(img.idIncident)
+//         .then(incident => {
+//           const incidentResponse = JSON.parse(JSON.stringify(incident));
+//           incidentResponse.image = img.image;
+//           res.json({ "incident": incidentResponse });
+//         })
+//     })
+//     //catch statement for debugging
+//     .catch(function (err) {
+//       console.log(`Something bad happened: ${err}`);
+//       res.json({
+//         createIncident: "failed to create incident"
+//       });
+//     });
+
+// });
+
+
 router.post('/report', upload.single('pic') ,function(req, res,next) {
   console.log(req.body);
 
@@ -83,47 +134,79 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
   // create an incident 
   models.incidents.create({ 
-    idType           : req.body.idType, 
-    idLocation       : locationObj.locationId , 
+    //idType           : req.body.idType, 
+    //idLocation       : locationObj.locationId , 
     description      : req.body.description, 
-    idUser           : userId, 
-    idStatus         : RECEIVED_STATUS,
-    reportedDateTime : new Date()
+    //idUser           : userId, 
+    //idStatus         : RECEIVED_STATUS,
+    //reportedDateTime : new Date()
   })
   .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
-      return incident;  
+       incident.setType(req.body.idType);
+       incident.setLocation(locationObj.locationId);
+       incident.setUser(userId);
+      console.log(Object.keys(incident.__proto__));
+      incident.setStatus(RECEIVED_STATUS);
+      //return incident; 
+      return incident;
   })
-  // add the image of the incident to images folder
-  .then(async (id) => {
-      console.log(id);
-      // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
-      // console.log(imageData);
-      // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
-      // console.log(bufferBase64);
-
-      var image = await models.image.create({ image: base64encodedImg});
-      image.setIncidentID(id.incidentId);
-    })
-    //send response with all details of the incident
-    .then((img) => {
-      models.incidents.findByPk(img.idIncident)
-        .then(incident => {
-          const incidentResponse = JSON.parse(JSON.stringify(incident));
-          incidentResponse.image = img.image;
-          res.json({ "incident": incidentResponse });
-        })
-    })
-    //catch statement for debugging
-    .catch(function (err) {
-      console.log(`Something bad happened: ${err}`);
-      res.json({
-        createIncident: "failed to create incident"
-      });
+  .then(newIncident=>{
+    models.image.create({image: base64encodedImg})
+    .then((img)=>{
+      console.log("img id"+ img.imageId);
+      newIncident.setIncidentID(newIncident.incidentId,{ through: { imageId: img.imageId }});
+      return img;
+    }) 
+  })
+  // .then(newIncident =>{
+  //   console.log(newIncident);
+  // })
+  //catch statement for debugging
+  .catch(function (err) {
+    console.log(`Something bad happened: ${err}`);
+    res.json({
+      createIncident: "failed to create incident"
     });
+  });
 
 });
 
+
+
+
+//   // add the image of the incident to images folder
+//   .then((id) => {
+//       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
+//       // console.log(imageData);
+//       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
+//       // console.log(bufferBase64);
+
+//       models.image.create({ image: base64encodedImg })
+//       .then(() => {
+//         id.setIncidentID(id.incidentId);
+//       })
+      
+      
+//     })
+//     //send response with all details of the incident
+//     .then((img) => {
+//       models.incidents.findByPk(img.idIncident)
+//         .then(incident => {
+//           const incidentResponse = JSON.parse(JSON.stringify(incident));
+//           incidentResponse.image = img.image;
+//           res.json({ "incident": incidentResponse });
+//         })
+//     })
+//     //catch statement for debugging
+//     .catch(function (err) {
+//       console.log(`Something bad happened: ${err}`);
+//       res.json({
+//         createIncident: "failed to create incident"
+//       });
+//     });
+
+// });
 
 
 // Request to update an incident     
