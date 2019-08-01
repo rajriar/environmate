@@ -25,7 +25,9 @@ html {
 
 #content {
     text-align: center;
-    padding-top: 10%;
+    float: right;
+    margin-top: -30%;
+    margin-left: 50%;
 }
 
 .environmate-index {
@@ -34,12 +36,12 @@ html {
 
 .mission-statement {
     font-size: 1.5em;
-    color: white;
-    text-shadow: 0px 4px 3px black, 0px 8px 10px green;
+    color: black;
+    font: sans-serif;
 }
 
 .footer-text {
-    color: white;
+    color: black;
     font-size: 1em;
     margin-top: 10%;
 }
@@ -73,6 +75,24 @@ html {
 }
 
 .nav-search-bar {
-    margin-left: 50%;
+    margin-left: 20%;
     margin-top: 10px;
+    width: 100%;
+}
+
+.about-nav {
+    margin-left: 75px;
+}
+
+.post-nav {
+    margin-right: 175px;
+}
+
+.login-nav {
+    margin-right: 20px;
+}
+
+.most-recent {
+    max-width: 50%;
+    margin-top: 10%;
 }
