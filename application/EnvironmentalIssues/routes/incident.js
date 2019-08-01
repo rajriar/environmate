@@ -161,9 +161,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       newIncident.getLocation()
       .then(locations =>{
         const zipCode = locations.ZipcodeZipId
-        return zipCode;
-      })
-      .then(zipCode =>{
+        //return zipCode;
         incidentResponse.zipCode = zipCode;
         res.json({incidentResponse})
       })
@@ -301,15 +299,20 @@ router.get('/view', function (req, res) {
     .then(incidents => {
       // map images to each incident to send them in a reponse
       promiseOfImages = incidents.map(inc => {
+        const incidentResponse = JSON.parse(JSON.stringify(inc));
+          inc.getLocation()
+          .then(locations =>{
+          const zipCode = locations.ZipcodeZipId;
+          //return zipCode;
+          incidentResponse.zipCode = zipCode;
+          //res.json({incidentResponse})
+        })
         return models.image.findAll({
           where: {
-            idIncident: inc.incidentId
+            incidentIDIncidentId: inc.incidentId
           }
         }).then(imageRes => {
-          //console.log("Img from map = ");
-          const incidentResponse = JSON.parse(JSON.stringify(inc));
           incidentResponse.image = imageRes[0];
-          //console.log(incidentResponse);
           return incidentResponse;
         })
       });
@@ -318,6 +321,7 @@ router.get('/view', function (req, res) {
       res.json({incidentResponse: incidentImages.map(incImg => {
         if (incImg.image != null) {
           const respImage = JSON.parse(JSON.stringify(incImg));
+          respImage.thumbnail = respImage.image.thumbnail;
           respImage.image = respImage.image.image;
           return respImage;
         }
@@ -340,22 +344,32 @@ router.get('/view', function (req, res) {
 
 
 
+
 // Request to view a specific incident
 router.get('/view/:incidentId', function (req, res) {
   const incident_id = parseInt(req.params.incidentId);
-  models.incidents.findByPk(incident_id).then(incident => {
+  models.incidents.findByPk(incident_id)
+  .then(incident => {
     //Get image of the incident and add it to the response
     models.image.findAll({
       where: {
-        idIncident: incident.incidentId
+        incidentIDIncidentId: incident.incidentId
       }
     })
       .then(img => {
         const incidentResponse = JSON.parse(JSON.stringify(incident));
         console.log(img);
         incidentResponse.image = img[0].image;
-        console.log(incidentResponse);
-        res.json({ incidentResponse });
+        incidentResponse.thumbnail = img.thumbnail;
+        incident.getLocation()
+        .then(locations =>{
+          const zipCode = locations.ZipcodeZipId
+          //return zipCode;
+          incidentResponse.zipCode = zipCode;
+          res.json({incidentResponse})
+        })
+        //console.log(incidentResponse);
+        //res.json({ incidentResponse });
       })
   })
   .catch(function (err) {
