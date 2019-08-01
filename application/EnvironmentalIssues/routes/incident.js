@@ -2,6 +2,7 @@
 //const fs = require('fs');
 const multer = require('multer')
 const upload = multer({})
+const imageThumbnail = require('image-thumbnail');
 
 const express = require("express");
 const router = express.Router();
@@ -134,34 +135,41 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
   // create an incident 
   models.incidents.create({ 
-    //idType           : req.body.idType, 
-    //idLocation       : locationObj.locationId , 
     description      : req.body.description, 
-    //idUser           : userId, 
-    //idStatus         : RECEIVED_STATUS,
-    //reportedDateTime : new Date()
   })
   .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
        incident.setType(req.body.idType);
        incident.setLocation(locationObj.locationId);
        incident.setUser(userId);
-      console.log(Object.keys(incident.__proto__));
+      //console.log(Object.keys(incident.__proto__));
       incident.setStatus(RECEIVED_STATUS);
       //return incident; 
       return incident;
   })
   .then(newIncident=>{
-    models.image.create({image: base64encodedImg})
+    imageThumbnail(base64encodedImg)
+    .then(thumbnail => {
+      const thumbnailImage = thumbnail.toString('base64');
+      models.image.create({image: base64encodedImg,thumbnail:thumbnailImage})
     .then((img)=>{
       console.log("img id"+ img.imageId);
-      newIncident.setIncidentID(newIncident.incidentId,{ through: { imageId: img.imageId }});
-      return img;
-    }) 
+      img.setIncidentID(newIncident.incidentId);
+      const incidentResponse = JSON.parse(JSON.stringify(newIncident));
+      incidentResponse.image = img.image;
+      incidentResponse.thumbnail = img.thumbnail;
+      newIncident.getLocation()
+      .then(locations =>{
+        const zipCode = locations.ZipcodeZipId
+        return zipCode;
+      })
+      .then(zipCode =>{
+        incidentResponse.zipCode = zipCode;
+        res.json({incidentResponse})
+      })
+    })  
+    })
   })
-  // .then(newIncident =>{
-  //   console.log(newIncident);
-  // })
   //catch statement for debugging
   .catch(function (err) {
     console.log(`Something bad happened: ${err}`);
@@ -169,44 +177,9 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       createIncident: "failed to create incident"
     });
   });
-
 });
 
 
-
-
-//   // add the image of the incident to images folder
-//   .then((id) => {
-//       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
-//       // console.log(imageData);
-//       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
-//       // console.log(bufferBase64);
-
-//       models.image.create({ image: base64encodedImg })
-//       .then(() => {
-//         id.setIncidentID(id.incidentId);
-//       })
-      
-      
-//     })
-//     //send response with all details of the incident
-//     .then((img) => {
-//       models.incidents.findByPk(img.idIncident)
-//         .then(incident => {
-//           const incidentResponse = JSON.parse(JSON.stringify(incident));
-//           incidentResponse.image = img.image;
-//           res.json({ "incident": incidentResponse });
-//         })
-//     })
-//     //catch statement for debugging
-//     .catch(function (err) {
-//       console.log(`Something bad happened: ${err}`);
-//       res.json({
-//         createIncident: "failed to create incident"
-//       });
-//     });
-
-// });
 
 
 // Request to update an incident     
