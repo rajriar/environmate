@@ -10,40 +10,46 @@
                 </div>
 
                 <!-- Sign up Form -->
-                 <form name ="signup" method="post" action="/signup">
+                 <form form class="needs-validation" novalidate name ="signup" method="post" action="/signup">
                     <div class="modal-body">
                     
                         <div class="form-row pb-2">
-                            <label for="validationCustomFN">First name</label>
-                            <input type="firstName" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
+                            <label for="firstName">First name</label>
+                            <input type="text" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
                         </div>
                             
                         <div class="form-row py-2">
-                            <label for="validationCustomLN">Last name</label>
-                            <input type="lastName" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
+                            <label for="lastName">Last name</label>
+                            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
                         </div>
 
                         <div class="form-row py-2">    
-                            <label for="validationCustom01">Email</label>
-                            <input type="userEmail" name="userEmail" class="form-control" id="userEmail" placeholder="Enter Email" required>
+                            <label for="userEmail">Email</label>
+                            <input type="email" name="userEmail" class="form-control" id="userEmail" placeholder="Enter Email" required>
                             <div class="invalid-feedback">
                                 Please enter a valid email.
                             </div>
                         </div>
 
                         <div class="form-row py-2">
-                            <label for="validationCustomLN">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
+                            <div class="col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Enter Password" required>
+                            </div>
                         </div>  
 
                         <div class="form-row py-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="validationCustom04" required>
-                                <label class="form-check-label" for="ageCheck">
-                                    I am at least 16 years of age.
+                                <input class="form-check-input" type="checkbox" value="" id="termsAndCond" required>
+                                <label class="form-check-label" for="termsAndCond">
+                                    I agree to the Terms and Conditions.
                                 </label>
                                 <div class="invalid-feedback">
-                                    You must confirm that you're at least 16 years old to sign up.
+                                    You must confirm that you agree to the Terms and Conditions.
                                 </div>
                             </div>
                         </div>
@@ -76,7 +82,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form name="login" method="post" action="/login">
+                <form form class="needs-validation" novalidate name="login" method="post" action="/login">
                     <div class="modal-body">
                         <div class="login-group">
                             <label for="validationCustom01">Email address</label>
