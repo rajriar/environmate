@@ -40,10 +40,10 @@ module.exports = function(sequelize, DataTypes) {
 			through: 'IncidentsUsers'
 		});
 
-		incidents.hasOne(models.image,{ 
-			as: 'IncidentID' ,
-			through: 'IncidentsImages'
-		});
+		// incidents.hasOne(models.image,{ 
+		// 	as: 'IncidentID' ,
+		// 	through: 'IncidentsImages'
+		// });
 	}
 
 	return incidents;
