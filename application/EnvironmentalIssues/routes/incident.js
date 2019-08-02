@@ -75,56 +75,6 @@ router.get('/report', function (req, res, next) {
 
 
 // Request to create new incidents
-// router.post('/report', upload.single('pic') ,function(req, res,next) {
-//   console.log(req.body);
-
-//   const base64encodedImg = req.file.buffer.toString('base64'); 
-//   const userId           = req.cookies.user.id;
-//   const locationObj      = JSON.parse(req.body.location);
-
-//   // create an incident 
-//   models.incidents.create({ 
-//     idType           : req.body.idType, 
-//     idLocation       : locationObj.locationId , 
-//     description      : req.body.description, 
-//     idUser           : userId, 
-//     idStatus         : RECEIVED_STATUS,
-//     reportedDateTime : new Date()
-//   })
-//   .then(incident => {
-//       console.log("Incident's's auto-generated ID:", incident.incidentId);
-//       return incident;  
-//   })
-//   // add the image of the incident to images folder
-//   .then(async (id) => {
-//       console.log(id);
-//       // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
-//       // console.log(imageData);
-//       // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
-//       // console.log(bufferBase64);
-
-//       var image = await models.image.create({ image: base64encodedImg});
-//       image.setIncidentID(id.incidentId);
-//     })
-//     //send response with all details of the incident
-//     .then((img) => {
-//       models.incidents.findByPk(img.idIncident)
-//         .then(incident => {
-//           const incidentResponse = JSON.parse(JSON.stringify(incident));
-//           incidentResponse.image = img.image;
-//           res.json({ "incident": incidentResponse });
-//         })
-//     })
-//     //catch statement for debugging
-//     .catch(function (err) {
-//       console.log(`Something bad happened: ${err}`);
-//       res.json({
-//         createIncident: "failed to create incident"
-//       });
-//     });
-
-// });
-
 
 router.post('/report', upload.single('pic') ,function(req, res,next) {
   console.log(req.body);
@@ -147,6 +97,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       //return incident; 
       return incident;
   })
+  //create new image and thumbnail of that image
   .then(newIncident=>{
     imageThumbnail(base64encodedImg)
     .then(thumbnail => {
@@ -155,16 +106,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
     .then((img)=>{
       console.log("img id"+ img.imageId);
       img.setIncidentID(newIncident.incidentId);
-      const incidentResponse = JSON.parse(JSON.stringify(newIncident));
-      incidentResponse.image = img.image;
-      incidentResponse.thumbnail = img.thumbnail;
-      newIncident.getLocation()
-      .then(locations =>{
-        const zipCode = locations.ZipcodeZipId
-        //return zipCode;
-        incidentResponse.zipCode = zipCode;
-        res.json({incidentResponse})
-      })
+      res.json({incidentId:newIncident.incidentId })
     })  
     })
   })
@@ -292,85 +234,64 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
 });
 
 
-
-// Request to view all incidents
-router.get('/view', function (req, res) {
-  models.incidents.findAll()
-    .then(incidents => {
-      // map images to each incident to send them in a reponse
-      promiseOfImages = incidents.map(inc => {
-        const incidentResponse = JSON.parse(JSON.stringify(inc));
-          inc.getLocation()
-          .then(locations =>{
-          const zipCode = locations.ZipcodeZipId;
-          //return zipCode;
-          incidentResponse.zipCode = zipCode;
-          //res.json({incidentResponse})
-        })
-        return models.image.findAll({
-          where: {
-            incidentIDIncidentId: inc.incidentId
-          }
-        }).then(imageRes => {
-          incidentResponse.image = imageRes[0];
-          return incidentResponse;
-        })
-      });
-      return Promise.all(promiseOfImages)
-    }).then(incidentImages => {
-      res.json({incidentResponse: incidentImages.map(incImg => {
-        if (incImg.image != null) {
-          const respImage = JSON.parse(JSON.stringify(incImg));
-          respImage.thumbnail = respImage.image.thumbnail;
-          respImage.image = respImage.image.image;
-          return respImage;
-        }
-        else {
-          const respImage = JSON.parse(JSON.stringify(incImg));
-          respImage.image = "";
-          return respImage;
-        }
-      })});
-      //res.json(incidentImages);
-    })
-    .catch(function (err) {
-      // catch statement for debugging
-      console.log(`Something bad happened: ${err}`);
-      res.json({
-        viewIncident: `${err}`
-      });
-    });
-});
-
-
-
-
 // Request to view a specific incident
-router.get('/view/:incidentId', function (req, res) {
+router.get('/view/:incidentId', async function (req, res) {
   const incident_id = parseInt(req.params.incidentId);
-  models.incidents.findByPk(incident_id)
+  // find the incident from the database 
+  const resultP = models.incidents.findByPk(incident_id)
   .then(incident => {
-    //Get image of the incident and add it to the response
-    models.image.findAll({
+    //Get image of the incident
+    const imageP = models.image.findOne({
       where: {
         incidentIDIncidentId: incident.incidentId
       }
     })
+    // create promises of all response values needed
       .then(img => {
-        const incidentResponse = JSON.parse(JSON.stringify(incident));
         console.log(img);
-        incidentResponse.image = img[0].image;
-        incidentResponse.thumbnail = img.thumbnail;
-        incident.getLocation()
-        .then(locations =>{
-          const zipCode = locations.ZipcodeZipId
-          //return zipCode;
-          incidentResponse.zipCode = zipCode;
-          res.json({incidentResponse})
-        })
-        //console.log(incidentResponse);
-        //res.json({ incidentResponse });
-      })
+        return {image: img.image, thumbnail: img.thumbnail};
+      });
+
+      const locationP =  incident.getLocation()
+      .then(resolvedLoc => {
+        return resolvedLoc.getZipcode()
+          .then(resolvedZip => {
+            return {location: resolvedLoc.locationName, zipCode: resolvedZip.zipCode};
+          })
+      });
+
+    const statusP = incident.getStatus()
+          .then(status =>{
+              return {status: status.statusName};
+          });
+
+    const typeP = incident.getType()
+          .then(types =>{
+            //console.log(locations.locationName);
+              return {type: types.typeName};
+          });
+          
+    const userP = incident.getUser()
+          .then(users =>{
+            //console.log(locations.locationName);
+            return {user: users.userEmail}
+          });
+      // return the promise of all promises created
+      return Promise.all([Promise.resolve(incident), imageP, locationP, statusP, typeP, userP]);
+  })
+  // create the json object for response
+  .then( incidentFieldsP => {
+    return {
+      incidentId: incidentFieldsP[0].incidentId, 
+      incidentDescription: incidentFieldsP[0].description,
+      image: incidentFieldsP[1].image,
+      thumbnailImage: incidentFieldsP[1].thumbnail,
+      location: incidentFieldsP[2].location,
+      zipCode: incidentFieldsP[2].zipCode,
+      status: incidentFieldsP[3].status,
+      type: incidentFieldsP[4].type,
+      user: incidentFieldsP[5].user
+    };
   })
   .catch(function (err) {
     // catch statement for debugging
@@ -379,8 +300,79 @@ router.get('/view/:incidentId', function (req, res) {
       viewIncident: `${err}`
     });
   });
+
+  res.json(await resultP);
+
 });
 
+
+// Request to view all incidents
+router.get('/view',async function(req, res) {
+// find all incidents from database
+  const resultP = models.incidents.findAll()
+    .map( incident => {
+        const imagePromise = models.image.findAll({  
+          where: {
+            incidentIDIncidentId: incident.incidentId
+          }
+        })
+        // create all promises needed for the response object
+        .then(resolvedImages => { 
+          const img = resolvedImages[0].image;
+          const tNail = resolvedImages[0].thumbnail;
+          return Promise.resolve({image: img, thumbnail: tNail});
+        });
+  
+        const locationPromise =  incident.getLocation()
+          .then(resolvedLoc => {
+            return resolvedLoc.getZipcode()
+              .then(resolvedZip => {
+                return Promise.resolve({location: resolvedLoc.locationName, zipCode: resolvedZip.zipCode});
+              })
+          });
+
+        const statusPromise =  incident.getStatus()
+          .then(resolvedStatus => {
+            return Promise.resolve({status: resolvedStatus.statusName});
+          });
+
+        const typePromise =  incident.getType()
+          .then(resolvedType => {
+            return Promise.resolve({type: resolvedType.typeName});
+          });
+      
+        const userPromise = incident.getUser()
+          .then(resolvedUser => {
+            return Promise.resolve({user: resolvedUser.userEmail});
+          });
+        // create a promise.all to resolve all promises
+        return Promise.all([Promise.resolve(incident), imagePromise, locationPromise, statusPromise, typePromise, userPromise]);
+      }).map(incidentFieldsP => {
+        console.log(incidentFieldsP);
+        // return the json object for the response
+        return {
+            incidentId: incidentFieldsP[0].incidentId, 
+            incidentDescription: incidentFieldsP[0].description,
+            image: incidentFieldsP[1].image,
+            thumbnailImage: incidentFieldsP[1].thumbnail,
+            location: incidentFieldsP[2].location,
+            zipCode: incidentFieldsP[2].zipCode,
+            status: incidentFieldsP[3].status,
+            type: incidentFieldsP[4].type,
+            user: incidentFieldsP[5].user
+          };
+      })
+      .catch(function (err) {
+        // catch statement for debugging
+        console.log(`Something bad happened: ${err}`);
+        res.json({
+          viewIncident: `${err}`
+        });
+      });
+  
+    res.json(await resultP);
+
+});
 
 
 module.exports = router;
