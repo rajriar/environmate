@@ -311,6 +311,11 @@ router.get('/view/:incidentId', function (req, res) {
   });
 });
 
+// for details incident page
+router.get('/details', function (req, res) {
+  res.render('../views/incidents/details', { title: 'Incident Details' })
+});
+
 
 
 module.exports = router;
