@@ -34,11 +34,6 @@ module.exports = (sequelize, type) => {
             allowNull: false,
             field: 'LAST_NAME'
         },
-        dateOfBirth: {
-            type: type.DATE,
-            allowNull: false,
-            field: 'DATE_OF_BIRTH'
-        },
         inactive: {
             type: type.BOOLEAN,
             allowNull: false,

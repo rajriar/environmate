@@ -66,7 +66,7 @@
                       <option selected>Choose Status</option>
                       <% for(var i=0; i < data.length; i++) { %>
                       <option class="childSelected"
-                        ><%= data[i].STATUS_NAME %></option
+                        ><%= data[i].StatusStatusId %></option
                       >
                       <% } %>
                     </select>
@@ -79,7 +79,7 @@
                                     <select class="form-control" id="zipChildList">
                       <option selected>Choose Zip</option>
                       <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].ZIP_CODE %></option>
+                      <option><%= data[i].Zipcode %></option>
                       <% } %>
                     </select>
                                 </div>
@@ -91,7 +91,7 @@
                                     <select class="form-control" id="typeChildList">
                       <option selected>Choose Type</option>
                       <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].TYPE_NAME %></option>
+                      <option><%= data[i].TypeTypeId %></option>
                       <% } %>
                     </select>
                                 </div>
@@ -103,7 +103,7 @@
                                     <select class="form-control" id="locationChildList">
                       <option selected>Choose Location</option>
                       <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].LOCATION_NAME %></option>
+                      <option><%= data[i].LocationLocationId %></option>
                       <% } %>
                     </select>
                                 </div>
@@ -134,24 +134,24 @@
                                         <i class="material-icons" style="vertical-align: bottom">pin_drop</i
                     >
                     <span style="text-align: left" class="locationCheck"
-                      ><%= data[i].LOCATION_NAME %></span
+                      ><%= data[i].Location.locationName %></span
                     >
                     <span> |</span>
                     <span id="zip" class="zipCheck"
-                      ><%= data[i].ZIP_CODE %></span
+                      ><%= data[i].Location.ZipcodeZipId %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       today
                     </i>
-                                        <span style="text-align: left" class="parseDate"><%= data[i].REPORTED_DATE_TIME %></span
+                                        <span style="text-align: left" class="parseDate"><%= data[i].createdAt %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       report
                     </i>
                     <span style="text-align: left" class="typeCheck"
-                      ><%= data[i].TYPE_NAME %></span
+                      ><%= data[i].Type.typeName %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
@@ -159,7 +159,7 @@
                     </i>
                     <span style="text-align: left">
                       <b id="status" class="statusCheck"
-                        ><%= data[i].STATUS_NAME %></b
+                        ><%= data[i].Status.statusName %></b
                       ></span
                     >
                     <hr class="m-1" />
@@ -167,10 +167,10 @@
                       comment
                     </i>
                     <span style="text-align: left"
-                      ><%= data[i].DESCRIPTION %></span
+                      ><%= data[i].description %></span
                     >
                     <span style="float: right">
-                      <b>ID:<%= data[i].INCIDENT_ID %></b>
+                      <b>ID:<%= data[i].incidentId %></b>
                     </span>
                                         <br />
                                         <br />
@@ -278,7 +278,7 @@
                         });
                     });
                     break;
-                case "Status":
+                case "StatusStatusId":
                     refreshDisplayAll();
                     $("#displayDate").hide();
                     $("#displayZip").hide();
@@ -304,7 +304,7 @@
                         });
                     });
                     break;
-                case "Type":
+                case "TypeTypeId":
                     refreshDisplayAll();
                     $("#displayDate").hide();
                     $("#displayStatus").hide();
@@ -317,7 +317,7 @@
                         });
                     });
                     break;
-                case "Location":
+                case "LocationLocationId":
                     refreshDisplayAll();
                     $("#displayType").hide();
                     $("#displayDate").hide();

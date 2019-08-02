@@ -106,7 +106,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
     .then((img)=>{
       console.log("img id"+ img.imageId);
       img.setIncidentID(newIncident.incidentId);
-      res.json({incidentId:newIncident.incidentId })
+      res.render('./index.ejs', {result :'new incident created '+newIncident.incidentId, title: 'CSC 648 Team 1 Home Page' })
     })  
     })
   })

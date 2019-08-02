@@ -36,14 +36,13 @@ router.post('/', (req, res, next) => {
           lastName    : user.lastName,
           email       : user.userEmail,
           id          : user.userId,
-          dateOfBirth : user.dateOfBirth,
           role        : user.idRole
         });
         
         console.log("logged in as: ", user.dataValues);
       }
       
-      return res.status(200).json("result: logged in as " + user.userEmail);
+      return res.render('./index.ejs',{result: "logged in as " + user.userEmail, title: "CSC 648 Team 1 Home Page"});
     });
 });
 

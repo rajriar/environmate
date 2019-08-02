@@ -20,7 +20,7 @@ router.get('/results', function(req, res, next) {
             res.send('Error querying Database');
         } else {
             res.render('results', {
-                data: JSON.parse(JSON.stringify(data)),
+                data: data,
                 title: "Results page"
             });
         }
