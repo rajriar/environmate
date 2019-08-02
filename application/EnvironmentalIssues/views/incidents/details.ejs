@@ -49,74 +49,59 @@
 <body>
 	<div class="container-fluid"> 
 		<div class="row d-flex justify-content-center">
-			<div class="card my-3 mx-3 py-3 px-3 d-flex" style="max-width: 1080px;">
-			  	<div class="row no-gutters"> 
+			<div class="card mx-2 my-2" style="max-width: 1080px;">
+				<div class="row d-flex justify-content-center mx-3 my-2" style="background-color: lightgrey; border: 1px solid darkgrey; border-radius: 4px;">
+					<h5 class="my-2"><b>Incident Details</b></h5>
+				</div>	
+			  	<div class="row d-flex justify-content-center mx-3 my-2"> 	
 			  		<!-- picture section-->
-			    	<div class="col-md-4 mt-5 ml-3">  
+			    	<div class="col-md-6 ">  
 			      	<img src="https://sfrecpark.org/wp-content/uploads/IMG_3604-e1395359176830-600x400.jpg"  class="card-img" alt="Incident image">
 			    	</div> 
 			    	<!-- end picture section-->
 			    	<!-- text section -->
-					<div class="col-md-7 pl-5"> 
-						<!-- text -->
-				    	<div class="card-body">
-				    		<h5 class="card-title my-3 pb-2" style="border-bottom: 2px solid lightgrey; text-align: center;">Incident Detail</h5>
-				        	<div class="container">
-				        		<!-- date section -->
-							  	<div class="row justify-content-end">
-							   		<div class="col-4" style="text-align: right;">
-							      		<b>Date</b>
-							    	</div>
-							    	<div class="col-6">
-							      		Aug. 16, 2019
-							    	</div>
-							  	</div>
-							  	<!-- end of date section -->
-							  	<!-- status section -->
-							  	<div class="row justify-content-end">
-							   		<div class="col-4" style="text-align: right;">
-							      		<b>Status</b>
-							    	</div>
-							    	<div class="col-6">
-							      	Received
-							    	</div>
-							  	</div>
-							  	<!-- end of status section -->
-							  	<!-- type section -->
-							  	<div class="row justify-content-end">
-							   		<div class="col-4" style="text-align: right;">
-							      		<b>Type</b>
-							    	</div>
-							    	<div class="col-6">
-							      	Garbage Spill
-							    	</div>
-							  	</div>
-							  	<!-- end of type section -->
-							  	<!-- location section -->
-							  	<div class="row justify-content-end">
-							   		<div class="col-4" style="text-align: right;">
-							      		<b>Location</b>
-							    	</div>
-							    	<div class="col-6">
-							      	1 California St. | 94111
-							    	</div>
-							  	</div>
-							  	<!-- end of location section -->
-							  	<!-- description seciton  -->
-							  	<div class="row justify-content-end">
-							   		<div class="col-4" style="text-align: right;">
-							      		<b>Description</b>
-							    	</div>
-							    	<div class="col-6">
-							      	Garbage everywhere.
-							    	</div>
-							  	</div>
-							  	<!-- end of description section -->
-							</div>
-				    	</div>	
+					<div class="col-md-6"> 
+						<div class="col-md-12 ">
+							<ul class="list-group list-group-flush">
+								<!-- <div class="d-flex justify-content-center">
+						      	<h5 class="mb-1 py-2"><b>Incident Details</b></h5>
+						    	</div>	 -->
+
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Location</b></div>
+								  <div class="col-md-8 px-0">1 California Street | 94111</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4  pr-3" style="text-align: right;"><b>Date</b></div>
+								  <div class="col-md-8 px-0">Aug. 14, 2019</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Status</b></div>
+								  <div class="col-md-8 px-0">Received</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Type</b></div>
+								  <div class="col-md-8 px-0">Garbage</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Description</b></div>
+								  <div class="col-md-8 px-0">Garbage everywhere.</div>
+								</div>
+							  </li>
+							</ul>
+						</div>
 				    	<!-- end of text section-->
 				    </div> 
-				    <div class ="container-fluid d-flex justify-content-center">
+				    <div class ="container-fluid d-flex justify-content-center my-3">
 				  		<div class = "col-md-12"  id="map" style="border: 1px solid darkgrey; border-radius: 4px;"></div>
 				  	</div>	
 			  	</div>
