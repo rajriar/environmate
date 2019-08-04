@@ -1,3 +1,4 @@
+
  <!-- Sign Up Modal -->
     <div class="modal fade" id="signupPopup" tabindex="-1" role="dialog" aria-labelledby="signupPopupTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -12,18 +13,18 @@
                 <!-- Sign up Form -->
                  <form form class="needs-validation" novalidate name ="signup" method="post" action="/signup">
                     <div class="modal-body">
-                    
                         <div class="form-row pb-2">
-                            <label for="firstName">First name</label>
-                            <input type="text" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
-                        </div>
-                            
-                        <div class="form-row py-2">
-                            <label for="lastName">Last name</label>
-                            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="firstName">First name</label>
+                                <input type="text" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
+                            </div>   
+                            <div class="col-md-6">
+                                <label for="lastName">Last name</label>
+                                <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
+                            </div>    
+                        </div>        
 
-                        <div class="form-row py-2">    
+                        <div class="form-row py-2 px-1">    
                             <label for="userEmail">Email</label>
                             <input type="email" name="userEmail" class="form-control" id="userEmail" placeholder="Enter Email" required>
                             <div class="invalid-feedback">
@@ -34,7 +35,7 @@
                         <div class="form-row py-2">
                             <div class="col-md-6">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
+                                <input type="password" name="password" class="form-control" id="signup_password" placeholder="Enter Password" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="confirmPassword">Confirm Password</label>
@@ -42,7 +43,7 @@
                             </div>
                         </div>  
 
-                        <div class="form-row py-3">
+                        <div class="form-row py-3 px-1">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="termsAndCond" required>
                                 <label class="form-check-label" for="termsAndCond">
@@ -85,15 +86,15 @@
                 <form form class="needs-validation" novalidate name="login" method="post" action="/login">
                     <div class="modal-body">
                         <div class="login-group">
-                            <label for="validationCustom01">Email address</label>
-                            <input type="userEmail" name="userEmail" class="form-control" id="validationCustom01" aria-describedby="emailHelp" placeholder="Enter email" required>
+                            <label for="signinEmail">Email address</label>
+                            <input type="email" name="userEmail" class="form-control" id="signinEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
                             <div class="invalid-feedback">
                                 Please enter a valid email.
                             </div>
                         </div>
                         <div class="login-group py-2">
-                            <label for="examplePassword">Password</label>
-                            <input type="password" name="password" class="form-control" id="validationCustom02" placeholder="Password" required>
+                            <label for="signinPassword">Password</label>
+                            <input type="password" name="password" class="form-control" id="signinPassword" placeholder="Password" required>
                             <div class="invalid-feedback">
                                 You must enter your password.
                             </div>
@@ -102,7 +103,12 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Log In</button>
                     </div>
-                </form>    
+                <div class="d-flex justify-content-center" id="forgotPassLink">
+                    <p><small>Forgot your password? <a class="text-muted" id="forgotPassLink" 
+                    href="#"> Click here.</a></small></p> 
+                </div>
+
+                </form>     
                 <div class="d-flex justify-content-center" id="sign-in-switch-message">
                     <p><small>Don't have an account? <a data-target="#signupPopup" data-toggle="modal" class="d-flex justify-content-center form-text text-muted new_user" id="sign-in-switch-txt" 
                     href="#signupPopup"> Sign Up</a></small></p> 
