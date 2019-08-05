@@ -96,3 +96,16 @@ html {
     max-width: 50%;
     margin-top: 10%;
 }
+
+.post-incident-container {
+    margin: auto;
+    width: 600px;
+    min-width: 400px;
+    max-width: 1000px;
+    padding: 25px;
+    padding-bottom: 0px;
+}
+
+.post-incident-section {
+    float: left;
+}

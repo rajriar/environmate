@@ -22,12 +22,10 @@ router.get('/report', function (req, res, next) {
   let _locations     = [];
   let _incidentTypes = [];
   let _status        = [];
-  
-  if(!req.cookies.user){
-    // Todo handle unregistered user
-    res.send({
-      msg: "Login to access this page if your a member. Otherwise join by signing up."
-    });
+  let _userId        = null;
+
+  if (req.cookies && req.cookies.user){
+    _userId = req.cookies.user.id;
   }
 
   // fetch necessary stuff from db
@@ -62,7 +60,8 @@ router.get('/report', function (req, res, next) {
       zipcodes      : _zipcodes,
       locations     : _locations,
       incidentTypes : _incidentTypes,
-      status        : _status
+      status        : _status,
+      userId        : _userId // Todo use sessions
     })
   }).catch( (err) => {
     console.log(`Error fetching data for report page. Details: ${err}`)

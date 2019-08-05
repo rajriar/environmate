@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
         console.log("logged in as: ", user.dataValues);
       }
       
-      return res.render('./index.ejs',{result: "logged in as " + user.userEmail, title: "CSC 648 Team 1 Home Page"});
+      res.status(204).send();
     });
 });
 
