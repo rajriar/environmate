@@ -27,15 +27,25 @@
                     <a href="/incidents/report"><button class="btn btn-danger">Post Incident</button></a>
                     <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
                 </li>
+            </ul>
+            <div id="authContainer">
+                <span id="welcomeMsg"></span>
+                <!-- Button trigger for log in -->
+                <button type="button" id="logoutButton" class="btn btn-primary btn-sm" data-target="#logout">
+                  Log Out
+                </button>
+            </div>
+
+            <div id="unauthContainer">
                 <!-- Button trigger for log in -->
                 <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup">
-              Log In
-            </button>
+                  Log In
+                </button>
 
                 <!-- Button trigger for sign up -->
                 <button type="button" class="btn btn-primary btn-sm signup-nav" data-toggle="modal" data-target="#signupPopup">
-              Sign Up
-            </button>
-            </ul>
+                  Sign Up
+                </button>
+            </div>
         </div>
     </nav>

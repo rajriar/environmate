@@ -7,15 +7,13 @@
 <header>
     <% include ../views/partials/header.ejs%>
 </header>
-<script>
 
-</script>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-lg-7 rounded">
                 <div class="rounded  most-recent" style="border: 2px solid black">
-                    <h3></h3>
+                    <h3>test</h3>
                     <h3>test</h3>
                     <h3>test</h3>
                     <h3>test</h3>
@@ -30,9 +28,7 @@
             <div class="col-lg-12 content">
                 <div id="content">
                     <h1 class="environmate-index">EnvironMate</h1>
-                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate
-                        provides an application to the community to where if you see an environmental defect, you can
-                        post it to our website <br>You may also view incidents posted from users</h3>
+                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate provides an application to the community to where if you see an environmental defect, you can post it to our website <br>You may also view incidents posted from users</h3>
                     <hr>
                 </div>
             </div>
@@ -42,5 +38,91 @@
     <footer>
         <%-include ../views/partials/footer.ejs%>
     </footer>
+
+    <script>
+        $(document).ready(function() {
+            //declare util funcs
+            var loginUnsuccessful = function() {
+                alert("Login unsuccessful!");
+            }
+
+            var getCookie = function(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            //hide logged in controls until after cookie check
+            $('#authContainer').hide();
+
+            var userCookie = getCookie("user");
+            if (userCookie === "") {
+                //hide authContainer
+                $('#authContainer').hide();
+                //show authContainer
+                $('#unauthContainer').show();
+                loginUnsuccessful();
+            }
+
+            //hide unauthContainer
+            $('#unauthContainer').hide();
+
+            var user = JSON.parse(userCookie);
+
+            //set welcome message
+            let welcomeMessage = "Welcome, " + user.firstName;
+            $('#welcomeMsg').text(welcomeMessage);
+
+            //show authContainer
+            $('#authContainer').show();
+
+        });
+    </script>
+
+    <script>
+        $(document).on("click", ".new_user", function() {
+            $('#loginPopup').modal('hide');
+            $('#signupPopup').modal('show');
+        });
+    </script>
+
+    <script>
+        $(document).on("click", ".registered_user", function() {
+            $('#signupPopup').modal('hide');
+            $('#loginPopup').modal('show');
+        });
+    </script>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
 
     </html>
