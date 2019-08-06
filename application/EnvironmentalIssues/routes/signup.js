@@ -13,11 +13,11 @@ router.post("/", (req, res, next) => {
       where: {
         userEmail: req.body.userEmail
       }
-    }).then(user => {
-  
+    }).then(async user => {
+        
         // if email is already being used
         if (user) {
-            return res.status(400).json({ result: "Email in use." });
+            return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
         }
 
         models.users.create({
@@ -26,16 +26,12 @@ router.post("/", (req, res, next) => {
             password: req.body.password,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            //dateOfBirth: req.body.dateOfBirth,
-            dateOfBirth: new Date(),
-            signupDate: new Date(),
-            inactive: false,
-            idRole: "1"
+            inactive: false
         }).then(user => {
             console.log("User ID: ", user.userId);
-            return res.status(200).json({ result: "Account created." });
-            //res.send(req.body)
-            return user;
+            user.setRole('1');
+            return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
+
         }).catch((error) => {
             console.log("Error creating a user. Details: ", error)
         })

@@ -9,7 +9,7 @@
     "test": {
       "username": "root",
       "password": "csc6481",
-      "database": "csc667_database",
+      "database": "environmate",
       "host": "127.0.0.1",
       "dialect": "mysql",
       "operatorsAliases": false
@@ -17,7 +17,7 @@
     "production": {
       "username": "root",
       "password": "csc6481",
-      "database": "csc667_database",
+      "database": "environmate",
       "host": "127.0.0.1",
       "dialect": "mysql",
       "operatorsAliases": false

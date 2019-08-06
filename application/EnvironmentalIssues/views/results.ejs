@@ -3,17 +3,21 @@
 
 <head>
     <%- include ../views/partials/head.ejs%>
-        <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
-        <!-- GOT RID OF ASYNC IN GOOGLE SCRIPT BELOW -->
-        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"></script>
-        <!-- BACKEND COMMS -->
-        <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
-        <!-- BACKEND COMMS -->
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"
+        type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
+    <!-- GOT RID OF ASYNC IN GOOGLE SCRIPT BELOW -->
+    <script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"></script>
+    <!-- BACKEND COMMS -->
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <!-- BACKEND COMMS -->
 </head>
 
 <header>
@@ -41,117 +45,133 @@
                                 <div class="col-lg-12 rounded">
                                     <br />
                                     <select class="form-control" id="categoryList">
-                      <option selected>Filter by category</option>
-                      <option>Date</option>
-                      <option>Status</option>
-                      <option>Zip</option>
-                      <option>Type</option>
-                      <option>Location</option>
-                    </select>
+                                        <option selected>Filter by category</option>
+                                        <option>Status</option>
+                                        <option>Zip</option>
+                                        <option>Type</option>
+                                        <option>Location</option>
+                                    </select>
                                     <hr class="m-3" />
                                 </div>
                             </div>
                             <!-- PARENT CATEGORY END -->
                             <!-- CHILD CATEGORY START -->
                             <div class="row" style="margin: 8px">
-                                <div class="col-lg-12 rounded" style="display: none; text-align: center" id="displayDate">
-                                    <input type="text" id="datepicker" class=" form-group form-control" placeholder="Choose Date" />
-                                </div>
-                            </div>
-                            <!-- CHILD CATGEGORY END -->
-                            <!-- CHILD CATEGORY START -->
-                            <div class="row" style="margin: 8px">
-                                <div class="col-lg-12 rounded" style="display: none; text-align: center" id="displayStatus">
+                                <div class="col-lg-12 rounded" style="display: none; text-align: center"
+                                    id="displayStatus">
                                     <select class="form-control childSelector" id="statusChildList">
-                      <option selected>Choose Status</option>
-                      <% for(var i=0; i < data.length; i++) { %>
-                      <option class="childSelected"
-                        ><%= data[i].STATUS_NAME %></option
-                      >
-                      <% } %>
-                    </select>
+                                        <option selected>Choose Status</option>
+                                        <% let remove_multiple = [] %>
+                                        <% for(var i=0; i < data.length; i++) { %>
+                                        <%remove_multiple.push( data[i].Status.statusName) %>
+                                        <% } %>
+                                        <%remove_multiple = [...new Set(remove_multiple)] %>
+                                        <%for(var i=0; i < remove_multiple.length; i++) { %>
+                                        <option><%= remove_multiple[i] %></option>
+                                        <% } %>
+                                    </select>
                                 </div>
                             </div>
                             <!-- CHILD CATGEGORY END -->
                             <!-- CHILD CATEGORY START -->
                             <div class="row" style="margin: 8px">
-                                <div class="col-lg-12 rounded" style="display: none; text-align: center" id="displayZip">
+                                <div class="col-lg-12 rounded" style="display: none; text-align: center"
+                                    id="displayZip">
                                     <select class="form-control" id="zipChildList">
-                      <option selected>Choose Zip</option>
-                      <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].ZIP_CODE %></option>
-                      <% } %>
-                    </select>
+                                        <option selected>Choose Zip</option>
+                                        <% remove_multiple = [] %>
+                                        <% for(var i=0; i < data.length; i++) { %>
+                                        <%remove_multiple.push(data[i].Location.ZipcodeZipId) %>
+                                        <% } %>
+                                        <%remove_multiple = [...new Set(remove_multiple)] %>
+                                        <%for(var i=0; i < remove_multiple.length; i++) { %>
+                                        <option><%= remove_multiple[i] %></option>
+                                        <% } %>
+                                    </select>
                                 </div>
                             </div>
                             <!-- CHILD CATGEGORY END -->
                             <!-- CHILD CATEGORY START -->
                             <div class="row" style="margin: 8px">
-                                <div class="col-lg-12 rounded" style="display: none; text-align: center" id="displayType">
+                                <div class="col-lg-12 rounded" style="display: none; text-align: center"
+                                    id="displayType">
                                     <select class="form-control" id="typeChildList">
-                      <option selected>Choose Type</option>
-                      <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].TYPE_NAME %></option>
-                      <% } %>
-                    </select>
+                                        <option selected>Choose Type</option>
+                                        <% remove_multiple = [] %>
+                                        <% for(var i=0; i < data.length; i++) { %>
+                                        <%remove_multiple.push(data[i].Type.typeName) %>
+                                        <% } %>
+                                        <%remove_multiple = [...new Set(remove_multiple)] %>
+                                        <%for(var i=0; i < remove_multiple.length; i++) { %>
+                                        <option><%= remove_multiple[i] %></option>
+                                        <% } %>
+                                    </select>
                                 </div>
                             </div>
                             <!-- CHILD CATGEGORY END -->
                             <!-- CHILD CATEGORY START -->
                             <div class="row" style="margin: 8px">
-                                <div class="col-lg-12 rounded" style="display: none; text-align: center;" id="displayLocation">
+                                <div class="col-lg-12 rounded" style="display: none; text-align: center;"
+                                    id="displayLocation">
                                     <select class="form-control" id="locationChildList">
-                      <option selected>Choose Location</option>
-                      <% for(var i=0; i < data.length; i++) { %>
-                      <option><%= data[i].LOCATION_NAME %></option>
-                      <% } %>
-                    </select>
+                                        <option selected>Choose Location</option>
+                                        <% remove_multiple = [] %>
+                                        <% for(var i=0; i < data.length; i++) { %>
+                                        <%remove_multiple.push(data[i].Location.locationName) %>
+                                        <% } %>
+                                        <%remove_multiple = [...new Set(remove_multiple)] %>
+                                        <%for(var i=0; i < remove_multiple.length; i++) { %>
+                                        <option><%= remove_multiple[i] %></option>
+                                        <% } %>
+                                    </select>
                                 </div>
                             </div>
                             <!-- CHILD CATGEGORY END -->
                             <div class="col-lg-12">
                                 <div class="row rounded">
                                     <div class="col-lg-12">
-                                        <span id="showingX">Showing 1-</span>
-                                        <span class="incidentNumberView"><%= data.length %></span
-                      ><span> of </span
-                      ><span id="totalNumberOfIncidents"
-                        ><%= data.length %></span
-                      ><span> Incidents</span>
+                                        <span id="showingX">Showing </span>
+                                        <span class="showing_x_of">1</span>
+                                        <span>-</span>
+                                        <span class="incidentNumberView"><%= data.length %></span>
+                                        <span> of </span>
+                                        <span class="totalNumberOfIncidents"><%= data.length %></span>
+                                        <span> Incidents</span>
                                     </div>
                                 </div>
                             </div>
                             <!-- ONE INCIDENT START-->
-
                             <% for(var i=0; i < data.length; i++) { %>
+                            <a href="/incidents/view/<%=data[i].incidentId%>"
+                                style="color: black; text-decoration: none">
                                 <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
                                     <div class="col-lg-4" id="incidentPicture">
                                         <br />
-                                        <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>" alt="..." class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
+                                        <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..." class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
                                     </div>
                                     <div class="col-lg-8">
                                         <br />
                                         <i class="material-icons" style="vertical-align: bottom">pin_drop</i
                     >
                     <span style="text-align: left" class="locationCheck"
-                      ><%= data[i].LOCATION_NAME %></span
+                      ><%= data[i].Location.locationName %></span
                     >
                     <span> |</span>
                     <span id="zip" class="zipCheck"
-                      ><%= data[i].ZIP_CODE %></span
+                      ><%= data[i].Location.Zipcode.zipCode %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       today
                     </i>
-                                        <span style="text-align: left" class="parseDate"><%= data[i].REPORTED_DATE_TIME %></span
+                                        <span style="text-align: left" class="parseDate"><%= data[i].createdAt %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
                       report
                     </i>
                     <span style="text-align: left" class="typeCheck"
-                      ><%= data[i].TYPE_NAME %></span
+                      ><%= data[i].Type.typeName %></span
                     >
                     <hr class="m-1" />
                     <i class="material-icons" style="vertical-align: bottom">
@@ -159,7 +179,7 @@
                     </i>
                     <span style="text-align: left">
                       <b id="status" class="statusCheck"
-                        ><%= data[i].STATUS_NAME %></b
+                        ><%= data[i].Status.statusName %></b
                       ></span
                     >
                     <hr class="m-1" />
@@ -167,17 +187,19 @@
                       comment
                     </i>
                     <span style="text-align: left"
-                      ><%= data[i].DESCRIPTION %></span
+                      ><%= data[i].description %></span
                     >
                     <span style="float: right">
-                      <b>ID:<%= data[i].INCIDENT_ID %></b>
+                      <b>ID:<%= data[i].incidentId %></b>
                     </span>
+
                                         <br />
                                         <br />
                                     </div>
                                 </div>
-                                <% } %>
-                                    <!-- ONE INCIDENT END -->
+                            </a>
+                            <% } %>
+                            <!-- ONE INCIDENT END -->
                         </div>
                     </div>
                     <!-- MAP START-->
@@ -192,6 +214,7 @@
     <script>
         // MAP JAVASCRIPT START
         var map;
+        var gmarkers = [];
 
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
@@ -200,45 +223,45 @@
             var geocoder = new google.maps.Geocoder();
             geocodeAddress(geocoder, map);
         }
-        var gmarkers = [];
 
         function geocodeAddress(geocoder, resultsMap) {
             var address = document.getElementsByClassName("locationCheck");
-            Array.from(address).forEach(function(item) {
+            Array.from(address).forEach(function (item) {
                 geocoder.geocode({
                     address: item.innerText
-                }, function(
+                }, function (
                     results,
                     status
                 ) {
-                    if (status === "OK") {
-                        resultsMap.setCenter({
-                            lat: 37.723396,
-                            lng: -122.442264
-                        });
-                        var marker = new google.maps.Marker({
-                            map: resultsMap,
-                            position: results[0].geometry.location,
-                            animation: google.maps.Animation.DROP
-                        });
-                        gmarkers.push(marker);
-                    } else {
-                        alert(
-                            "Geocode was not successful for the following reason: " + status
-                        );
-                    }
-                });
+                        if (status === "OK") {
+                            resultsMap.setCenter({
+                                lat: 37.723396,
+                                lng: -122.442264
+                            });
+                            var marker = new google.maps.Marker({
+                                map: resultsMap,
+                                position: results[0].geometry.location,
+                                animation: google.maps.Animation.DROP,
+                                address: item.innerText
+                            });
+                            gmarkers.push(marker);
+                        } else {
+                            alert(
+                                "Geocode was not successful for the following reason: " + status
+                            );
+                        }
+                    });
             });
         }
         // MAP JAVASCRIPT END
         let statusColor = document.getElementsByClassName("statusCheck");
-        Array.from(statusColor).forEach(function(item) {
+        Array.from(statusColor).forEach(function (item) {
             switch (item.innerHTML) {
                 case "Resolved":
                     item.style.color = "rgb(47, 197, 17)";
                     break;
                 case "Reviewed":
-                    item.style.color = "rgb(244, 247, 64)";
+                    item.style.color = "gold";
                     break;
                 case "Received":
                     item.style.color = "rgb(64, 137, 247)";
@@ -248,9 +271,8 @@
                     break;
             }
         });
-
         let parseDate = document.getElementsByClassName("parseDate");
-        Array.from(parseDate).forEach(function(item) {
+        Array.from(parseDate).forEach(function (item) {
             let month = item.innerText.substring(5, 7);
             let day = item.innerText.substring(8, 10);
             let year = item.innerText.substring(0, 4);
@@ -258,34 +280,17 @@
             item.innerText = date.toDateString();
         });
 
-        $("#categoryList").change(function() {
+        $("#categoryList").change(function () {
             var getText = $("#categoryList option:selected").text();
             switch (getText) {
-                case "Date":
-                    refreshDisplayAll();
-                    $("#displayStatus").hide();
-                    $("#displayZip").hide();
-                    $("#displayType").hide();
-                    $("#displayLocation").hide();
-                    $("#displayDate").slideDown("fast", function() {
-                        $("#datepicker").datepicker({
-                            onSelect: function() {
-                                var dateObject = $(this).datepicker("getDate");
-                                dateObject = dateObject.toString();
-                                dateObject = dateObject.substring(0, 15);
-                                checkFilterMatch(dateObject, "parseDate");
-                            }
-                        });
-                    });
-                    break;
                 case "Status":
                     refreshDisplayAll();
                     $("#displayDate").hide();
                     $("#displayZip").hide();
                     $("#displayType").hide();
                     $("#displayLocation").hide();
-                    $("#displayStatus").slideDown("fast", function() {
-                        $("#statusChildList").change(function() {
+                    $("#displayStatus").slideDown("fast", function () {
+                        $("#statusChildList").change(function () {
                             var getText = $("#statusChildList option:selected").text();
                             checkFilterMatch(getText, "statusCheck");
                         });
@@ -297,8 +302,8 @@
                     $("#displayStatus").hide();
                     $("#displayType").hide();
                     $("#displayLocation").hide();
-                    $("#displayZip").slideDown("fast", function() {
-                        $("#zipChildList").change(function() {
+                    $("#displayZip").slideDown("fast", function () {
+                        $("#zipChildList").change(function () {
                             var getText = $("#zipChildList option:selected").text();
                             checkFilterMatch(getText, "zipCheck");
                         });
@@ -310,8 +315,8 @@
                     $("#displayStatus").hide();
                     $("#displayZip").hide();
                     $("#displayLocation").hide();
-                    $("#displayType").slideDown("fast", function() {
-                        $("#typeChildList").change(function() {
+                    $("#displayType").slideDown("fast", function () {
+                        $("#typeChildList").change(function () {
                             var getText = $("#typeChildList option:selected").text();
                             checkFilterMatch(getText, "typeCheck");
                         });
@@ -323,8 +328,8 @@
                     $("#displayDate").hide();
                     $("#displayStatus").hide();
                     $("#displayZip").hide();
-                    $("#displayLocation").slideDown("fast", function() {
-                        $("#locationChildList").change(function() {
+                    $("#displayLocation").slideDown("fast", function () {
+                        $("#locationChildList").change(function () {
                             var getText = $("#locationChildList option:selected").text();
                             checkFilterMatch(getText, "locationCheck");
                         });
@@ -341,27 +346,28 @@
             }
         });
 
-        function checkFilterMatch(value, className) {
+        function checkFilterMatch(search_value, className) {
             let incidentNumberView = 0;
             let cardView = document.getElementsByClassName("cardView");
             for (let i = 0; i < cardView.length; i++) {
-                let textPerCard = cardView[i].lastElementChild.getElementsByClassName(
-                    className
+                let card_text, address_for_marker;
+                card_text = cardView[i].lastElementChild;
+                address_for_marker = card_text.getElementsByClassName(
+                    "locationCheck"
                 )[0].innerText;
-                if (value == textPerCard) {
+                card_text = card_text.getElementsByClassName(className)[0].innerText;
+                if (search_value == card_text) {
+                    document.getElementsByClassName("showing_x_of")[0].innerText = 1;
                     incidentNumberView++;
                     cardView[i].style.display = "";
-                    document.getElementsByClassName(
-                        "incidentNumberView"
-                    )[0].innerText = incidentNumberView;
-                    showPin(i);
+                    updateIncidentNumber(incidentNumberView);
+                    pinView(address_for_marker);
                 } else {
                     if (incidentNumberView == 0) {
-                        document.getElementsByClassName(
-                            "incidentNumberView"
-                        )[0].innerText = incidentNumberView;
+                        document.getElementsByClassName("showing_x_of")[0].innerText = 0;
+                        updateIncidentNumber(incidentNumberView);
+                        removePins();
                     }
-                    removePin(i);
                     cardView[i].style.display = "none";
                 }
             }
@@ -369,20 +375,17 @@
 
         function refreshDisplayAll() {
             resetPins();
-            document.getElementsByClassName(
-                "incidentNumberView"
-            )[0].innerText = document.getElementById(
-                "totalNumberOfIncidents"
-            ).innerText;
-            Array.from(document.getElementsByClassName("cardView")).forEach(
-                function(item) {
-                    item.style.display = "";
-                }
-            );
+            document.getElementsByClassName("incidentNumberView")[0].innerText =
+                gmarkers.length;
+            document.getElementsByClassName("totalNumberOfIncidents")[0].innerText =
+                gmarkers.length;
+            displayAllCards();
         }
 
-        function removePin(i) {
-            gmarkers[i].setMap(null);
+        function removePins() {
+            for (let i = 0; i < gmarkers.length; i++) {
+                gmarkers[i].setMap(null);
+            }
         }
 
         function resetPins() {
@@ -391,9 +394,86 @@
             }
         }
 
-        function showPin(i) {
-            gmarkers[i].setMap(map);
+        function pinView(address) {
+            for (let i = 0; i < gmarkers.length; i++) {
+                if (gmarkers[i].address == address) {
+                    gmarkers[i].setMap(map);
+                } else {
+                    gmarkers[i].setMap(null);
+                }
+            }
         }
+
+        function updateIncidentNumber(search_value) {
+            document.getElementsByClassName(
+                "incidentNumberView"
+            )[0].innerText = search_value;
+            document.getElementsByClassName(
+                "totalNumberOfIncidents"
+            )[0].innerText = search_value;
+        }
+
+        function displayAllCards() {
+            Array.from(document.getElementsByClassName("cardView")).forEach(
+                function (item) {
+                    item.style.display = "";
+                }
+            );
+        }
+
+        // function checkFilterMatch(value, className) {
+        //     let incidentNumberView = 0;
+        //     let cardView = document.getElementsByClassName("cardView");
+        //     for (let i = 0; i < cardView.length; i++) {
+        //         let textPerCard = cardView[i].lastElementChild.getElementsByClassName(
+        //             className
+        //         )[0].innerText;
+        //         if (value == textPerCard) {
+        //             incidentNumberView++;
+        //             cardView[i].style.display = "";
+        //             document.getElementsByClassName(
+        //                 "incidentNumberView"
+        //             )[0].innerText = incidentNumberView;
+        //             showPin(i);
+        //         } else {
+        //             if (incidentNumberView == 0) {
+        //                 document.getElementsByClassName(
+        //                     "incidentNumberView"
+        //                 )[0].innerText = incidentNumberView;
+        //             }
+        //             removePin(i);
+        //             cardView[i].style.display = "none";
+        //         }
+        //     }
+        // }
+
+        // function refreshDisplayAll() {
+        //     resetPins();
+        //     document.getElementsByClassName(
+        //         "incidentNumberView"
+        //     )[0].innerText = document.getElementById(
+        //         "totalNumberOfIncidents"
+        //     ).innerText;
+        //     Array.from(document.getElementsByClassName("cardView")).forEach(
+        //         function (item) {
+        //             item.style.display = "";
+        //         }
+        //     );
+        // }
+
+        // function removePin(i) {
+        //     gmarkers[i].setMap(null);
+        // }
+
+        // function resetPins() {
+        //     for (let i = 0; i < gmarkers.length; i++) {
+        //         gmarkers[i].setMap(map);
+        //     }
+        // }
+
+        // function showPin(i) {
+        //     gmarkers[i].setMap(map);
+        // }
     </script>
     <footer>
         <!-- <%-include ../views/partials/footer.ejs%> -->

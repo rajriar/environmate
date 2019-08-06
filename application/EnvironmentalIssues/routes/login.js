@@ -31,19 +31,18 @@ router.post('/', (req, res, next) => {
       if (!user.comparePassword(req.body.password) || user == null) {
         res.status(401).json({ token: null, errorMessage: 'failed!' })
       } else {
-        res.cookie('user', {
+        res.cookie("user",{
           firstName   : user.firstName,
           lastName    : user.lastName,
           email       : user.userEmail,
           id          : user.userId,
-          dateOfBirth : user.dateOfBirth,
           role        : user.idRole
         });
         
         console.log("logged in as: ", user.dataValues);
       }
       
-      return res.status(200).json("result: logged in as " + user.userEmail);
+      res.status(204).send();
     });
 });
 

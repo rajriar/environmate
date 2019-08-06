@@ -7,12 +7,12 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
-			field: 'TYPE_ID'
+			//field: 'TYPE_ID'
 		},
 		typeName: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
-			field: 'TYPE_NAME'
+			//field: 'TYPE_NAME'
 		}
 	}, {
 		tableName: 'incident_type',

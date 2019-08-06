@@ -24,63 +24,81 @@
 
 <body>
 
-    <form method="POST" action="/incidents/report" enctype="multipart/form-data">
-    <div class="container container-fluid">
-        <div class="card card-center">
-            <div class="col-md-12 text-md-center">
+    <form id="incidentForm" method="POST" action="/incidents/report" enctype="multipart/form-data">
+    <div class="container">
+        <div class="card card-center" style="padding: 0px; margin:0px">
+            <div class="col-md-12 text-md-center" style="padding: 25px">
                 <h1>Post Incident</h1>
             </div>
-            <div></div>
-
-            <div class="card-body">
-                <label class="control-label">
-                    <h5>Zipcode </h5>
-                </label>
-                <select class="form-control" id="zipcodeSelect" name="zipcode" onchange="updateLocations()" required>
-                    <option value="" disabled selected>Select a zipcode</option>
-                    <% zipcodes.forEach( (zipcode) => { %>
-                    <option value="<%= zipcode.zipId %>"><%= zipcode.zipCode %></option>
-                    <% }) %>
-                </select>
-            </div>
-
-            <div class="card-body" id="locationCard" style="display: none;">
-                <label class="control-label">
-                    <h5>Location </h5>
-                </label>
-                <select class="form-control" id="locationSelect" name="location" required>
-                    <option disable value="" selected>Select location</option>
-                    <% locations.forEach( (location) => { %>
-                        <option value="<%=JSON.stringify(location)%>"><%= location.locationName %></option>
-                    <% }) %>
-                </select>
-            </div>
-
-            <div class="card-body">
-                <label class="control-label">
-                    <h5>Incident type</h5>
-                </label>
-                <select class="form-control" id="incidentTypesSelect" name="idType" required>
-                    <option disable value="" selected>Select incident type</option>
-                    <% incidentTypes.forEach( (incident) => { %>
-                    <option value="<%-incident.typeId%>"><%= incident.typeName%></option>
-                    <% }) %>
-                </select>
-            </div>
-
-            <div class="card-body container-fluid">
-                <label>
-                    <h5>Description</h5>
-                </label>
-                <textarea class="form-control" name="description" rows="3" 
-                placeholder="Precise descriptions can help speed up process..."></textarea>
-            </div>    
             
+            <!--   Address section    -->
+            <label class="post-incident-container">
+                 <h3> Address </h3>
+            </label>           
+            <div class="card border-primary post-incident-container">
+                <div class="card-body post-incident-location" id="zipCodeCard">
+                    <label class="control-label">
+                        <h5>Zipcode </h5>
+                    </label>
+                    <select class="form-control" id="zipcodeSelect" name="zipcode" onchange="updateLocations()" required>
+                        <option value="" style="background-color: lightgray" selected>Select a zipcode</option>
+                        <% zipcodes.forEach( (zipcode) => { %>
+                        <option value="<%= zipcode.zipId %>"><%= zipcode.zipCode %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="card-body post-incident-location" id="locationCard">
+                    <label class="control-label">
+                        <h5>Location </h5>
+                    </label>
+                    <select class="form-control" id="locationSelect" name="location" onchange="updateZipcodes()" required>
+                        <option value=""  style="background-color: lightgray" selected>Select location</option>
+                        <% locations.forEach( (location) => { %>
+                        <option value="<%=JSON.stringify(location)%>"><%= location.locationName %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="padding-top: 25px;"></div>
 
-            <div class="card-body container-fluid">
-             
+            <!--     Incident details section     -->
+            <label class="post-incident-container">
+                <h3> Add Description </h3> 
+            </label>
+            <div class="card border-primary post-incident-container">
+                <div class="card-body">
+                    <label class="control-label">
+                        <h5>Incident type</h5>
+                    </label>
+                    <select class="form-control" id="incidentTypesSelect" name="idType" required>
+                        <option disabled value="" selected>Select incident type</option>
+                        <% incidentTypes.forEach( (incident) => { %>
+                        <option value="<%-incident.typeId%>"><%= incident.typeName%></option>
+                        <% }) %>
+                    </select>
+                </div>
+                
+                <div class="card-body container-fluid post-incident-section">
                     <label>
-                        <h5>Upload a pic</h5>
+                        <h5>Description</h5>
+                    </label>
+                    <textarea class="form-control" name="description" rows="3"
+                        placeholder="Precise descriptions can help speed up process..."></textarea>
+                </div>
+
+            </div>
+             
+            <div style="padding-top: 25px;"></div>
+
+            <!--     Media upload section     -->
+            <label class="post-incident-container">
+                <h3> Add a Picture </h3>
+            </label>
+            <div class="card border-primary post-incident-container">
+                <div class="card-body container-fluid post-incident-section">
+                    <label>
+                        <h5>Upload a Picture</h5>
                     </label>
                     <div>
                         <input type="file" name="pic" accept="image/*" onchange="viewImg(this);" required>
@@ -89,15 +107,15 @@
                             <img id="inputImage" src="#" alt="..." class="img-thumbnail  m-1"
                                 style="width: max-content; height: inherit" />
                         </div>
-                    </div>               
-                
+                    </div>
+                </div>
             </div>
             
             
-            <div class="row">
+            <div class="post-incident-container" style="padding-bottom: 35px;">
                 <div class="col-sm-12 text-right">
                     <a class="btn btn-default btn-md center-block" href="/" Style="width: 100px;">Cancel</a>
-                    <button class="btn btn-primary btn-md center-block" type="submit" Style="width: 100px;">Post</button>           
+                    <button class="btn btn-primary btn-md center-block" type="submit" style="width: 100px; color:ivory;" >Post</button>
                 </div>
             </div>
             
@@ -114,26 +132,55 @@
             let zipcodeId      = $('#zipcodeSelect option:selected')[0].value;
             let locations      = $('#locationSelect')[0];
 
+            if (zipcodeId == '') {
+                // show all locations when
+                for (let i = 1; i < locations.length; i++) {
+                    let location = locations[i];
+                    location.style.display = "block";   
+                }
+                return;
+            }
+
             // hide all locations that does not belong 
             // to the selected zipcode
             for (let i = 1; i < locations.length; i++) {
                 let location = locations[i];
                 let locationObj = JSON.parse(location.value);
 
-                if (locationObj.ID_ZIP_CODE != zipcodeId) {
+                if (locationObj.ZipcodeZipId != zipcodeId) {
                     location.style.display = "none";
                 } else {
                     location.style.display = "block";
                 }
             }
 
-            if (zipcodeId != '') {
-                locationCard.show();
-            }
-
             locations.selectedIndex = 0;
         } 
-        
+
+        // calls when location changes
+        var updateZipcodes = () => {
+            let zipCodeCard = $('#zipCodeCard');
+            let zipcodes = $('#zipcodeSelect')[0];
+            let location = $('#locationSelect option:selected')[0].value;
+            let selectedIndex = 0;
+            
+            if (location == '') {
+                return;
+            }
+
+            let locationObj = JSON.parse(location);
+
+            // hide all zipcodes that does not belong 
+            // to the selected location
+            for (let i = 1; i < zipcodes.length; i++) {
+                let zipcode = zipcodes[i];
+                if (zipcode.value == locationObj.ZipcodeZipId) {
+                    selectedIndex = i;        
+                } 
+            }
+
+            zipcodes.selectedIndex = selectedIndex;
+        }
 
         // preview the uploaded image
         var viewImg = (input) => {
@@ -148,6 +195,18 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        // dont submit post if not signed in
+        document.querySelector('#incidentForm').addEventListener("submit", (event) => {
+            
+            const userId = "<%= userId %>";
+            // prevent submit, promt login to submit
+            if (!userId){
+                event.preventDefault();
+                $("#loginPopupButton").click();
+            }            
+        });
+       
         
     </script>
 
