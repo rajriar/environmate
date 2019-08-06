@@ -43,35 +43,34 @@
             $('#loginPopup').modal('show');
         });
     </script>
-
  <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
 
-            var pass = document.getElementById('signup_password');
-            var confirm_pass = document.getElementById('confirm_password');
-            console.log(pass);
-            console.log(confirm_pass);
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if ((form.checkValidity() === false) || pass != confirm_pass) {
-                event.preventDefault();
-                event.stopPropagation();
-                if(pass != confirm_pass){
-                   console.log("passwords do not match. please resubmit.");
-                   alert("Passwords do not match. Please resubmit.");
-                }
-            }
-            form.classList.add('was-validated');
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    // Get password and confirm password values
+                    var pass = document.forms['signup']['signup_password'].value;
+                    var confirm_pass = document.forms['signup']['confirmPassword'].value;
+
+                    // Stop form from submitting if incorrect input or passwords do not match
+                    if ((form.checkValidity() === false) || pass != confirm_pass) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if(pass != confirm_pass){
+                           alert("Passwords do not match. Please resubmit.");
+                        }
+                    }
+                form.classList.add('was-validated');
+              }, false);
+            });
           }, false);
-        });
-      }, false);
-    })();
-</script>
+        })();
+    </script>
 </body>
 </html>
