@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
       if (!user.comparePassword(req.body.password) || user == null) {
         res.status(401).json({ token: null, errorMessage: 'failed!' })
       } else {
-        res.cookie('user', {
+        res.cookie("user",{
           firstName   : user.firstName,
           lastName    : user.lastName,
           email       : user.userEmail,

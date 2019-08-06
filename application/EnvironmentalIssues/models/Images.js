@@ -26,12 +26,12 @@ module.exports = function(sequelize, DataTypes) {
 		tableName: 'image',
 		timestamps : false
 	});
-	image.associate = (models)=>{
-		image.belongsTo(models.incidents,{ 
-			as: 'IncidentID' ,
-			through: 'IncidentsImages'
-		});
-	}
+	// image.associate = (models)=>{
+	// 	image.belongsTo(models.incidents,{ 
+	// 		as: 'IncidentID' ,
+	// 		through: 'IncidentsImages'
+	// 	});
+	// }
 
 	return image;
 };

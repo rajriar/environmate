@@ -101,10 +101,10 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
     imageThumbnail(base64encodedImg)
     .then(thumbnail => {
       const thumbnailImage = thumbnail.toString('base64');
-      models.image.create({image: base64encodedImg,thumbnail:thumbnailImage})
+      models.image.create({image: base64encodedImg,thumbnail:thumbnailImage, incidentIncidentId: newIncident.incidentId})
     .then((img)=>{
       console.log("img id"+ img.imageId);
-      img.setIncidentID(newIncident.incidentId);
+      //img.setincidentID(newIncident.incidentId); //possible error here
       res.render('./index.ejs', {result :'new incident created '+newIncident.incidentId, title: 'CSC 648 Team 1 Home Page' })
     })  
     })

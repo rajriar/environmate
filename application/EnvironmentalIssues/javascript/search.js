@@ -2,20 +2,42 @@ const models = require('../models');
 const sequelize = require ('sequelize');
 const op = sequelize.Op;
 
-var find = async function(request, callback) {
-
+var find = function(request, callback) {
+    var results=[];
     if(request.query.search_text === ""){
-        var results = await models.incidents.findAll({
+        models.incidents.findAll({
             include: [
-                {all:true}
+                {
+                    association: 'Location',
+                    include:[
+                        {
+                            association: 'Zipcode',
+                            required: true
+                        }
+
+                    ],
+                    required: true
+                },
+                {
+                    association: 'Status',
+                    required: true
+                },
+                {
+                    association: 'Type',
+                    required: true
+                },
+                {
+                    model: models.image,
+                    required: false
+                }
             ]
+        }).then(incidents =>{
+            console.log(incidents)
+            callback(null, incidents)
         });
-        results = JSON.parse(JSON.stringify(results));
-        console.log(results);
-        callback(null, results);
     }
     else{
-        var results = await models.incidents.findAll({
+        models.incidents.findAll({
             where: {
                 [op.or]:{
                     description :{
@@ -26,6 +48,8 @@ var find = async function(request, callback) {
             include:[
                 {all: true}
             ]
+        }).then(incidents => {
+            results = incidents;
         });
         results = JSON.parse(JSON.stringify(results));
         callback(null, results);
