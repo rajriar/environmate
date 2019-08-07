@@ -235,73 +235,42 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
 
 // Request to view a specific incident
 router.get('/view/:incidentId', async function (req, res) {
-  const incident_id = parseInt(req.params.incidentId);
-  // find the incident from the database 
-  const resultP = models.incidents.findByPk(incident_id)
-  .then(incident => {
-    //Get image of the incident
-    const imageP = models.image.findOne({
-      where: {
-        incidentIDIncidentId: incident.incidentId
-      }
-    })
-    // create promises of all response values needed
-      .then(img => {
-        console.log(img);
-        return {image: img.image, thumbnail: img.thumbnail};
-      });
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
 
-      const locationP =  incident.getLocation()
-      .then(resolvedLoc => {
-        return resolvedLoc.getZipcode()
-          .then(resolvedZip => {
-            return {location: resolvedLoc.locationName, zipCode: resolvedZip.zipCode};
-          })
-      });
-
-    const statusP = incident.getStatus()
-          .then(status =>{
-              return {status: status.statusName};
-          });
-
-    const typeP = incident.getType()
-          .then(types =>{
-            //console.log(locations.locationName);
-              return {type: types.typeName};
-          });
-          
-    const userP = incident.getUser()
-          .then(users =>{
-            //console.log(locations.locationName);
-            return {user: users.userEmail}
-          });
-      // return the promise of all promises created
-      return Promise.all([Promise.resolve(incident), imageP, locationP, statusP, typeP, userP]);
-  })
-  // create the json object for response
-  .then( incidentFieldsP => {
-    return {
-      incidentId: incidentFieldsP[0].incidentId, 
-      incidentDescription: incidentFieldsP[0].description,
-      image: incidentFieldsP[1].image,
-      thumbnailImage: incidentFieldsP[1].thumbnail,
-      location: incidentFieldsP[2].location,
-      zipCode: incidentFieldsP[2].zipCode,
-      status: incidentFieldsP[3].status,
-      type: incidentFieldsP[4].type,
-      user: incidentFieldsP[5].user
-    };
-  })
-  .catch(function (err) {
-    // catch statement for debugging
-    console.log(`Something bad happened: ${err}`);
-    res.json({
-      viewIncident: `${err}`
-    });
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    if(req.cookies.role === "Admin"){
+      //change to actual admin page
+      res.render('../views/incidents/details',{title: "results page", data: incident})
+    }
+    else{
+      res.render('../views/incidents/details',{title: "results page", data: incident})
+    }
   });
-
-  res.json(await resultP);
-
 });
 
 // for details incident page

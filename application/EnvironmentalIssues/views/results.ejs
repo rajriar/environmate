@@ -81,7 +81,7 @@
                                         <option selected>Choose Zip</option>
                                         <% remove_multiple = [] %>
                                         <% for(var i=0; i < data.length; i++) { %>
-                                        <%remove_multiple.push(data[i].Location.ZipcodeZipId) %>
+                                        <%remove_multiple.push(data[i].Location.Zipcode.zipCode) %>
                                         <% } %>
                                         <%remove_multiple = [...new Set(remove_multiple)] %>
                                         <%for(var i=0; i < remove_multiple.length; i++) { %>
