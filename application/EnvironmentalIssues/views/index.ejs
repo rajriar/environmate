@@ -67,7 +67,7 @@
                 return "";
             }
 
-            var userCookie = getCookie("user");
+            let userCookie = getCookie("user");
             if (userCookie === "") {
                 //hide authContainer
                 $('#authContainer').hide();
@@ -80,7 +80,13 @@
             //hide unauthContainer
             $('#unauthContainer').hide();
 
-            var user = JSON.parse(userCookie);
+            //decode user cookie string value
+            let userCookieDecoded = decodeURIComponent(userCookie);
+            alert("userCookieDecoded: " + userCookieDecoded);
+
+            //parse to JSON object
+            var user = JSON.parse(userCookieDecoded);
+            alert("firstName: " + user.firstName);
 
             //set welcome message
             let welcomeMessage = "Welcome, " + user.firstName;
