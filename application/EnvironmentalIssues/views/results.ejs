@@ -1,9 +1,13 @@
+<!--
+    Author: Carlos Lopez 
+    Purpose/Function: rendering of the entire search page using several API's as well as multiple Javascript Functions
+    Date: 8/6/2019
+ -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <%- include ../views/partials/head.ejs%>
-    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"
         type="text/css" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -11,13 +15,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <!-- NOT TO BE MOVED, GIVES ERROR ELSEWISE -->
-    <!-- GOT RID OF ASYNC IN GOOGLE SCRIPT BELOW -->
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhW3fD9MZfY_lCzOvgla3S1aIi4PpuQyQ&callback=initMap"></script>
-    <!-- BACKEND COMMS -->
     <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
-    <!-- BACKEND COMMS -->
 </head>
 
 <header>
@@ -81,7 +81,7 @@
                                         <option selected>Choose Zip</option>
                                         <% remove_multiple = [] %>
                                         <% for(var i=0; i < data.length; i++) { %>
-                                        <%remove_multiple.push(data[i].Location.ZipcodeZipId) %>
+                                        <%remove_multiple.push(data[i].Location.Zipcode.zipCode) %>
                                         <% } %>
                                         <%remove_multiple = [...new Set(remove_multiple)] %>
                                         <%for(var i=0; i < remove_multiple.length; i++) { %>
@@ -140,6 +140,39 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ICON KEY START -->
+                            <div class="row rounded" style="border: 2px solid grey; margin: 8px">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <b><u>Key Legend</u></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
+                                            Location
+                                        </div>
+                                        <div class="col-lg-6"><i class="material-icons" style="vertical-align: bottom">
+                                                report
+                                            </i> Type
+                                        </div>
+                                    </div>
+                                    <hr class="m-1" style="border: 1px solid white" />
+                                    <div class="row">
+                                        <div class="col-lg-6"><i class="material-icons" style="vertical-align: bottom">
+                                                today
+                                            </i>
+                                            Date
+                                        </div>
+                                        <div class="col-lg-6"><i class="material-icons" style="vertical-align: bottom">
+                                                build
+                                            </i> Status
+                                        </div>
+                                    </div>
+                                    <hr class="m-1" style="border: 1px solid white" />
+                                </div>
+                            </div>
+                            <!-- ICON KEY END -->
                             <!-- ONE INCIDENT START-->
                             <% for(var i=0; i < data.length; i++) { %>
                             <a href="/incidents/view/<%=data[i].incidentId%>"
@@ -147,8 +180,9 @@
                                 <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
                                     <div class="col-lg-4" id="incidentPicture">
                                         <br />
-                                        <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].IMAGE %>" alt="..."
-                                            class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
+                                        <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>"
+                                            alt="..." class="img-thumbnail  m-1"
+                                            style="width: max-content; height: inherit" />
                                     </div>
                                     <div class="col-lg-8">
                                         <br />
@@ -156,7 +190,7 @@
                                         <span style="text-align: left"
                                             class="locationCheck"><%= data[i].Location.locationName %></span>
                                         <span> |</span>
-                                        <span id="zip" class="zipCheck"><%= data[i].Location.ZipcodeZipId %></span>
+                                        <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
                                         <hr class="m-1" />
                                         <i class="material-icons" style="vertical-align: bottom">
                                             today
@@ -168,18 +202,21 @@
                                         </i>
                                         <span style="text-align: left"
                                             class="typeCheck"><%= data[i].Type.typeName %></span>
+                                        <!-- <span style="color: gray">(Type) </span> -->
                                         <hr class="m-1" />
                                         <i class="material-icons" style="vertical-align: bottom">
                                             build
                                         </i>
-                                        <span style="text-align: left">
-                                            <b id="status"
+                                        <span style="text-align: left"><b id="status"
                                                 class="statusCheck"><%= data[i].Status.statusName %></b></span>
-                                        <hr class="m-1" />
+                                        <!-- <span style="color: gray">(Status)
+                                            </span> -->
+                                        <!-- <hr class="m-1" />
                                         <i class="material-icons" style="vertical-align: bottom">
                                             comment
                                         </i>
-                                        <span style="text-align: left"><%= data[i].description %></span>
+                                        <span style="text-align: left"><%= data[i].description %></span> -->
+
                                         <br />
                                         <br />
                                     </div>
@@ -203,12 +240,12 @@
         var map;
         var gmarkers = [];
 
-        function initMap() {
+        async function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 12
             });
             var geocoder = new google.maps.Geocoder();
-            geocodeAddress(geocoder, map);
+            await geocodeAddress(geocoder, map);
         }
 
         function geocodeAddress(geocoder, resultsMap) {
@@ -272,10 +309,12 @@
             switch (getText) {
                 case "Status":
                     refreshDisplayAll();
-                    $("#displayDate").hide();
                     $("#displayZip").hide();
+                    $("#zipChildList")[0].selectedIndex = 0
                     $("#displayType").hide();
+                    $("#typeChildList")[0].selectedIndex = 0
                     $("#displayLocation").hide();
+                    $("#locationChildList")[0].selectedIndex = 0
                     $("#displayStatus").slideDown("fast", function () {
                         $("#statusChildList").change(function () {
                             var getText = $("#statusChildList option:selected").text();
@@ -285,10 +324,12 @@
                     break;
                 case "Zip":
                     refreshDisplayAll();
-                    $("#displayDate").hide();
                     $("#displayStatus").hide();
+                    $("#statusChildList")[0].selectedIndex = 0
                     $("#displayType").hide();
+                    $("#typeChildList")[0].selectedIndex = 0
                     $("#displayLocation").hide();
+                    $("#locationChildList")[0].selectedIndex = 0
                     $("#displayZip").slideDown("fast", function () {
                         $("#zipChildList").change(function () {
                             var getText = $("#zipChildList option:selected").text();
@@ -298,10 +339,12 @@
                     break;
                 case "Type":
                     refreshDisplayAll();
-                    $("#displayDate").hide();
                     $("#displayStatus").hide();
+                    $("#statusChildList")[0].selectedIndex = 0
                     $("#displayZip").hide();
+                    $("#zipChildList")[0].selectedIndex = 0
                     $("#displayLocation").hide();
+                    $("#locationChildList")[0].selectedIndex = 0
                     $("#displayType").slideDown("fast", function () {
                         $("#typeChildList").change(function () {
                             var getText = $("#typeChildList option:selected").text();
@@ -312,9 +355,11 @@
                 case "Location":
                     refreshDisplayAll();
                     $("#displayType").hide();
-                    $("#displayDate").hide();
+                    $("#typeChildList")[0].selectedIndex = 0
                     $("#displayStatus").hide();
+                    $("#statusChildList")[0].selectedIndex = 0
                     $("#displayZip").hide();
+                    $("#zipChildList")[0].selectedIndex = 0
                     $("#displayLocation").slideDown("fast", function () {
                         $("#locationChildList").change(function () {
                             var getText = $("#locationChildList option:selected").text();
@@ -325,10 +370,13 @@
                 case "Filter by category":
                     refreshDisplayAll();
                     $("#displayType").hide();
-                    $("#displayDate").hide();
+                    $("#typeChildList")[0].selectedIndex = 0
                     $("#displayStatus").hide();
+                    $("#statusChildList")[0].selectedIndex = 0
                     $("#displayZip").hide();
+                    $("#zipChildList")[0].selectedIndex = 0
                     $("#displayLocation").hide();
+                    $("#locationChildList")[0].selectedIndex = 0
                     break;
             }
         });

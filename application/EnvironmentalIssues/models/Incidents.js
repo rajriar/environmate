@@ -39,11 +39,8 @@ module.exports = function(sequelize, DataTypes) {
 			as: 'User' ,
 			through: 'IncidentsUsers'
 		});
+		incidents.hasMany(models.image);
 
-		// incidents.hasOne(models.image,{ 
-		// 	as: 'IncidentID' ,
-		// 	through: 'IncidentsImages'
-		// });
 	}
 
 	return incidents;
