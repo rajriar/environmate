@@ -105,7 +105,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
     .then((img)=>{
       console.log("img id"+ img.imageId);
       //img.setincidentID(newIncident.incidentId); //possible error here
-      res.render('./index.ejs', {result :'new incident created '+newIncident.incidentId, title: 'CSC 648 Team 1 Home Page' })
+      res.render('./incidents/details.ejs', {id:newIncident.incidentId, result :'new incident created '+newIncident.incidentId, title: 'CSC 648 Team 1 Home Page' })
     })  
     })
   })
@@ -122,7 +122,6 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
 
 // Request to update an incident     
-//change it to post
 router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) {
   console.log('req.params');
   //console.log(req.params.incidentId);
@@ -270,6 +269,7 @@ router.get('/view/:incidentId', async function (req, res) {
     else{
       res.render('../views/incidents/details',{title: "results page", data: incident})
     }
+
   });
 });
 
@@ -286,8 +286,10 @@ router.get('/view',async function(req, res) {
     .map( incident => {
         const imagePromise = models.image.findAll({  
           where: {
-            incidentIDIncidentId: incident.incidentId
-          }
+            incidentIncidentId: incident.incidentId,
+            
+          },
+          
         })
         // create all promises needed for the response object
         .then(resolvedImages => { 
@@ -326,6 +328,7 @@ router.get('/view',async function(req, res) {
         return {
             incidentId: incidentFieldsP[0].incidentId, 
             incidentDescription: incidentFieldsP[0].description,
+            incidentDate:incidentFieldsP[0].createdAt, 
             image: incidentFieldsP[1].image,
             thumbnailImage: incidentFieldsP[1].thumbnail,
             location: incidentFieldsP[2].location,
@@ -343,7 +346,7 @@ router.get('/view',async function(req, res) {
         });
       });
   
-    res.json(await resultP);
+    res.json({data:await resultP});
 
 });
 

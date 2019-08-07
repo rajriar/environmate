@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include ../partials/head.ejs%>
+    <script src="https://unpkg.com/blob-util/dist/blob-util.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<header>
+    <% include ../partials/header.ejs%>
+</header>
+
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 300px;
+        width: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+</style>
+
+
+
+<body>
+	<div class="container-fluid"> 
+		<div class="row d-flex justify-content-center">
+			<div class="card mx-2 my-2" style="max-width: 1080px;">
+				<div class="row d-flex justify-content-center mx-3 my-2" style="background-color: lightgrey; border: 1px solid darkgrey; border-radius: 4px;">
+					<h5 class="my-2"><b>Incident Details</b></h5>
+				</div>	
+			  	<div class="row d-flex justify-content-center mx-3 my-2"> 	
+			  		<!-- picture section-->
+			    	<div class="col-md-6 ">  
+			      	<img src="https://sfrecpark.org/wp-content/uploads/IMG_3604-e1395359176830-600x400.jpg"  class="card-img" alt="Incident image">
+			    	</div> 
+			    	<!-- end picture section-->
+			    	<!-- text section -->
+					<div class="col-md-6"> 
+						<div class="col-md-12 ">
+							<ul class="list-group list-group-flush">
+								<!-- <div class="d-flex justify-content-center">
+						      	<h5 class="mb-1 py-2"><b>Incident Details</b></h5>
+						    	</div>	 -->
+
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Location</b></div>
+								  <div class="col-md-8 px-0">1 California Street | 94111</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4  pr-3" style="text-align: right;"><b>Date</b></div>
+								  <div class="col-md-8 px-0">Aug. 14, 2019</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Status</b></div>
+								  <div class="col-md-8 px-0">
+
+								  	 <select class="custom-select" name="education">
+						              <option value="None Selected">Received</option>
+						              <option value="High School">Reviewed</option>
+						              <option value="College">Resolved</option>
+						              <option value="Graduate">Archiveds</option>
+
+						            </select>
+
+								  </div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Type</b></div>
+								  <div class="col-md-8 px-0">Garbage</div>
+								</div>
+							  </li>
+							  <li class="list-group-item">
+							  	<div class="d-flex flex-row justify-content-center">
+								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Description</b></div>
+								  <div class="col-md-8 px-0">Garbage everywhere.</div>
+								</div>
+							  </li>
+							</ul>
+						</div>
+				    	<!-- end of text section-->
+				    </div> 
+				    <div class ="container-fluid d-flex justify-content-center my-3">
+				  		<div class = "col-md-12"  id="map" style="border: 1px solid darkgrey; border-radius: 4px;"></div>
+				  	</div>	
+			  	</div>
+			</div>
+			<!-- end of card -->
+		</div>	
+	</div>
+</div>
+	</div>	 
+</div>
+
+     <!-- Google Maps Scripts -->
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+ 
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        geocodeAddress(geocoder, map);
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = "1 California St. San Francisco, CA 94111";
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbbGgneV5CfoBql_jy6R8hz2XdVkdI7Yw&callback=initMap">
+    </script>
+
+</body>
+</html>
