@@ -41,6 +41,11 @@
 
     <script>
         $(document).ready(function() {
+            //hide logged in controls until after cookie check
+            $('#authContainer').hide();
+        });
+
+        $(window).load(function() {
             //declare util funcs
             var loginUnsuccessful = function() {
                 alert("Login unsuccessful!");
@@ -62,9 +67,6 @@
                 return "";
             }
 
-            //hide logged in controls until after cookie check
-            $('#authContainer').hide();
-
             var userCookie = getCookie("user");
             if (userCookie === "") {
                 //hide authContainer
@@ -72,6 +74,7 @@
                 //show authContainer
                 $('#unauthContainer').show();
                 loginUnsuccessful();
+                return;
             }
 
             //hide unauthContainer
