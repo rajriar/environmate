@@ -66,12 +66,12 @@ router.get('/',async function(req, res) {
                 return Promise.resolve({type: resolvedType.typeName});
               });
           
-            const userPromise = incident.getUser()
-              .then(resolvedUser => {
-                return Promise.resolve({user: resolvedUser.userEmail});
-              });
+            // const userPromise = incident.getUser()
+            //   .then(resolvedUser => {
+            //     return Promise.resolve({user: resolvedUser.userEmail});
+            //   });
             // create a promise.all to resolve all promises
-            return Promise.all([Promise.resolve(incident), imagePromise, locationPromise, statusPromise, typePromise, userPromise]);
+            return Promise.all([Promise.resolve(incident), imagePromise, locationPromise, statusPromise, typePromise]);
           }).map(incidentFieldsP => {
             console.log(incidentFieldsP);
             // return the json object for the response
@@ -85,7 +85,7 @@ router.get('/',async function(req, res) {
                 zipCode: incidentFieldsP[2].zipCode,
                 status: incidentFieldsP[3].status,
                 type: incidentFieldsP[4].type,
-                user: incidentFieldsP[5].user
+                //user: incidentFieldsP[5].user
               };
           })
           .catch(function (err) {
