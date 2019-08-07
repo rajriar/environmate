@@ -7,6 +7,7 @@ var logger = require('morgan');
 var expressValidator = require('express-validator');
 
 var session = require('express-session');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var expressHandlebars = require('express-handlebars');
 
@@ -19,6 +20,18 @@ var signupRoute = require('./routes/signup.js');
 var loginRouter = require('./routes/login.js');
 
 var app = express();
+
+app.use(session( {
+    secret: "wat",
+    cookie: {
+        path: '/',
+        httpOnly: false
+    }
+}))
+// app.use(cookieSession( {
+//     name: 'user',
+//     keys: ['wat']
+// }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
