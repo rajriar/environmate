@@ -8,8 +8,8 @@
     <% include ../views/partials/header.ejs%>
 </header>
 <script>
-
 </script>
+
 <body>
     <div class="container">
         <div class="row">
@@ -30,9 +30,7 @@
             <div class="col-lg-12 content">
                 <div id="content">
                     <h1 class="environmate-index">EnvironMate</h1>
-                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate
-                        provides an application to the community to where if you see an environmental defect, you can
-                        post it to our website <br>You may also view incidents posted from users</h3>
+                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate provides an application to the community to where if you see an environmental defect, you can post it to our website <br>You may also view incidents posted from users</h3>
                     <hr>
                 </div>
             </div>
@@ -42,5 +40,90 @@
     <footer>
         <%-include ../views/partials/footer.ejs%>
     </footer>
+
+    <!-- <script>
+        $(document).ready(function() {
+            //hide logged in controls until after cookie check
+            $('#authContainer').hide();
+        });
+
+        $(window).Load(function() {
+            //declare util funcs
+            var loginUnsuccessful = function() {
+                alert("Login unsuccessful!");
+            }
+
+
+
+            // let parsed = getCookie("parsed.firstName");
+            if (parsed === "") {
+                //hide authContainer
+                $('#authContainer').hide();
+                //show authContainer
+                $('#unauthContainer').show();
+                loginUnsuccessful();
+                return;
+            }
+
+            //hide unauthContainer
+            $('#unauthContainer').hide();
+
+            //decode user cookie string value
+            let userCookieDecoded = decodeURIComponent(userCookie);
+            alert("userCookieDecoded: " + userCookieDecoded);
+
+            //parse to JSON object
+            var user = JSON.parse(userCookieDecoded);
+            alert("firstName: " + user.firstName);
+
+            //set welcome message
+            let welcomeMessage = "Welcome, " + user.firstName;
+            $('#welcomeMsg').text(welcomeMessage);
+
+            //show authContainer
+            $('#authContainer').show();
+
+        });
+    </script> -->
+    <script>
+        $(document).ready(function() {
+            //hide logged in controls until after cookie check
+            $('#authContainer').hide();
+        });
+        var getCookie = function(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieJson = [];
+            for (let i = 0; i < decodedCookie.length; i++) {
+                if (decodedCookie[i] === ':') {
+                    cookieJson = decodedCookie.substring(i + 1);
+                    return cookieJson;
+
+                }
+            }
+            return null;
+        }
+
+        var parsed = JSON.parse(getCookie(document.cookie));
+
+        if (parsed === "") {
+            //hide authContainer
+            $('#authContainer').hide();
+            //show authContainer
+            $('#unauthContainer').show();
+            loginUnsuccessful();
+
+        } else {
+            //set welcome message
+            let welcomeMessage = "Welcome, " + parsed.firstName;
+            $('#welcomeMsg').text(welcomeMessage);
+
+            //show authContainer
+            $('#authContainer').show();
+
+            $('#unauthContainer').hide();
+            console.log(parsed.firstName);
+        }
+    </script>
 
     </html>

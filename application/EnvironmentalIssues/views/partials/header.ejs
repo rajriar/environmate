@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <p class="text-muted bg-dark mx-0 my-0" style="text-align: center;"><small>SFSU Software Engineering Project CSC 648-848, Summer 2019. For Demonstration Only</small></p>
 <% include modals.ejs%>
     <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -39,3 +40,45 @@
             </ul>
         </div>
     </nav>
+
+    <script>
+        var getCookie = function(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieJson = [];
+            for (let i = 0; i < decodedCookie.length; i++) {
+                if (decodedCookie[i] === '{') {
+                    cookieJson = decodedCookie.substring(i);
+                    return cookieJson;
+
+                }
+            }
+            return null;
+        }
+
+
+        var parsed = JSON.parse(getCookie(document.cookie));
+
+        if (parsed === "") {
+            //hide authContainer
+            $('#authContainer').hide();
+            //show authContainer
+            $('#unauthContainer').show();
+            loginUnsuccessful();
+
+        } else {
+            $(document).ready(function() {
+                //hide logged in controls until after cookie check
+                $('#authContainer').hide();
+            });
+            //set welcome message
+            let welcomeMessage = "Welcome, " + parsed.firstName;
+            $('#welcomeMsg').text(welcomeMessage);
+
+            //show authContainer
+            $('#authContainer').show();
+
+            $('#unauthContainer').hide();
+            console.log(parsed.firstName);
+        }
+    </script>
