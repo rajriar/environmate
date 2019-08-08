@@ -1,4 +1,8 @@
-/* jshint indent: 1 */
+/*
+* Author: Johnathan Le
+* updated: 8.8.2019
+* Function -- db model for incident status.
+*/
 
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('incidentStatus', {

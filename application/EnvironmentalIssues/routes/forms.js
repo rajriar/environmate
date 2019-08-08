@@ -1,3 +1,9 @@
+/*
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- router for about pages.
+*/
+
 const express = require('express');
 var router = express.Router();
 const app = express();

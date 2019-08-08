@@ -1,3 +1,11 @@
+/*
+* Author: Sandyha sankaran
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- router for index/home pages.
+*/
+
+
 var express = require('express');
 var router = express.Router();
 
@@ -56,7 +64,10 @@ router.get('/', async function (req, res) {
               model: models.image,
               required: false //return false == left outter join
           }
-      ]
+      ],
+      order: [
+        ['createdAt', 'DESC']
+    ],
     }).then(incident =>{
       
         res.render('index', { data: incident,title: 'CSC 648 Team 1 Home Page' });

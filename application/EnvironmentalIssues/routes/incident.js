@@ -1,5 +1,9 @@
-//const db = require('./dbConnection');
-//const fs = require('fs');
+/*
+* Author: Sandyha sankaran
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- router for posting/retrieving incident pages.
+*/
 var request = require('request');
 const multer = require('multer')
 const upload = multer({})
