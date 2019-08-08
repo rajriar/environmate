@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div id="authContainer">
-                <span id="welcomeMsg"></span>
+                <span id="welcomeMsg" style="color: white"></span>
                 <!-- Button trigger for log in -->
                 <button type="button" id="logoutButton" class="btn btn-primary btn-sm" data-target="#logout">
                   Log Out
@@ -84,7 +84,7 @@
         } else {
             $(document).ready(function() {
                 //hide logged in controls until after cookie check
-                $('#authContainer').hide();
+                $('#authContainer').show();
             });
             //set welcome message
             let welcomeMessage = "Welcome, " + parsed.firstName;

@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-2 col-sm-2 rounded most-recent" style="border: 2px solid black">
+            <div class="col-lg-4 col-md-4 col-sm-4 rounded most-recent" style="border: 2px solid black">
                 <p style="text-align: center">Most Recent Incidents</p>
                 <% for(var i=0; i < data.length; i++) { %>
                     <a href="/incidents/view/<%=data[i].incidentId%>" style="color: black; text-decoration: none">
@@ -22,7 +22,7 @@
                                 <br />
                                 <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..." class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-4 col-sm-4">
                                 <br />
                                 <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
                                 <span style="text-align: left" class="locationCheck"><%= data[i].Location.locationName %></span>
@@ -43,10 +43,6 @@
                         </div>
                     </a>
                     <% } %>
-                        <h2>Another Incident</h2>
-                        <h2>Another Inciden show scroll bar</h2>
-                        <h2>Another Inciden show scroll bar</h2>
-                        <h2>Another Inciden show scroll bar</h2>
             </div>
             <div class="col-lg-8 col-md-6 col-sm-6" id="content">
                 <h2 class="environmate-index">EnvironMate</h2>
@@ -58,90 +54,5 @@
     <footer>
         <%-include ../views/partials/footer.ejs%>
     </footer>
-
-    <!-- <script>
-        $(document).ready(function() {
-            //hide logged in controls until after cookie check
-            $('#authContainer').hide();
-        });
-
-        $(window).Load(function() {
-            //declare util funcs
-            var loginUnsuccessful = function() {
-                alert("Login unsuccessful!");
-            }
-
-
-
-            // let parsed = getCookie("parsed.firstName");
-            if (parsed === "") {
-                //hide authContainer
-                $('#authContainer').hide();
-                //show authContainer
-                $('#unauthContainer').show();
-                loginUnsuccessful();
-                return;
-            }
-
-            //hide unauthContainer
-            $('#unauthContainer').hide();
-
-            //decode user cookie string value
-            let userCookieDecoded = decodeURIComponent(userCookie);
-            alert("userCookieDecoded: " + userCookieDecoded);
-
-            //parse to JSON object
-            var user = JSON.parse(userCookieDecoded);
-            alert("firstName: " + user.firstName);
-
-            //set welcome message
-            let welcomeMessage = "Welcome, " + user.firstName;
-            $('#welcomeMsg').text(welcomeMessage);
-
-            //show authContainer
-            $('#authContainer').show();
-
-        });
-    </script> -->
-    <!-- <script>
-        $(document).ready(function() {
-            //hide logged in controls until after cookie check
-            $('#authContainer').hide();
-        });
-        var getCookie = function(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var cookieJson = [];
-            for (let i = 0; i < decodedCookie.length; i++) {
-                if (decodedCookie[i] === ':') {
-                    cookieJson = decodedCookie.substring(i + 1);
-                    return cookieJson;
-
-                }
-            }
-            return null;
-        }
-
-        var parsed = JSON.parse(getCookie(document.cookie));
-
-        if (parsed === "") {
-            //hide authContainer
-            $('#authContainer').hide();
-            //show authContainer
-            $('#unauthContainer').show();
-            loginUnsuccessful();
-
-        } else {
-            //set welcome message
-            let welcomeMessage = "Welcome, " + parsed.firstName;
-            $('#welcomeMsg').text(welcomeMessage);
-
-            //show authContainer
-            $('#authContainer').show();
-
-            $('#unauthContainer').hide();
-            console.log(parsed.firstName);
-        }
-    </script> -->
 
     </html>
