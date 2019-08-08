@@ -15,14 +15,55 @@
         <div class="row">
             <div class="col-lg-7 rounded">
                 <div class="rounded  most-recent" style="border: 2px solid black">
-                    <h3></h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
+                    <% for(var i=0; i < data.length; i++) { %>
+                        <a href="/incidents/view/<%=data[i].incidentId%>"
+                            style="color: black; text-decoration: none">
+                            <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
+                                <div class="col-lg-4" id="incidentPicture">
+                                    <br />
+                                    <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>"
+                                        alt="..." class="img-thumbnail  m-1"
+                                        style="width: max-content; height: inherit" />
+                                </div>
+                                <div class="col-lg-8">
+                                    <br />
+                                    <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
+                                    <span style="text-align: left"
+                                        class="locationCheck"><%= data[i].Location.locationName %></span>
+                                    <span> |</span>
+                                    <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
+                                    <hr class="m-1" />
+                                    <i class="material-icons" style="vertical-align: bottom">
+                                        today
+                                    </i>
+                                    <span style="text-align: left" class="parseDate"><%= data[i].createdAt %></span>
+                                    <hr class="m-1" />
+                                    <i class="material-icons" style="vertical-align: bottom">
+                                        report
+                                    </i>
+                                    <span style="text-align: left"
+                                        class="typeCheck"><%= data[i].Type.typeName %></span>
+                                    <!-- <span style="color: gray">(Type) </span> -->
+                                    <hr class="m-1" />
+                                    <i class="material-icons" style="vertical-align: bottom">
+                                        build
+                                    </i>
+                                    <span style="text-align: left"><b id="status"
+                                            class="statusCheck"><%= data[i].Status.statusName %></b></span>
+                                    <!-- <span style="color: gray">(Status)
+                                        </span> -->
+                                    <!-- <hr class="m-1" />
+                                    <i class="material-icons" style="vertical-align: bottom">
+                                        comment
+                                    </i>
+                                    <span style="text-align: left"><%= data[i].description %></span> -->
+
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </a>
+                        <% } %>
                 </div>
             </div>
         </div>
