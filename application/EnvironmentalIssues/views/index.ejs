@@ -13,70 +13,47 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 rounded">
-                <div class="rounded  most-recent" style="border: 2px solid black">
-                    <% for(var i=0; i < data.length; i++) { %>
-                        <a href="/incidents/view/<%=data[i].incidentId%>"
-                            style="color: black; text-decoration: none">
-                            <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
-                                <div class="col-lg-4" id="incidentPicture">
-                                    <br />
-                                    <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>"
-                                        alt="..." class="img-thumbnail  m-1"
-                                        style="width: max-content; height: inherit" />
-                                </div>
-                                <div class="col-lg-8">
-                                    <br />
-                                    <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
-                                    <span style="text-align: left"
-                                        class="locationCheck"><%= data[i].Location.locationName %></span>
-                                    <span> |</span>
-                                    <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
-                                    <hr class="m-1" />
-                                    <i class="material-icons" style="vertical-align: bottom">
-                                        today
-                                    </i>
-                                    <span style="text-align: left" class="parseDate"><%= data[i].createdAt %></span>
-                                    <hr class="m-1" />
-                                    <i class="material-icons" style="vertical-align: bottom">
-                                        report
-                                    </i>
-                                    <span style="text-align: left"
-                                        class="typeCheck"><%= data[i].Type.typeName %></span>
-                                    <!-- <span style="color: gray">(Type) </span> -->
-                                    <hr class="m-1" />
-                                    <i class="material-icons" style="vertical-align: bottom">
-                                        build
-                                    </i>
-                                    <span style="text-align: left"><b id="status"
-                                            class="statusCheck"><%= data[i].Status.statusName %></b></span>
-                                    <!-- <span style="color: gray">(Status)
-                                        </span> -->
-                                    <!-- <hr class="m-1" />
-                                    <i class="material-icons" style="vertical-align: bottom">
-                                        comment
-                                    </i>
-                                    <span style="text-align: left"><%= data[i].description %></span> -->
-
-                                    <br />
-                                    <br />
-                                </div>
+            <div class="col-lg-4 col-md-2 col-sm-2 rounded most-recent" style="border: 2px solid black">
+                <p style="text-align: center">Most Recent Incidents</p>
+                <% for(var i=0; i < data.length; i++) { %>
+                    <a href="/incidents/view/<%=data[i].incidentId%>" style="color: black; text-decoration: none">
+                        <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
+                            <div class="col-lg-4" id="incidentPicture">
+                                <br />
+                                <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..." class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
                             </div>
-                        </a>
-                        <% } %>
-                </div>
+                            <div class="col-lg-8">
+                                <br />
+                                <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
+                                <span style="text-align: left" class="locationCheck"><%= data[i].Location.locationName %></span>
+                                <span> |</span>
+                                <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
+                                <hr class="m-1" />
+                                <hr class="m-1" />
+                                <i class="material-icons" style="vertical-align: bottom">
+                                    report
+                                </i>
+                                <span style="text-align: left" class="typeCheck"><%= data[i].Type.typeName %></span>
+                                <!-- <span style="color: gray">(Type) </span> -->
+                                <hr class="m-1" />
+
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                    </a>
+                    <% } %>
+                        <h2>Another Incident</h2>
+                        <h2>Another Inciden show scroll bar</h2>
+                        <h2>Another Inciden show scroll bar</h2>
+                        <h2>Another Inciden show scroll bar</h2>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-6" id="content">
+                <h2 class="environmate-index">EnvironMate</h2>
+                <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate provides an application to the community to where if you see an environmental defect, you can post it to our website <br>You may also view incidents posted from users</h3>
+                <hr>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 content">
-                <div id="content">
-                    <h1 class="environmate-index">EnvironMate</h1>
-                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate provides an application to the community to where if you see an environmental defect, you can post it to our website <br>You may also view incidents posted from users</h3>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     <footer>
         <%-include ../views/partials/footer.ejs%>
@@ -126,7 +103,7 @@
 
         });
     </script> -->
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             //hide logged in controls until after cookie check
             $('#authContainer').hide();
@@ -165,6 +142,6 @@
             $('#unauthContainer').hide();
             console.log(parsed.firstName);
         }
-    </script>
+    </script> -->
 
     </html>
