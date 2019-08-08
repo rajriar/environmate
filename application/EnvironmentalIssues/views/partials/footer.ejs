@@ -34,7 +34,7 @@
                     form.classList.add('was-validated');
                     if(form.checkValidity()){
                         $('#loginPopup').modal('hide');
-                        //$('#signupPopup').modal('hide');
+                        $('.modal-backdrop').remove();
                     }   
                 }, false);
             });
@@ -42,6 +42,6 @@
         })();
     </script>
     <!-- MODAL SCRIPTS --> 
- 
+
 </body>
 </html>
