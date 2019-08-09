@@ -199,7 +199,7 @@
         // dont submit post if not signed in
         document.querySelector('#incidentForm').addEventListener("submit", (event) => {
             
-            const userId = "<%= userId %>";
+            const userId = document.cookie;
             // prevent submit, promt login to submit
             if (!userId){
                 event.preventDefault();
