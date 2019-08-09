@@ -1,5 +1,5 @@
 /*
-* Author: Johnathan Le
+* Author: Johnathan Lee
 * updated: 8.8.2019
 * Function -- router for register requests.
 */

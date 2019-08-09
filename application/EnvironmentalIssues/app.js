@@ -18,20 +18,9 @@ var formRoute = require('./routes/forms.js');
 var incidentpost = require('./routes/incident.js');
 var signupRoute = require('./routes/signup.js');
 var loginRouter = require('./routes/login.js');
+var signoutRouter = require('./routes/signout.js');
 
 var app = express();
-
-app.use(session( {
-    secret: "wat",
-    cookie: {
-        path: '/',
-        httpOnly: false
-    }
-}))
-// app.use(cookieSession( {
-//     name: 'user',
-//     keys: ['wat']
-// }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,6 +41,7 @@ app.use('/about/forms', formRoute);
 app.use('/incidents',incidentpost);
 app.use('/signup', signupRoute);
 app.use('/login', loginRouter);
+app.use('/signout', signoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
