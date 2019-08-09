@@ -1,3 +1,8 @@
+/*
+* Author: Johnathan Le
+* updated: 8.8.2019
+* Function -- router for register requests.
+*/
 const express = require("express");
 const router = express.Router();
 

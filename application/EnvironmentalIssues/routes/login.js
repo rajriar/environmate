@@ -1,3 +1,10 @@
+/*
+* Author: Johnathan Le
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- router for Login/register requests.
+*/
+
 const express = require("express");
 const router = express.Router();
 const cookieParser = require('cookie-parser');
