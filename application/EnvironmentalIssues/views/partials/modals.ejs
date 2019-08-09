@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="signupBtn">Sign Up</button>
+                        <button type="submit" class="btn btn-primary" id="signupBtn" onsubmit="buttonSubmit()">Sign Up</button>
                     </div>
 
                 </form>
@@ -88,7 +88,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form form class="needs-validation" novalidate name="login" method="post" action="/login">
+                <form form class="needs-validation" novalidate name="login" method="post" action="/login" >
                     <div class="modal-body">
                         <div class="login-group">
                             <label for="signinEmail">Email address</label>

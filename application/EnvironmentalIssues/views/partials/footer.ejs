@@ -35,11 +35,25 @@
                     if(form.checkValidity()){
                         $('#loginPopup').modal('hide');
                         $('.modal-backdrop').remove();
+                        buttonSubmit();
                     }   
                 }, false);
             });
           }, false);
         })();
+
+        /** buttonSubmit() function reloads the page when modal submits successfully **/
+
+        function buttonSubmit() {
+            sleep(500).then(() => {window.location.reload();});
+            console.log("SUCCESSFUL SUBMIT");
+        }
+
+        /** sleep() function creates a sleep before reloading **/
+        function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+
     </script>
     <!-- MODAL SCRIPTS --> 
 
