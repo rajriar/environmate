@@ -33,43 +33,32 @@
                         event.preventDefault();
                         event.stopPropagation();
                         if (pass != confirm_pass) {
-                            alert("Passwords do not match. Please resubmit.");
+                            alert("Passwords do not match.Please resubmit.");
                         }
                     }
-                    form.classList.add('was-validated');
+                    form.classList.add('was - validated');
                     if (form.checkValidity()) {
-                        $('#loginPopup').modal('hide');
-                        $('.modal-backdrop').remove();
-
+                        $('#loginPopup’).modal(‘hide');
+                        $('.modal - backdrop').remove();
+                        buttonSubmit();
                     }
                 }, false);
             });
         }, false);
     })();
+    /** buttonSubmit() function reloads the page when modal submits successfully **/
+    function buttonSubmit() {
+        sleep(500).then(() => {
+            window.location.reload();
+        });
+        console.log("SUCCESSFUL SUBMIT");
+    }
+    /** sleep() function creates a sleep before reloading **/
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
 </script>
 <!-- MODAL SCRIPTS -->
-
-                        buttonSubmit();
-                    }   
-                }, false);
-            });
-          }, false);
-        })();
-
-        /** buttonSubmit() function reloads the page when modal submits successfully **/
-
-        function buttonSubmit() {
-            sleep(500).then(() => {window.location.reload();});
-            console.log("SUCCESSFUL SUBMIT");
-        }
-
-        /** sleep() function creates a sleep before reloading **/
-        function sleep (time) {
-            return new Promise((resolve) => setTimeout(resolve, time));
-        }
-
-    </script>
-    <!-- MODAL SCRIPTS --> 
 
 
 </body>
