@@ -25,23 +25,22 @@ html {
 
 #content {
     text-align: center;
-    padding-top: 10%;
+    
 }
 
 .environmate-index {
-    font-size: 8em;
+    font-size: 450%;
 }
 
 .mission-statement {
-    font-size: 1.5em;
-    color: white;
-    text-shadow: 0px 4px 3px black, 0px 8px 10px green;
+    font-size: 100%;
+    color: black;
+    font: sans-serif;
 }
 
 .footer-text {
-    color: white;
+    color: black;
     font-size: 1em;
-    margin-top: 10%;
 }
 
 .results {
@@ -50,6 +49,10 @@ html {
     overflow: auto;
 }
 
+.index{
+    margin: 5%;
+    padding: 15px;
+}
 .container {
     margin: 30px;
     padding: 10px;
@@ -73,6 +76,35 @@ html {
 }
 
 .nav-search-bar {
-    margin-left: 50%;
+    margin-left: 20%;
     margin-top: 10px;
+    width: 100%;
+}
+
+.about-nav {
+    margin-left: 75px;
+}
+
+.post-nav {
+    margin-right: 50px;
+}
+
+.most-recent {
+    height: 440px;
+    width: 200px;
+    overflow: auto;
+    position: relative;
+}
+
+.post-incident-container {
+    margin: auto;
+    width: 600px;
+    min-width: 400px;
+    max-width: 1000px;
+    padding: 25px;
+    padding-bottom: 0px;
+}
+
+.post-incident-section {
+    float: left;
 }

@@ -1,7 +1,13 @@
-//const db = require('./dbConnection');
-//const fs = require('fs');
+/*
+* Author: Sandyha sankaran
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- router for posting/retrieving incident pages.
+*/
+var request = require('request');
 const multer = require('multer')
 const upload = multer({})
+const imageThumbnail = require('image-thumbnail');
 
 const express = require("express");
 const router = express.Router();
@@ -21,12 +27,10 @@ router.get('/report', function (req, res, next) {
   let _locations     = [];
   let _incidentTypes = [];
   let _status        = [];
-  
-  if(!req.cookies.user){
-    // Todo handle unregistered user
-    res.send({
-      msg: "Login to access this page if your a member. Otherwise join by signing up."
-    });
+  let _userId        = null;
+
+  if (req.cookies && req.cookies.user){
+    _userId = req.cookies.user.id;
   }
 
   // fetch necessary stuff from db
@@ -39,7 +43,7 @@ router.get('/report', function (req, res, next) {
   })
   .then( results => {
     results.forEach((location) => {
-      console.log(location.dataValues);
+      //console.log(location.dataValues);
       _locations.push(location.dataValues);
     });
     return models.incidentType.findAll();
@@ -61,7 +65,8 @@ router.get('/report', function (req, res, next) {
       zipcodes      : _zipcodes,
       locations     : _locations,
       incidentTypes : _incidentTypes,
-      status        : _status
+      status        : _status,
+      userId        : _userId // Todo use sessions
     })
   }).catch( (err) => {
     console.log(`Error fetching data for report page. Details: ${err}`)
@@ -74,6 +79,7 @@ router.get('/report', function (req, res, next) {
 
 
 // Request to create new incidents
+
 router.post('/report', upload.single('pic') ,function(req, res,next) {
   console.log(req.body);
 
@@ -83,49 +89,46 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
   // create an incident 
   models.incidents.create({ 
-    idType           : req.body.idType, 
-    idLocation       : locationObj.locationId , 
     description      : req.body.description, 
-    idUser           : userId, 
-    idStatus         : RECEIVED_STATUS,
-    reportedDateTime : new Date()
   })
   .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
-      return incident;  
+       incident.setType(req.body.idType);
+       incident.setLocation(locationObj.locationId);
+       incident.setUser(userId);
+      //console.log(Object.keys(incident.__proto__));
+      incident.setStatus(RECEIVED_STATUS);
+      //return incident; 
+      return incident;
   })
-  // add the image of the incident to images folder
-  .then((id) => {
-      // var imageData  = fs.readFileSync("/Users/viswanathanr/Desktop/logo.png");
-      // console.log(imageData);
-      // var bufferBase64  = new Buffer(imageData,'binary').toString('base64');
-      // console.log(bufferBase64);
-
-      return models.image.create({ image: base64encodedImg, idIncident: id.incidentId });
+  //create new image and thumbnail of that image
+  .then(newIncident=>{
+    imageThumbnail(base64encodedImg)
+    .then(thumbnail => {
+      const thumbnailImage = thumbnail.toString('base64');
+      models.image.create({image: base64encodedImg,thumbnail:thumbnailImage, incidentIncidentId: newIncident.incidentId})
+    .then((img)=>{
+      console.log("img id"+ img.imageId);
+      //img.setincidentID(newIncident.incidentId); //possible error here
+      //var url ='http://localhost/incidents/view/'+newIncident.incidentId;
+      res.redirect('/incidents/view/'+newIncident.incidentId);
+      //res.render('../views/incidents/details',{title: "results page", data: incident})
+    })  
     })
-    //send response with all details of the incident
-    .then((img) => {
-      models.incidents.findByPk(img.idIncident)
-        .then(incident => {
-          const incidentResponse = JSON.parse(JSON.stringify(incident));
-          incidentResponse.image = img.image;
-          res.json({ "incident": incidentResponse });
-        })
-    })
-    //catch statement for debugging
-    .catch(function (err) {
-      console.log(`Something bad happened: ${err}`);
-      res.json({
-        createIncident: "failed to create incident"
-      });
+  })
+  //catch statement for debugging
+  .catch(function (err) {
+    console.log(`Something bad happened: ${err}`);
+    res.json({
+      createIncident: "failed to create incident"
     });
-
+  });
 });
 
 
 
+
 // Request to update an incident     
-//change it to post
 router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) {
   console.log('req.params');
   //console.log(req.params.incidentId);
@@ -236,76 +239,135 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
 });
 
 
+// Request to view a specific incident
+router.get('/view/:incidentId', async function (req, res) {
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
 
-// Request to view all incidents
-router.get('/view', function (req, res) {
-  models.incidents.findAll()
-    .then(incidents => {
-      // map images to each incident to send them in a reponse
-      promiseOfImages = incidents.map(inc => {
-        return models.image.findAll({
-          where: {
-            idIncident: inc.incidentId
-          }
-        }).then(imageRes => {
-          //console.log("Img from map = ");
-          const incidentResponse = JSON.parse(JSON.stringify(inc));
-          incidentResponse.image = imageRes[0];
-          //console.log(incidentResponse);
-          return incidentResponse;
-        })
-      });
-      return Promise.all(promiseOfImages)
-    }).then(incidentImages => {
-      res.json({incidentResponse: incidentImages.map(incImg => {
-        if (incImg.image != null) {
-          const respImage = JSON.parse(JSON.stringify(incImg));
-          respImage.image = respImage.image.image;
-          return respImage;
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
         }
-        else {
-          const respImage = JSON.parse(JSON.stringify(incImg));
-          respImage.image = "";
-          return respImage;
+    ]
+  }).then(incident =>{
+    if(req.cookies.role === "Admin"){
+      //change to actual admin page
+      res.render('../views/incidents/details',{title: "results page", data: incident})
+    }
+    else{
+      res.render('../views/incidents/details',{title: "results page", data: incident})
+    }
+
+  });
+});
+
+// Request to update incident
+router.put('/view/:incidentId', async function (req, res) {
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
         }
-      })});
-      //res.json(incidentImages);
-    })
-    .catch(function (err) {
-      // catch statement for debugging
-      console.log(`Something bad happened: ${err}`);
-      res.json({
-        viewIncident: `${err}`
-      });
-    });
+    ]
+  }).then(incident =>{
+    // "Admin" mayneed to be changed here base on what the cookie says
+    if(req.cookies.role === "Admin"){
+      
+      
+    }
+    else{
+      res.render('../views/error.ejs', {message: "Sorry you do not have sufficient permissions to edit this post"})
+    }
+
+  });
+});
+
+// for details incident page
+router.get('/details', function (req, res) {
+  res.render('../views/incidents/details', { title: 'Incident Details' })
 });
 
 
 
-// Request to view a specific incident
-router.get('/view/:incidentId', function (req, res) {
-  const incident_id = parseInt(req.params.incidentId);
-  models.incidents.findByPk(incident_id).then(incident => {
-    //Get image of the incident and add it to the response
-    models.image.findAll({
-      where: {
-        idIncident: incident.incidentId
-      }
-    })
-      .then(img => {
-        const incidentResponse = JSON.parse(JSON.stringify(incident));
-        console.log(img);
-        incidentResponse.image = img[0].image;
-        console.log(incidentResponse);
-        res.json({ incidentResponse });
-      })
-  })
-  .catch(function (err) {
-    // catch statement for debugging
-    console.log(`Something bad happened: ${err}`);
-    res.json({
-      viewIncident: `${err}`
-    });
+
+// Request to view  all incidents
+router.get('/view', async function (req, res) {
+  models.incidents.findAll({
+      
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    if(req.cookies.role === "Admin"){
+      //change to actual admin page
+      res.json({data: incident})
+    }
+    else{
+      res.json({data: incident})
+    }
+
   });
 });
 

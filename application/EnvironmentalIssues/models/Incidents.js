@@ -1,4 +1,10 @@
-/* jshint indent: 1 */
+/*
+* Author: Sandyha sankaran
+* Author: Johnathan Le
+* Author: Jonathan Julian
+* updated: 8.8.2019
+* Function -- Model for incident table
+*/
 const models = require('../models');
 
 module.exports = function(sequelize, DataTypes) {
@@ -39,11 +45,8 @@ module.exports = function(sequelize, DataTypes) {
 			as: 'User' ,
 			through: 'IncidentsUsers'
 		});
+		incidents.hasMany(models.image);
 
-		incidents.hasOne(models.image,{ 
-			as: 'Image' ,
-			through: 'IncidentsImages'
-		});
 	}
 
 	return incidents;

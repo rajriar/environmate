@@ -1,3 +1,9 @@
+/*
+* Author: Johnathan Le
+* updated: 8.8.2019
+* Function -- Model for incident table
+*/
+
 const bcrypt = require('bcrypt');
 const models = require('../models');
 
@@ -34,17 +40,11 @@ module.exports = (sequelize, type) => {
             allowNull: false,
             field: 'LAST_NAME'
         },
-        dateOfBirth: {
-            type: type.DATE,
-            allowNull: false,
-            field: 'DATE_OF_BIRTH'
-        },
         inactive: {
             type: type.BOOLEAN,
             allowNull: false,
             field: 'inactive'
         }},{
-            //createdAt: false,
             updatedAt: false,
             hooks:{
                 beforeCreate: (user, options) =>{
@@ -62,12 +62,13 @@ module.exports = (sequelize, type) => {
     );
     (users.prototype.comparePassword = function(password) {
         return bcrypt.compareSync(password, this.password);
-    }),users.associate = (models) => {
+    }),
+    (users.associate = (models) => {
         users.belongsTo(models.roles, {
             as: 'Role',
             through: 'UserRole'
         });
-    }
+    })
 
 
     return users;

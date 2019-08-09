@@ -1,38 +1,97 @@
-const db = require('./dbConnection');
+/*
+Author : Jonathan Julian
+Function : provides search and returns all if no text is searched.
+Date: 8/6/2019
+
+*/
+
+
+const models = require('../models'); //map to model folder
+const sequelize = require ('sequelize'); //import statement for sequelize
+const op = sequelize.Op; //shortcut to operations in sequelize
 
 var find = function(request, callback) {
+    var results=[];
+    if(request.query.search_text === ""){ //checks for no text returns all entries
+        models.incidents.findAll({
+            include: [ //includes associations defined in models
+                {
+                    association: 'Location',
+                    include:[ //2nd level association in location model
+                        { 
+                            association: 'Zipcode',
+                            required: true
+                        }
 
-
-    //BASE QUERY JOINS ALL "FOREIGN KEY TABLES AND DISPLAYS ALL RESULTS"
-    var sql = "SELECT i.INCIDENT_ID, i.DESCRIPTION, i.REPORTED_DATE_TIME," + //GRABS INFO STORED IN INCIDENT TABLE
-        " it.TYPE_NAME," + //GRABS INCIDENT TYPE
-        " istatus.STATUS_NAME," + //GRABS STATUS NAME FROM TABLE
-        " loc.LOCATION_NAME, zip.ZIP_CODE," + //GRABS LOCATION NAME AND ZIP FROM TABLES
-        " images.IMAGE as IMAGE" + //GRABS IMAGE
-        " FROM incidents i" +
-        " INNER JOIN incident_type it ON i.ID_TYPE = it.TYPE_ID" + //JOINS TYPE TO INCIDENT TABLE
-        " INNER JOIN incident_status istatus ON i.ID_STATUS = istatus.STATUS_ID" + //JOINS STATUS TO INCIDENT TABLE
-        " INNER JOIN location loc ON i.ID_LOCATION = loc.LOCATION_ID" + // JOINS LOCATION TO INCIDENT TABLE
-        " INNER JOIN zip_codes zip ON loc.ID_ZIP_CODE = zip.ZIP_ID" + // JOINS ZIP TO TO LOCATION TABLE
-        " LEFT OUTER JOIN image images ON i.INCIDENT_ID = images.ID_INCIDENT"; // JOINS IMAGE TO INCIDENT TABLE
-
-    if (request.query.search_field === 'ZIP') {
-        sql += " WHERE zip.ZIP_CODE like '%" + request.query.search_text + "%'";
-    } else if (request.query.search_field === 'STATUS') {
-        sql += " WHERE istatus.STATUS_NAME like '%" + request.query.search_text + "%'";
-    } else if (request.query.search_field === 'TYPE') {
-        sql += " WHERE it.TYPE_NAME like '%" + request.query.search_text + "%'";
+                    ],
+                    required: true //required true == inner join 
+                },
+                {
+                    association: 'Status',
+                    required: true
+                },
+                {
+                    association: 'Type',
+                    required: true
+                },
+                {
+                    model: models.image,
+                    required: false //return false == left outter join
+                }
+            ]
+        }).then(incidents =>{
+            callback(null, incidents) //returns incidents to front
+        });
     }
-
-    db.query(sql, function(err, result) {
-        if (err) {
-            callback(err, null);
-        } else {
-            callback(null, result);
-
-        }
-    });
-
+    else{ //text has been searched.
+        models.incidents.findAll({
+            where:{ //search criteria
+                [op.or]:{ //or condition
+                    description:{ //searches main table
+                        [op.like] : "%"+request.query.search_text+"%" //%like search
+                    },
+                    '$Location.locationName$': { //associates table look up as maintable.AssociatedtableName.tableColumn
+                        [op.like] : "%"+request.query.search_text+"%"  
+                    },
+                    '$Location.Zipcode.zipCode$' : { //2 layers of associated tables
+                        [op.like] : "%"+request.query.search_text+"%"
+                    },
+                    '$Status.statusName$':{
+                        [op.like] : "%"+request.query.search_text+"%"
+                    },
+                    '$Type.typeName$':{
+                        [op.like] : "%"+request.query.search_text+"%"
+                    }
+                }
+            },
+            include: [ //includes the tables to resolve the host information. 
+                {
+                    association: 'Location',
+                    include:[
+                        {
+                            association: 'Zipcode',
+                            required: true
+                        }
+                    ],
+                    required: true
+                },
+                {
+                    association: 'Status',
+                    required: true
+                },
+                {
+                    association: 'Type',
+                    required: true
+                },
+                {
+                    model: models.image,
+                    required: false
+                }
+            ]
+        }).then(incidents => {
+                callback(null,incidents); //returns incidents
+        });
+    }
 }
 
 module.exports = {

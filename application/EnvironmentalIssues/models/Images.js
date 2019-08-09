@@ -1,7 +1,12 @@
-/* jshint indent: 1 */
-
+/*
+* Author: Johnathan Le
+* Author: Jonthan Julian
+* updated: 8.8.2019
+* Function -- db model for images.
+*/
+const models = require('../models');
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('image', {
+	const image =  sequelize.define('image', {
 		imageId: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -11,7 +16,13 @@ module.exports = function(sequelize, DataTypes) {
 			
 		},
 		image: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT("long"),
+			allowNull: true,
+			//field: 'IMAGE'
+			
+		},
+		thumbnail: {
+			type: DataTypes.TEXT("long"),
 			allowNull: true,
 			//field: 'IMAGE'
 			
@@ -20,4 +31,12 @@ module.exports = function(sequelize, DataTypes) {
 		tableName: 'image',
 		timestamps : false
 	});
+	// image.associate = (models)=>{
+	// 	image.belongsTo(models.incidents,{ 
+	// 		as: 'IncidentID' ,
+	// 		through: 'IncidentsImages'
+	// 	});
+	// }
+
+	return image;
 };
