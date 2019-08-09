@@ -1,5 +1,5 @@
 /*
-* Author: Sandyha sankaran
+* Author: Sandhya sankaran
 * Author: Jonathan Julian
 * updated: 8.8.2019
 * Function -- router for index/home pages.
