@@ -9,6 +9,7 @@ const router = express.Router();
 router.use(express.json());
 
 const models = require('../models');
+const test = require('./index');
 
 router.post("/", (req, res, next) => {
     console.log('req.body');
@@ -22,7 +23,8 @@ router.post("/", (req, res, next) => {
         
         // if email is already being used
         if (user) {
-            return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
+            return res.json({result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
+            //return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
         }
 
         models.users.create({
@@ -35,7 +37,9 @@ router.post("/", (req, res, next) => {
         }).then(user => {
             console.log("User ID: ", user.userId);
             user.setRole('1');
-            return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
+            return res.redirect('/');
+
+            //return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
 
         }).catch((error) => {
             console.log("Error creating a user. Details: ", error)
@@ -44,5 +48,46 @@ router.post("/", (req, res, next) => {
     })
 
 });
+
+
+// Request to view a all incidents
+router.get('/', async function (req, res) {
+    models.incidents.findAll({
+        limit:5,
+        include: [ //includes associations defined in models
+          {
+              association: 'Location',
+              include:[ //2nd level association in location model
+                  { 
+                      association: 'Zipcode',
+                      required: true
+                  }
+  
+              ],
+              required: true //required true == inner join 
+          },
+          {
+              association: 'Status',
+              required: true
+          },
+          {
+              association: 'Type',
+              required: true
+          },
+          {
+              model: models.image,
+              required: false //return false == left outter join
+          }
+      ],
+      order: [
+        ['createdAt', 'DESC']
+    ],
+    }).then(incident =>{
+      
+        res.render('index', { data: incident,title: 'CSC 648 Team 1 Home Page' });
+      
+    });
+  });
+
   
 module.exports = router;
