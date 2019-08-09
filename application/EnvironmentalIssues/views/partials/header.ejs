@@ -37,15 +37,17 @@
             <div id="authContainer">
                 <span id="welcomeMsg" style="color: white"></span>
                 <!-- Button trigger for log in -->
-                <button type="button" id="logoutButton" method="post" action="/signout" class="btn btn-primary btn-sm" data-target="#logout">
-                  Log Out
-                </button>
+                <form action="/signout" method="post">
+                    <button type="submit" id="signout" class="btn btn-primary btn-sm" data-target="#logout">
+                        Log Out
+                    </button>
+                </form>
             </div>
             <div id="unauthContainer">
                 <ul class="navbar-nav ml-auto">
                     <!-- Button trigger for log in -->
                     <li class="nav-item post-nav">
-                        <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup">
+                        <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup" value="signout">
                         Log In
                       </button>
                     </li>

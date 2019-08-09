@@ -1,7 +1,6 @@
 /*
 * Author: Johnathan Lee
-* Author: Jonathan Julian
-* updated: 8.8.2019
+* updated: 8.9.2019
 * Function -- router for signout requests.
 */
 
