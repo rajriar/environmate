@@ -3,64 +3,54 @@
     Purpose/Function: Provides a footer partial on bottom of page with copyright..also stores our scripts and jquery
     Date: 8/8/2019
  -->
+
 <footer class="page-footer font-small blue">
-    <div class="footer-copyright text-center py-3 footer-text">
-        <p class="text-muted"><small>© 2019 Copyright: EnvironMate, San Francisco State University
+    <div class="footer-copyright text-center py-3 footer-text"><p class ="text-muted"><small>© 2019 Copyright: EnvironMate, San Francisco State University
     </p></small></div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
 <!-- MODAL SCRIPTS -->
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
+    <script>
+        // function constantly checks for validation errors and updates the user in real-time.
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
                 form.addEventListener('submit', function(event) {
                     // Get password and confirm password values
                     var pass = document.forms['signup']['signup_password'].value;
                     var confirm_pass = document.forms['signup']['confirm_password'].value;
-
                     // Stop form from submitting if incorrect input or passwords do not match
                     if ((form.checkValidity() === false) || (pass != confirm_pass)) {
                         event.preventDefault();
                         event.stopPropagation();
-                        if (pass != confirm_pass) {
-                            alert("Passwords do not match.Please resubmit.");
+                        if(pass != confirm_pass){
+                           alert("Passwords do not match. Please resubmit.");
                         }
                     }
-                    form.classList.add('was - validated');
-                    if (form.checkValidity()) {
-                        $('#loginPopup’).modal(‘hide');
-                        $('.modal - backdrop').remove();
+                    form.classList.add('was-validated');
+                    if(form.checkValidity()){
+                        $('#loginPopup').modal('hide');
+                        $('.modal-backdrop').remove();
                         buttonSubmit();
-                    }
+                    }   
                 }, false);
             });
-        }, false);
-    })();
-    /** buttonSubmit() function reloads the page when modal submits successfully **/
-    function buttonSubmit() {
-        sleep(500).then(() => {
-            window.location.reload();
-        });
-        console.log("SUCCESSFUL SUBMIT");
-    }
-    /** sleep() function creates a sleep before reloading **/
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
-</script>
-<!-- MODAL SCRIPTS -->
-
-
-</body>
-
-</html>
+          }, false);
+        })();
+        /** buttonSubmit() function reloads the page when modal submits successfully **/
+        function buttonSubmit() {
+            sleep(500).then(() => {window.location.reload();});
+            console.log("SUCCESSFUL SUBMIT");
+        }
+        /** sleep() function creates a sleep before reloading **/
+        function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+    </script>
+    <!-- MODAL SCRIPTS --> 
