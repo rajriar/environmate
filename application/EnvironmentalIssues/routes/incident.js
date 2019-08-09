@@ -280,6 +280,48 @@ router.get('/view/:incidentId', async function (req, res) {
   });
 });
 
+// Request to update incident
+router.put('/view/:incidentId', async function (req, res) {
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    // "Admin" mayneed to be changed here base on what the cookie says
+    if(req.cookies.role === "Admin"){
+      
+      
+    }
+    else{
+      res.render('../views/error.ejs', {message: "Sorry you do not have sufficient permissions to edit this post"})
+    }
+
+  });
+});
+
 // for details incident page
 router.get('/details', function (req, res) {
   res.render('../views/incidents/details', { title: 'Incident Details' })
