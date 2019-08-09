@@ -90,12 +90,18 @@ router.get('/report', function (req, res, next) {
 // Request to create new incidents
 
 router.post('/report', upload.single('pic') ,function(req, res,next) {
-  console.log(req.body);
+  console.log("req.body of post"+req.body);
 // convert the uploaded image to base64 string to store in the database
   const base64encodedImg = req.file.buffer.toString('base64'); 
   const userId           = req.cookies.user.id;
   const locationObj      = JSON.parse(req.body.location);
-
+  
+  if(!req.cookies.user){
+    // Todo handle unregistered user
+    res.send({
+      msg: "Login to access this page if your a member. Otherwise join by signing up."
+    });
+  }
   // create an incident from the body parameters and store them in database 
   models.incidents.create({ 
     description      : req.body.description, 

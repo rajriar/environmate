@@ -23,7 +23,7 @@ router.post("/", (req, res, next) => {
         
         // if email is already being used
         if (user) {
-            return res.json({result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
+            return res.send({result: "Email in use."});
             //return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
         }
 
@@ -49,45 +49,6 @@ router.post("/", (req, res, next) => {
 
 });
 
-
-// Request to view a all incidents
-router.get('/', async function (req, res) {
-    models.incidents.findAll({
-        limit:5,
-        include: [ //includes associations defined in models
-          {
-              association: 'Location',
-              include:[ //2nd level association in location model
-                  { 
-                      association: 'Zipcode',
-                      required: true
-                  }
-  
-              ],
-              required: true //required true == inner join 
-          },
-          {
-              association: 'Status',
-              required: true
-          },
-          {
-              association: 'Type',
-              required: true
-          },
-          {
-              model: models.image,
-              required: false //return false == left outter join
-          }
-      ],
-      order: [
-        ['createdAt', 'DESC']
-    ],
-    }).then(incident =>{
-      
-        res.render('index', { data: incident,title: 'CSC 648 Team 1 Home Page' });
-      
-    });
-  });
 
   
 module.exports = router;
