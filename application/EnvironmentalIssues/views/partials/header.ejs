@@ -1,3 +1,8 @@
+<!--
+    Author: Rajdeep Riar
+    Purpose/Function: includes nav bar, along wiht cookie script for user log in
+    Date: 8/8/2019
+ -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <p class="text-muted bg-dark mx-0 my-0" style="text-align: center;"><small>SFSU Software Engineering Project CSC 648-848, Summer 2019. For Demonstration Only</small></p>
 <% include modals.ejs%>
@@ -28,16 +33,31 @@
                     <a href="/incidents/report"><button class="btn btn-danger">Post Incident</button></a>
                     <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
                 </li>
-                <!-- Button trigger for log in -->
-                <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup">
-              Log In
-            </button>
-
-                <!-- Button trigger for sign up -->
-                <button type="button" class="btn btn-primary btn-sm signup-nav" data-toggle="modal" data-target="#signupPopup">
-              Sign Up
-            </button>
             </ul>
+            <div id="authContainer">
+                <span id="welcomeMsg" style="color: white"></span>
+                <!-- Button trigger for log in -->
+                <button type="button" id="logoutButton" class="btn btn-primary btn-sm" data-target="#logout">
+                  Log Out
+                </button>
+            </div>
+            <div id="unauthContainer">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Button trigger for log in -->
+                    <li class="nav-item post-nav">
+                        <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup">
+                        Log In
+                      </button>
+                    </li>
+
+                    <!-- Button trigger for sign up -->
+                    <li class="nav-item signup-nav">
+                        <button type="button" class="btn btn-primary btn-sm signup-nav" data-toggle="modal" data-target="#signupPopup">
+                        Sign Up
+                      </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -69,7 +89,7 @@
         } else {
             $(document).ready(function() {
                 //hide logged in controls until after cookie check
-                $('#authContainer').hide();
+                $('#authContainer').show();
             });
             //set welcome message
             let welcomeMessage = "Welcome, " + parsed.firstName;

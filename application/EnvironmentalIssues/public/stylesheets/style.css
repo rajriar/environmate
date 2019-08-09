@@ -26,12 +26,12 @@ html {
 #content {
     text-align: center;
     float: right;
-    margin-top: -30%;
-    margin-left: 50%;
+    margin-top: -35%;
+    margin-left: 35%;
 }
 
 .environmate-index {
-    font-size: 8em;
+    font-size: 6em;
 }
 
 .mission-statement {
@@ -43,7 +43,6 @@ html {
 .footer-text {
     color: black;
     font-size: 1em;
-    margin-top: 10%;
 }
 
 .results {
@@ -85,16 +84,14 @@ html {
 }
 
 .post-nav {
-    margin-right: 175px;
-}
-
-.login-nav {
-    margin-right: 20px;
+    margin-right: 50px;
 }
 
 .most-recent {
-    max-width: 50%;
-    margin-top: 10%;
+    height: 440px;
+    width: 200px;
+    overflow: auto;
+    position: relative;
 }
 
 .post-incident-container {
