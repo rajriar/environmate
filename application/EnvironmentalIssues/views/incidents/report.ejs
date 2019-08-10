@@ -111,6 +111,7 @@
                 </div>
             </div>
             
+            <input type="number" style="display: none;" value="getUserId()" name="userId"></input>
             
             <div class="post-incident-container" style="padding-bottom: 35px;">
                 <div class="col-sm-12 text-right">
@@ -195,11 +196,18 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        
+        // get user id from cookie
+        getUserId = () => {
+            // this line assumes cookie exists.
+            return JSON.parse( getCookie('user') ).userId;
+        }
 
         // dont submit post if not signed in
         document.querySelector('#incidentForm').addEventListener("submit", (event) => {
             
-            const userId = document.cookie;
+            const userId = getCookie('user');
+            console.log(userId);
             // prevent submit, promt login to submit
             if (!userId){
                 event.preventDefault();

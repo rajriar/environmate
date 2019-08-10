@@ -27,11 +27,6 @@ router.get('/report', function (req, res, next) {
   let _locations     = [];
   let _incidentTypes = [];
   let _status        = [];
-  let _userId        = null;
-
-  if (req.cookies && req.cookies.user){
-    _userId = req.cookies.user.id;
-  }
 
   // fetch necessary stuff from db
   models.zipCodes.findAll()
@@ -65,8 +60,7 @@ router.get('/report', function (req, res, next) {
       zipcodes      : _zipcodes,
       locations     : _locations,
       incidentTypes : _incidentTypes,
-      status        : _status,
-      userId        : _userId // Todo use sessions
+      status        : _status
     })
   }).catch( (err) => {
     console.log(`Error fetching data for report page. Details: ${err}`)
@@ -81,10 +75,10 @@ router.get('/report', function (req, res, next) {
 // Request to create new incidents
 
 router.post('/report', upload.single('pic') ,function(req, res,next) {
-  console.log(req.body);
+  // console.log(req.body);
 
   const base64encodedImg = req.file.buffer.toString('base64'); 
-  const userId           = req.cookies.user.id;
+  const userId           = req.cookies.user.userId;
   const locationObj      = JSON.parse(req.body.location);
 
   // create an incident 
