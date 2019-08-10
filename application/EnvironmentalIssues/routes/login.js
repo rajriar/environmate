@@ -1,5 +1,5 @@
 /*
-* Author: Johnathan Le
+* Author: Johnathan Lee
 * Author: Jonathan Julian
 * updated: 8.8.2019
 * Function -- router for Login/register requests.
@@ -38,6 +38,7 @@ router.post('/', (req, res, next) => {
         if (!user.comparePassword(req.body.password) || user == null) {
             res.status(401).json({ token: null, errorMessage: 'failed!' })
         } else {
+            // set cookie for user
             res.cookie("user", user.dataValues);
 
             console.log("logged in as: ", user.dataValues);

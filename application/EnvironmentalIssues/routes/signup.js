@@ -1,5 +1,5 @@
 /*
-* Author: Johnathan Le
+* Author: Johnathan Lee
 * updated: 8.8.2019
 * Function -- router for register requests.
 */
@@ -23,8 +23,11 @@ router.post("/", (req, res, next) => {
         
         // if email is already being used
         if (user) {
-            return res.send({result: "Email in use."});
-            //return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
+
+            // return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
+            
+            // 422 means unable to process the contained instructions - closely implies invalid args
+           return res.status(422).send({ reason: "Email is already in use by other user."});
         }
 
         models.users.create({
@@ -37,11 +40,19 @@ router.post("/", (req, res, next) => {
         }).then(user => {
             console.log("User ID: ", user.userId);
             user.setRole('1');
-            return res.redirect('/');
 
-            //return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
+            // return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
+            // I'm not sure if we need to redirect to home page on success login - Michael'comment
+
+            // set cookie for user
+            res.cookie("user", user.dataValues);
+
+            // success status
+            res.status(204).send();
+
 
         }).catch((error) => {
+            res.status(400).send({message: "Something wrong happened, please try again.."});
             console.log("Error creating a user. Details: ", error)
         })
 

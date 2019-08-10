@@ -29,11 +29,6 @@ router.get('/report', function (req, res, next) {
   let _locations     = [];
   let _incidentTypes = [];
   let _status        = [];
-  let _userId        = null;
-
-  if (req.cookies && req.cookies.user){
-    _userId = req.cookies.user.id;
-  }
 
   // fetch necessary stuff from the database from each table
   //fetch zipcodes from zipcode table
@@ -72,8 +67,7 @@ router.get('/report', function (req, res, next) {
       zipcodes      : _zipcodes,
       locations     : _locations,
       incidentTypes : _incidentTypes,
-      status        : _status,
-      userId        : _userId // Todo use sessions
+      status        : _status
     })
   })
   //catch statement for debugging
@@ -92,8 +86,9 @@ router.get('/report', function (req, res, next) {
 router.post('/report', upload.single('pic') ,function(req, res,next) {
   console.log("req.body of post"+req.body);
 // convert the uploaded image to base64 string to store in the database
+
   const base64encodedImg = req.file.buffer.toString('base64'); 
-  const userId           = req.cookies.user.id;
+  const userId           = req.cookies.user.userId;
   const locationObj      = JSON.parse(req.body.location);
   
   if(!req.cookies.user){
@@ -302,6 +297,48 @@ router.get('/view/:incidentId', async function (req, res) {
     }
     else{
       res.render('../views/incidents/details',{title: "results page", data: incident})
+    }
+
+  });
+});
+
+// Request to update incident
+router.put('/view/:incidentId', async function (req, res) {
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    // "Admin" mayneed to be changed here base on what the cookie says
+    if(req.cookies.role === "Admin"){
+      
+      
+    }
+    else{
+      res.render('../views/error.ejs', {message: "Sorry you do not have sufficient permissions to edit this post"})
     }
 
   });

@@ -25,17 +25,15 @@ html {
 
 #content {
     text-align: center;
-    float: right;
-    margin-top: -35%;
-    margin-left: 35%;
+    
 }
 
 .environmate-index {
-    font-size: 6em;
+    font-size: 450%;
 }
 
 .mission-statement {
-    font-size: 1.5em;
+    font-size: 100%;
     color: black;
     font: sans-serif;
 }
@@ -51,6 +49,10 @@ html {
     overflow: auto;
 }
 
+.index{
+    margin: 5%;
+    padding: 15px;
+}
 .container {
     margin: 30px;
     padding: 10px;
