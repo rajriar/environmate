@@ -41,20 +41,19 @@
         <div id="authContainer">
             <span id="welcomeMsg" style="color: white"></span>
             <!-- Button trigger for log in -->
+            <!--
             <button type="button" id="logoutButton" class="btn btn-primary btn-sm" data-target="#logout">
                 Log Out
-            </button>
+            </button> 
+            -->
+            <form action="/signout" method="post">
+                <button type="submit" id="signout" class="btn btn-primary btn-sm">
+                    Log Out
+                </button>
+            </form>
         </div>
-        <div id="unauthContainer">
             <ul class="navbar-nav ml-auto">
                 <!-- Button trigger for log in -->
-
-                <a form action="/signout" method="post">
-                    <button type="button" id="signout" class="btn btn-primary btn-sm" data-target="#logout">
-                        Log Out
-                    </button>
-                </form> </a>
-            </div>
             <div id="unauthContainer">
                 <ul class="navbar-nav ml-auto">
                     <!-- Button trigger for log in -->
@@ -78,6 +77,10 @@
 </nav>
 
 <script>
+    
+    // get cookie from URI encoded cookie obj.
+    // @param cname is the name of a cookie (ie. 'user')
+    // @return string representation of cookie object that was set.
     var getCookie = function (cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
@@ -92,29 +95,37 @@
         return null;
     }
 
+    // function that update auth-related nav components/buttons
+    var updateAuthButtons = () =>{
 
-    var parsed = JSON.parse(getCookie(document.cookie));
+        var cookie = getCookie('user');
+        if (!cookie) {
+            //hide authContainer
+            $('#authContainer').hide();
+            //show authContainer
+            $('#unauthContainer').show();
+            // loginUnsuccessful(); undefined function?
 
-    if (parsed === "") {
-        //hide authContainer
-        $('#authContainer').hide();
-        //show authContainer
-        $('#unauthContainer').show();
-        loginUnsuccessful();
+        } else {
+            let parsed = JSON.parse(cookie);
 
-    } else {
-        $(document).ready(function () {
-            //hide logged in controls until after cookie check
+            $(document).ready(function () {
+                //hide logged in controls until after cookie check
+                $('#authContainer').show();
+            });
+            //set welcome message
+            let welcomeMessage = "Welcome, " + parsed.firstName;
+            $('#welcomeMsg').text(welcomeMessage);
+
+            //show authContainer
             $('#authContainer').show();
-        });
-        //set welcome message
-        let welcomeMessage = "Welcome, " + parsed.firstName;
-        $('#welcomeMsg').text(welcomeMessage);
 
-        //show authContainer
-        $('#authContainer').show();
-
-        $('#unauthContainer').hide();
-        console.log(parsed.firstName);
+            $('#unauthContainer').hide();
+            // console.log(parsed.firstName);
+        }
     }
+
+    // each reloads update buttons
+    updateAuthButtons();
+    
 </script>

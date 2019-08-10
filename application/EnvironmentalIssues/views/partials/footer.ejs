@@ -36,7 +36,7 @@
                     if ((form.checkValidity() === false) || (pass != confirm_pass)) {
                         event.preventDefault();
                         event.stopPropagation();
-                        if (pass != confirm_pass) {
+                        if (pass !== confirm_pass) {
                             alert("Passwords do not match. Please resubmit.");
                         }
                     }
@@ -52,8 +52,20 @@
     })();
     /** buttonSubmit() function reloads the page when modal submits successfully **/
     function buttonSubmit() {
-        sleep(500).then(() => { window.location.reload(); });
-        console.log("SUCCESSFUL SUBMIT");
+
+        sleep(500).then(() => {
+
+            // reload the page on submit modal
+            // otherwise update only the auth buttons
+            // in the search bar
+            if(window.location.pathname === '/'){
+                window.location.reload();
+            }else{
+                updateAuthButtons();
+            }   
+            
+        });
+
     }
     /** sleep() function creates a sleep before reloading **/
     function sleep(time) {
