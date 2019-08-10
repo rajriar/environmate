@@ -32,7 +32,9 @@ router.get('/results', function(req, res, next) {
     });
     //search.close(req);
 });
-// Request to view a all incidents
+
+// Request to view recent incidents in homepage
+
 router.get('/', async function (req, res) {
     models.incidents.findAll({
         limit:5,
@@ -65,7 +67,7 @@ router.get('/', async function (req, res) {
         ['createdAt', 'DESC']
     ],
     }).then(incident =>{
-      
+        //Render the index page with the incident details
         res.render('index', { data: incident,title: 'CSC 648 Team 1 Home Page' });
       
     });
@@ -73,7 +75,6 @@ router.get('/', async function (req, res) {
 
 
   
-
 router.get('/header', function (req, res, next){
     res.render('header');
 });

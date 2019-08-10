@@ -1,7 +1,7 @@
 /*
 * Author: Sandhya sankaran
 * Author: Jonathan Julian
-* updated: 8.8.2019
+* updated: 8.10.2019
 * Function -- router for posting/retrieving incident pages.
 */
 
@@ -84,26 +84,26 @@ router.get('/report', function (req, res, next) {
 // Request to create new incidents
 
 router.post('/report', upload.single('pic') ,function(req, res,next) {
-  console.log("req.body of post"+req.body);
-// convert the uploaded image to base64 string to store in the database
+//console.log("req.body of post"+req.body);
+//Convert the uploaded image to base64 string to store in the database
 
   const base64encodedImg = req.file.buffer.toString('base64'); 
   const userId           = req.cookies.user.userId;
   const locationObj      = JSON.parse(req.body.location);
   
   if(!req.cookies.user){
-    // Todo handle unregistered user
+  //To handle unregistered user
     res.send({
       msg: "Login to access this page if your a member. Otherwise join by signing up."
     });
   }
-  // create an incident from the body parameters and store them in database 
+  //Create an incident from the body parameters and store them in database 
   models.incidents.create({ 
     description      : req.body.description, 
   })
   .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
-      // set all foreign key values in the database
+      //Set all foreign key values in the database
        incident.setType(req.body.idType);
        incident.setLocation(locationObj.locationId);
        incident.setUser(userId);
@@ -111,7 +111,7 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
        incident.setStatus(RECEIVED_STATUS);
       return incident;
   })
-  //create new image and thumbnail of that image
+  //Create new image and thumbnail of that image
   .then(newIncident=>{
     imageThumbnail(base64encodedImg)
     .then(thumbnail => {
@@ -122,7 +122,6 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
       //img.setincidentID(newIncident.incidentId); //possible error here
       // Redirect to incident detail page after creating the incident
       res.redirect('/incidents/view/'+newIncident.incidentId);
-      //res.render('../views/incidents/details',{title: "results page", data: incident})
     })  
     })
   })
@@ -138,14 +137,15 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
 
 
-// Request to update an incident     
+//Request to update incident details through workbench by registered user and and admin   
+
 router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) {
   console.log('req.params');
   const incident_id = parseInt(req.params.incidentId);
   const user_id = parseInt(req.params.idUser);
-  //find the user in user database to check the role
+  //Find the user in user database to check the role
   models.users.findByPk(user_id)
-   // Get the user role from userid
+   //Get the user role from userid
     .then(user => {
       const userrole = user.RoleRoleId;
       //console.log("userrole");
@@ -155,7 +155,7 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
       console.log(userRole);
       return models.incidents.findByPk(incident_id)
         .then(incident => {
-          // Admin can change all fields including status
+          // ADMIN can change all fields including status
           if (userRole === ADMIN) {
             //console.log("admin");
             //Change all fields in database including status for admin
@@ -171,14 +171,15 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
                 }
               });
           }
+          // Edit incident details by registered users (through postman)
           else {
             // Registered user can change only incidents created by them and cannot change status
             const incidentUserId = incident.UserUserId;
             const status = incident.StatusStatusId;
-            //check if the user has created the incident, else throw error
+            //Check if the user has created the incident, else throw error
             if (incidentUserId === user_id) {
               console.log(status);
-              // if status is resolved or archived, registered user cannot edit them
+              //If status is resolved or archived, registered user cannot edit them
               if (status === RESOLVED_STATUS || status === ARCHIVED_STATUS) {
                 throw "invalid status to change"
               }
@@ -198,7 +199,7 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
           }
         });
     })
-    // print the rows that are updated
+    //Print the rows that are updated
     .then((rows) => {
       console.log("Done updating" + rows + " rows");
       res.json({ updated: rows });
@@ -214,7 +215,7 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
 
 
 
-// Request to archive an incident by admin
+// Request to delete an incident only by Admin (through Postman)
 
 router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
   const incident_id = parseInt(req.params.incidentId);
@@ -261,7 +262,8 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
 });
 
 
-// Request to view a specific incident
+//Request to view a specific incident by incident ID
+
 router.get('/view/:incidentId', async function (req, res) {
   models.incidents.findOne({
       where: {incidentId: req.params.incidentId},
@@ -291,20 +293,30 @@ router.get('/view/:incidentId', async function (req, res) {
         }
     ]
   }).then(incident =>{
-    if(req.cookies.role === "Admin"){
-      //change to actual admin page
-      res.render('../views/incidents/details',{title: "results page", data: incident})
+    //If user is Unregistered , display the incident details page
+    if(!req.cookies.user){
+      console.log("req.cokkie"+req.cookies.user);
+      res.render('../views/incidents/details',{title: "results page", data: incident});
     }
-    else{
-      res.render('../views/incidents/details',{title: "results page", data: incident})
+    //console.log("req.cookies.role"+ req.cookies.user.RoleRoleId)
+    else
+    {
+      //If user is Admin, render the admin details page
+      if(req.cookies.user.RoleRoleId === ADMIN){
+        res.render('../views/incidents/admin_details',{title: "results page", data: incident});
+      }
+      //If user is Registered user, display the incident details page
+      else{
+        res.render('../views/incidents/details',{title: "results page", data: incident});
+      }
     }
-
   });
 });
 
-// Request to update incident
-router.put('/view/:incidentId', async function (req, res) {
-  models.incidents.findOne({
+// Request to change the status of an incident only by Admin
+
+router.post('/view/:incidentId', async function (req, res) {
+   models.incidents.findOne({
       where: {incidentId: req.params.incidentId},
       include: [ //includes associations defined in models
         {
@@ -331,13 +343,15 @@ router.put('/view/:incidentId', async function (req, res) {
             required: false //return false == left outter join
         }
     ]
-  }).then(incident =>{
-    // "Admin" mayneed to be changed here base on what the cookie says
-    if(req.cookies.role === "Admin"){
-      
-      
+  }).then(incident => {
+    //If user is Admin, status of the incident can be changed
+    if(req.cookies.user.RoleRoleId === ADMIN){
+      //Change the status field in the database and then display the same incident detail page
+      incident.setStatus(req.body.idStatus);
+      res.redirect('/incidents/view/'+incident.incidentId);
     }
     else{
+      //If user is not admin, display error
       res.render('../views/error.ejs', {message: "Sorry you do not have sufficient permissions to edit this post"})
     }
 
@@ -353,9 +367,9 @@ router.get('/details', function (req, res) {
 
 
 // Request to view  all incidents
+
 router.get('/view', async function (req, res) {
   models.incidents.findAll({
-      
       include: [ //includes associations defined in models
         {
             association: 'Location',
@@ -382,14 +396,9 @@ router.get('/view', async function (req, res) {
         }
     ]
   }).then(incident =>{
-    if(req.cookies.role === "Admin"){
-      //change to actual admin page
-      res.json({data: incident})
-    }
-    else{
-      res.json({data: incident})
-    }
-
+    // Display all the incidents with all the details
+      res.json({data: incident});
+    
   });
 });
 
