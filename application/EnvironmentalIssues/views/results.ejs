@@ -79,6 +79,7 @@
                                         <%remove_multiple = [...new Set(remove_multiple)] %>
                                         <%for(var i=0; i < remove_multiple.length; i++) { %>
                                         <option><%= remove_multiple[i] %></option>
+                                        <option>97999</option>
                                         <% } %>
                                     </select>
                                 </div>
@@ -166,6 +167,18 @@
                                 </div>
                             </div>
                             <!-- ICON KEY END -->
+                            <!-- err msg START -->
+                            <div class="row rounded" style="border: 2px solid red; margin: 8px; display: none"
+                                id="no_results_msg">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <h4>your search returned no results :(</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- err msg END -->
                             <!-- ONE INCIDENT START-->
                             <% for(var i=0; i < data.length; i++) { %>
                             <a href="/incidents/view/<%=data[i].incidentId%>"
@@ -195,21 +208,12 @@
                                         </i>
                                         <span style="text-align: left"
                                             class="typeCheck"><%= data[i].Type.typeName %></span>
-                                        <!-- <span style="color: gray">(Type) </span> -->
                                         <hr class="m-1" />
                                         <i class="material-icons" style="vertical-align: bottom">
                                             build
                                         </i>
                                         <span style="text-align: left"><b id="status"
                                                 class="statusCheck"><%= data[i].Status.statusName %></b></span>
-                                        <!-- <span style="color: gray">(Status)
-                                            </span> -->
-                                        <!-- <hr class="m-1" />
-                                        <i class="material-icons" style="vertical-align: bottom">
-                                            comment
-                                        </i>
-                                        <span style="text-align: left"><%= data[i].description %></span> -->
-
                                         <br />
                                         <br />
                                     </div>
@@ -290,11 +294,7 @@
         });
         let parseDate = document.getElementsByClassName("parseDate");
         Array.from(parseDate).forEach(function (item) {
-            let month = item.innerText.substring(5, 7);
-            let day = item.innerText.substring(8, 10);
-            let year = item.innerText.substring(0, 4);
-            const date = new Date(year, month, day);
-            item.innerText = date.toDateString();
+            item.innerText = item.innerText.substring(0, 16)
         });
 
         $("#categoryList").change(function () {
@@ -302,6 +302,7 @@
             switch (getText) {
                 case "Status":
                     refreshDisplayAll();
+                    hide_results_msg();
                     $("#displayZip").hide();
                     $("#zipChildList")[0].selectedIndex = 0
                     $("#displayType").hide();
@@ -317,6 +318,7 @@
                     break;
                 case "Zip":
                     refreshDisplayAll();
+                    hide_results_msg();
                     $("#displayStatus").hide();
                     $("#statusChildList")[0].selectedIndex = 0
                     $("#displayType").hide();
@@ -332,6 +334,7 @@
                     break;
                 case "Type":
                     refreshDisplayAll();
+                    hide_results_msg();
                     $("#displayStatus").hide();
                     $("#statusChildList")[0].selectedIndex = 0
                     $("#displayZip").hide();
@@ -347,6 +350,7 @@
                     break;
                 case "Location":
                     refreshDisplayAll();
+                    hide_results_msg();
                     $("#displayType").hide();
                     $("#typeChildList")[0].selectedIndex = 0
                     $("#displayStatus").hide();
@@ -362,6 +366,7 @@
                     break;
                 case "Filter by category":
                     refreshDisplayAll();
+                    hide_results_msg();
                     $("#displayType").hide();
                     $("#typeChildList")[0].selectedIndex = 0
                     $("#displayStatus").hide();
@@ -385,6 +390,7 @@
                 )[0].innerText;
                 card_text = card_text.getElementsByClassName(className)[0].innerText;
                 if (search_value == card_text) {
+                    hide_results_msg();
                     document.getElementsByClassName("showing_x_of")[0].innerText = 1;
                     incidentNumberView++;
                     cardView[i].style.display = "";
@@ -395,6 +401,7 @@
                         document.getElementsByClassName("showing_x_of")[0].innerText = 0;
                         updateIncidentNumber(incidentNumberView);
                         removePins();
+                        zero_results_msg();
                     }
                     cardView[i].style.display = "none";
                 }
@@ -449,59 +456,14 @@
             );
         }
 
-        // function checkFilterMatch(value, className) {
-        //     let incidentNumberView = 0;
-        //     let cardView = document.getElementsByClassName("cardView");
-        //     for (let i = 0; i < cardView.length; i++) {
-        //         let textPerCard = cardView[i].lastElementChild.getElementsByClassName(
-        //             className
-        //         )[0].innerText;
-        //         if (value == textPerCard) {
-        //             incidentNumberView++;
-        //             cardView[i].style.display = "";
-        //             document.getElementsByClassName(
-        //                 "incidentNumberView"
-        //             )[0].innerText = incidentNumberView;
-        //             showPin(i);
-        //         } else {
-        //             if (incidentNumberView == 0) {
-        //                 document.getElementsByClassName(
-        //                     "incidentNumberView"
-        //                 )[0].innerText = incidentNumberView;
-        //             }
-        //             removePin(i);
-        //             cardView[i].style.display = "none";
-        //         }
-        //     }
-        // }
+        function zero_results_msg() {
+            $('#no_results_msg').slideDown('fast');
 
-        // function refreshDisplayAll() {
-        //     resetPins();
-        //     document.getElementsByClassName(
-        //         "incidentNumberView"
-        //     )[0].innerText = document.getElementById(
-        //         "totalNumberOfIncidents"
-        //     ).innerText;
-        //     Array.from(document.getElementsByClassName("cardView")).forEach(
-        //         function (item) {
-        //             item.style.display = "";
-        //         }
-        //     );
-        // }
+        }
+        function hide_results_msg() {
+            $('#no_results_msg').hide();
+        }
 
-        // function removePin(i) {
-        //     gmarkers[i].setMap(null);
-        // }
-
-        // function resetPins() {
-        //     for (let i = 0; i < gmarkers.length; i++) {
-        //         gmarkers[i].setMap(map);
-        //     }
-        // }
-
-        // function showPin(i) {
-        //     gmarkers[i].setMap(map);
-        // }
     </script>
     <footer>
         <%-include ../views/partials/footer.ejs%>
