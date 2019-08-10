@@ -3,40 +3,52 @@
     Purpose/Function: includes nav bar, along wiht cookie script for user log in
     Date: 8/8/2019
  -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<p class="text-muted bg-dark mx-0 my-0" style="text-align: center;"><small>SFSU Software Engineering Project CSC 648-848, Summer 2019. For Demonstration Only</small></p>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<p class="text-muted bg-dark mx-0 my-0" style="text-align: center;"><small>SFSU Software Engineering Project CSC
+        648-848, Summer 2019. For Demonstration Only</small></p>
 <% include modals.ejs%>
-    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">EnvironMate</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">EnvironMate</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link about-nav" href="/about">About</a>
+            </li>
+        </ul>
+
+        <form name="search" action="/results" class="nav-search-bar">
+            <div class="input-group mb-3">
+                <input name="search_text" type="text" class="form-control" aria-label="Text input with dropdown button"
+                    placeholder="Search" maxlength="20">
+                <div class="input-group-append">
+                    <input class="btn btn-success" type="submit" value="Search"></div>
+            </div>
+        </form>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item post-nav">
+                <a href="/incidents/report"><button class="btn btn-danger">Post Incident</button></a>
+                <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
+            </li>
+        </ul>
+        <div id="authContainer">
+            <span id="welcomeMsg" style="color: white"></span>
+            <!-- Button trigger for log in -->
+            <button type="button" id="logoutButton" class="btn btn-primary btn-sm" data-target="#logout">
+                Log Out
             </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link about-nav" href="/about">About</a>
-                </li>
-            </ul>
-
-            <form name="search" action="/results" class="nav-search-bar">
-                <div class="input-group mb-3">
-                    <input name="search_text" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search" maxlength="20">
-                    <div class="input-group-append">
-                        <input class="btn btn-success" type="submit" value="Search"></div>
-                </div>
-            </form>
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div id="unauthContainer">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item post-nav">
-                    <a href="/incidents/report"><button class="btn btn-danger">Post Incident</button></a>
-                    <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
-                </li>
-            </ul>
-            <div id="authContainer">
-                <span id="welcomeMsg" style="color: white"></span>
                 <!-- Button trigger for log in -->
+
                 <a form action="/signout" method="post">
                     <button type="button" id="signout" class="btn btn-primary btn-sm" data-target="#logout">
                         Log Out
@@ -48,59 +60,61 @@
                     <!-- Button trigger for log in -->
                     <li class="nav-item post-nav">
                         <button type="button" id="loginPopupButton" class="btn btn-primary btn-sm login-nav" data-toggle="modal" data-target="#loginPopup" value="signout">
+
                         Log In
-                      </button>
-                    </li>
+                    </button>
+                </li>
 
-                    <!-- Button trigger for sign up -->
-                    <li class="nav-item signup-nav">
-                        <button type="button" class="btn btn-primary btn-sm signup-nav" data-toggle="modal" data-target="#signupPopup">
+                <!-- Button trigger for sign up -->
+                <li class="nav-item signup-nav">
+                    <button type="button" class="btn btn-primary btn-sm signup-nav" data-toggle="modal"
+                        data-target="#signupPopup">
                         Sign Up
-                      </button>
-                    </li>
-                </ul>
-            </div>
+                    </button>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <script>
-        var getCookie = function(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var cookieJson = [];
-            for (let i = 0; i < decodedCookie.length; i++) {
-                if (decodedCookie[i] === '{') {
-                    cookieJson = decodedCookie.substring(i);
-                    return cookieJson;
+<script>
+    var getCookie = function (cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieJson = [];
+        for (let i = 0; i < decodedCookie.length; i++) {
+            if (decodedCookie[i] === '{') {
+                cookieJson = decodedCookie.substring(i);
+                return cookieJson;
 
-                }
             }
-            return null;
         }
+        return null;
+    }
 
 
-        var parsed = JSON.parse(getCookie(document.cookie));
+    var parsed = JSON.parse(getCookie(document.cookie));
 
-        if (parsed === "") {
-            //hide authContainer
-            $('#authContainer').hide();
-            //show authContainer
-            $('#unauthContainer').show();
-            loginUnsuccessful();
+    if (parsed === "") {
+        //hide authContainer
+        $('#authContainer').hide();
+        //show authContainer
+        $('#unauthContainer').show();
+        loginUnsuccessful();
 
-        } else {
-            $(document).ready(function() {
-                //hide logged in controls until after cookie check
-                $('#authContainer').show();
-            });
-            //set welcome message
-            let welcomeMessage = "Welcome, " + parsed.firstName;
-            $('#welcomeMsg').text(welcomeMessage);
-
-            //show authContainer
+    } else {
+        $(document).ready(function () {
+            //hide logged in controls until after cookie check
             $('#authContainer').show();
+        });
+        //set welcome message
+        let welcomeMessage = "Welcome, " + parsed.firstName;
+        $('#welcomeMsg').text(welcomeMessage);
 
-            $('#unauthContainer').hide();
-            console.log(parsed.firstName);
-        }
-    </script>
+        //show authContainer
+        $('#authContainer').show();
+
+        $('#unauthContainer').hide();
+        console.log(parsed.firstName);
+    }
+</script>
