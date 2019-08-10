@@ -7,6 +7,7 @@ var logger = require('morgan');
 var expressValidator = require('express-validator');
 var sequelize = require('sequelize');
 var session = require('express-session');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var expressHandlebars = require('express-handlebars');
 
@@ -17,6 +18,7 @@ var formRoute = require('./routes/forms.js');
 var incidentpost = require('./routes/incident.js');
 var signupRoute = require('./routes/signup.js');
 var loginRouter = require('./routes/login.js');
+var signoutRouter = require('./routes/signout.js');
 
 var app = express();
 
@@ -39,6 +41,7 @@ app.use('/about/forms', formRoute);
 app.use('/incidents',incidentpost);
 app.use('/signup', signupRoute);
 app.use('/login', loginRouter);
+app.use('/signout', signoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
