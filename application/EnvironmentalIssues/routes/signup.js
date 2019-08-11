@@ -9,6 +9,7 @@ const router = express.Router();
 router.use(express.json());
 
 const models = require('../models');
+const test = require('./index');
 
 router.post("/", (req, res, next) => {
     console.log('req.body');
@@ -22,6 +23,7 @@ router.post("/", (req, res, next) => {
         
         // if email is already being used
         if (user) {
+
             // return res.render('./index.ejs', { result: "Email in use.", title: "CSC 648 Team 1 Home Page" });
             
             // 422 means unable to process the contained instructions - closely implies invalid args
@@ -38,6 +40,7 @@ router.post("/", (req, res, next) => {
         }).then(user => {
             console.log("User ID: ", user.userId);
             user.setRole('1');
+
             // return res.render('./index.ejs', {result: "successfully registered", title: "CSC 648 Team 1 Home Page"});
             // I'm not sure if we need to redirect to home page on success login - Michael'comment
 
@@ -47,6 +50,7 @@ router.post("/", (req, res, next) => {
             // success status
             res.status(204).send();
 
+
         }).catch((error) => {
             res.status(400).send({message: "Something wrong happened, please try again.."});
             console.log("Error creating a user. Details: ", error)
@@ -55,5 +59,7 @@ router.post("/", (req, res, next) => {
     })
 
 });
+
+
   
 module.exports = router;
