@@ -79,8 +79,8 @@
                                         <%remove_multiple = [...new Set(remove_multiple)] %>
                                         <%for(var i=0; i < remove_multiple.length; i++) { %>
                                         <option><%= remove_multiple[i] %></option>
-                                        <option>97999</option>
                                         <% } %>
+                                        <option>94747</option>
                                     </select>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="col-lg-12 text-center">
-                                            <h4>your search returned no results :(</h4>
+                                            <h4>Your search returned no results 😕</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -395,21 +395,23 @@
                     incidentNumberView++;
                     cardView[i].style.display = "";
                     updateIncidentNumber(incidentNumberView);
-                    pinView(address_for_marker);
+                    showPins(i);
                 } else {
-                    if (incidentNumberView == 0) {
-                        document.getElementsByClassName("showing_x_of")[0].innerText = 0;
-                        updateIncidentNumber(incidentNumberView);
-                        removePins();
-                        zero_results_msg();
-                    }
                     cardView[i].style.display = "none";
+                    removePin(i);
                 }
+            }
+            if (incidentNumberView == 0) {
+                document.getElementsByClassName("showing_x_of")[0].innerText = 0;
+                updateIncidentNumber(incidentNumberView);
+                removePins();
+                zero_results_msg();
             }
         }
 
         function refreshDisplayAll() {
             resetPins();
+            document.getElementsByClassName("showing_x_of")[0].innerText = 1;
             document.getElementsByClassName("incidentNumberView")[0].innerText =
                 gmarkers.length;
             document.getElementsByClassName("totalNumberOfIncidents")[0].innerText =
@@ -428,15 +430,12 @@
                 gmarkers[i].setMap(map);
             }
         }
+        function showPins(i) {
+            gmarkers[i].setMap(map)
+        }
 
-        function pinView(address) {
-            for (let i = 0; i < gmarkers.length; i++) {
-                if (gmarkers[i].address == address) {
-                    gmarkers[i].setMap(map);
-                } else {
-                    gmarkers[i].setMap(null);
-                }
-            }
+        function removePin(i) {
+            gmarkers[i].setMap(null)
         }
 
         function updateIncidentNumber(search_value) {
