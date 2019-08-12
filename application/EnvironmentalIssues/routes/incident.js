@@ -1,5 +1,5 @@
 /*
-* Author: Sandhya sankaran
+* Author: Sandhya Sankaran
 * Author: Jonathan Julian
 * updated: 8.10.2019
 * Function -- router for posting/retrieving incident pages.

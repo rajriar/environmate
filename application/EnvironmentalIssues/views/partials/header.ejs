@@ -25,7 +25,7 @@
         <form name="search" action="/results" class="nav-search-bar">
             <div class="input-group mb-3">
                 <input name="search_text" type="text" class="form-control" aria-label="Text input with dropdown button"
-                    placeholder="Search" maxlength="20">
+                    placeholder="Search" maxlength="50">
                 <div class="input-group-append">
                     <input class="btn btn-success" type="submit" value="Search"></div>
             </div>
@@ -46,6 +46,8 @@
                 Log Out
             </button> 
             -->
+        </div>
+        <div class="px-3" id="signoutButton">
             <form action="/signout" method="post">
                 <button type="submit" id="signout" class="btn btn-primary btn-sm">
                     Log Out

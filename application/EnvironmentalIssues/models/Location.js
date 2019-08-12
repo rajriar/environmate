@@ -1,5 +1,5 @@
 /*
-* Author: Johnathan Le
+* Author: Johnathan Lee
 * Author: Jonathan Julian
 * updated: 8.8.2019
 * Function -- Model for incident table
