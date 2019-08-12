@@ -19,14 +19,21 @@
     <div class="container-fluid">
         <div class="row index">
             <div class="col-md-8" id="content">
-                <h1 class="environmate-index">EnvironMate</h1><hr>
-                <h3 class="mission-statement"><p>A clean environment is essential for healthy living. Our goal at EnvironMate is to provide the
-                    community with the most up to date environmental information to keep our communities safe and healthy.
-                    We provide a medium for members of the community to report environmental defects in real time to the city's trained
-                    environmental clean up crews.</p>
-                    <p>From our website you won't need an account to browse potential defects in your area.  We welcome anyone to stay informed
-                        on the defects that may be present in any community park or gathering place.  Make EnvironMate your first step in planning
-                        an outing whether it is a date, a playdate, or a casual stroll through the park.  A cleaner environment starts with our
+                <h1 class="environmate-index">EnvironMate</h1>
+                <hr>
+                <h3 class="mission-statement">
+                    <p>A clean environment is essential for healthy living. Our goal at EnvironMate is to provide the
+                        community with the most up to date environmental information to keep our communities safe and
+                        healthy.
+                        We provide a medium for members of the community to report environmental defects in real time to
+                        the city's trained
+                        environmental clean up crews.</p>
+                    <p>From our website you won't need an account to browse potential defects in your area. We welcome
+                        anyone to stay informed
+                        on the defects that may be present in any community park or gathering place. Make EnvironMate
+                        your first step in planning
+                        an outing whether it is a date, a playdate, or a casual stroll through the park. A cleaner
+                        environment starts with our
                         Environ-Mates! Sign up today to start making a difference!
                     </p>
                 </h3>
@@ -35,33 +42,34 @@
             <div class="col-md-4 rounded most-recent" style="border: 2px solid black">
                 <p style="text-align: center">Most Recent Incidents</p>
                 <% for(var i=0; i < data.length; i++) { %>
-                    <a href="/incidents/view/<%=data[i].incidentId%>" style="color: black; text-decoration: none">
-                        <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
-                            <div class="col-sm-6" id="incidentPicture">
-                                <br />
-                                <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..." class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
-                            </div>
-                            <div class="col-sm-6">
-                                <br />
-                                <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
-                                <span style="text-align: left" class="locationCheck"><%= data[i].Location.locationName %></span>
-                                <span> |</span>
-                                <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
-                                <hr class="m-1" />
-                                <hr class="m-1" />
-                                <i class="material-icons" style="vertical-align: bottom">
-                                    report
-                                </i>
-                                <span style="text-align: left" class="typeCheck"><%= data[i].Type.typeName %></span>
-                                <!-- <span style="color: gray">(Type) </span> -->
-                                <hr class="m-1" />
-
-                                <br />
-                                <br />
-                            </div>
+                <a href="/incidents/view/<%=data[i].incidentId%>" style="color: black; text-decoration: none">
+                    <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
+                        <div class="col-sm-6" id="incidentPicture">
+                            <br />
+                            <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..."
+                                class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
                         </div>
-                    </a>
-                    <% } %>
+                        <div class="col-sm-6">
+                            <br />
+                            <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
+                            <span style="text-align: left"
+                                class="locationCheck"><%= data[i].Location.locationName %></span>
+                            <span> |</span>
+                            <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
+                            <hr class="m-1" />
+                            <i class="material-icons" style="vertical-align: bottom">
+                                report
+                            </i>
+                            <span style="text-align: left" class="typeCheck"><%= data[i].Type.typeName %></span>
+                            <!-- <span style="color: gray">(Type) </span> -->
+                            <hr class="m-1" />
+
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </a>
+                <% } %>
             </div>
         </div>
     </div>
