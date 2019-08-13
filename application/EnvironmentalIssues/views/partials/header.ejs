@@ -25,9 +25,10 @@
         <form name="search" action="/results" class="nav-search-bar">
             <div class="input-group mb-3">
                 <input name="search_text" type="text" class="form-control" aria-label="Text input with dropdown button"
-                    placeholder="Search" maxlength="50">
+                    placeholder="Search" maxlength="50" id="search_text">
                 <div class="input-group-append">
-                    <input class="btn btn-success" type="submit" value="Search"></div>
+                    <input class="btn btn-success" type="submit" value="Search" 
+                            onclick="captureSearch(document.getElementById('search_text').value)"></div>
             </div>
         </form>
     </div>
@@ -74,7 +75,23 @@
 </nav>
 
 <script>
+    var captureSearch = function(searchValue){
+        if(searchValue != null){
+            console.log(searchValue);
+            sessionStorage.setItem('search', searchValue)
+        }
+    }
+
+    var updateSearch = function(){
+        var search = sessionStorage.getItem('search');
+        console.log(search);
+        document.getElementById('search_text').value = search;
+    }
     
+    //calls to update search box
+    document.onchange = updateSearch();
+
+
     // get cookie from URI encoded cookie obj.
     // @param cname is the name of a cookie (ie. 'user')
     // @return string representation of cookie object that was set.
@@ -94,7 +111,6 @@
 
     // function that update auth-related nav components/buttons
     var updateAuthButtons = () =>{
-
         var cookie = getCookie('user');
         if (!cookie) {
             //hide authContainer
@@ -102,10 +118,8 @@
             //show authContainer
             $('#unauthContainer').show();
             // loginUnsuccessful(); undefined function?
-
         } else {
             let parsed = JSON.parse(cookie);
-
             $(document).ready(function () {
                 //hide logged in controls until after cookie check
                 $('#authContainer').show();
@@ -113,15 +127,12 @@
             //set welcome message
             let welcomeMessage = "Welcome, " + parsed.firstName;
             $('#welcomeMsg').text(welcomeMessage);
-
             //show authContainer
             $('#authContainer').show();
-
             $('#unauthContainer').hide();
             // console.log(parsed.firstName);
         }
     }
-
     // each reloads update buttons
     updateAuthButtons();
     
