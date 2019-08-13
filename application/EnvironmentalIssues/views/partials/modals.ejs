@@ -1,3 +1,4 @@
+
 <!--
     Author: Angie Martinez
     Purpose/Function: Provides log in and sign up forms through modals.
@@ -22,10 +23,16 @@
                             <div class="col-md-6">
                                 <label for="firstName">First name</label>
                                 <input type="text" name="firstName" class="form-control" id="firstName" placeholder=" Enter First name" required>
+                                <div class="invalid-feedback">
+                                    Please enter your first name.
+                                </div>
                             </div>   
                             <div class="col-md-6">
                                 <label for="lastName">Last name</label>
                                 <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Last name" required>
+                                <div class="invalid-feedback">
+                                    Please enter your last name.
+                                </div>
                             </div>    
                         </div>        
 
@@ -41,10 +48,16 @@
                             <div class="col-md-6">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" id="signup_password" placeholder="Enter Password" required minlength="5">
+                                <div class="invalid-feedback">
+                                    Passwords must match and be at least 5 characters long.
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="confirmPassword">Confirm Password</label>
                                 <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Enter Password" required minlength="5">
+                                <div class="invalid-feedback">
+                                    Passwords must match and be at least 5 characters long.
+                                </div>
                             </div>
                         </div>  
 
@@ -61,7 +74,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="signupBtn" onsubmit="buttonSubmit()">Sign Up</button>
+                        <button type="submit" class="btn btn-primary" id="signupBtn">Sign Up</button>
                     </div>
 
                 </form>
@@ -88,21 +101,15 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form form class="needs-validation" novalidate name="login" method="post" action="/login" >
+                <form name="login" method="post" action="/login" onsubmit="loginSubmit()">
                     <div class="modal-body">
                         <div class="login-group">
                             <label for="signinEmail">Email address</label>
                             <input type="email" name="userEmail" class="form-control" id="signinEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
-                            <div class="invalid-feedback">
-                                Please enter a valid email.
-                            </div>
                         </div>
                         <div class="login-group py-2">
                             <label for="signinPassword">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
-                            <div class="invalid-feedback">
-                                You must enter your password.
-                            </div>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
                         </div>
                     </div>
                     <div class="modal-footer">

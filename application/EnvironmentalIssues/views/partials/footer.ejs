@@ -51,9 +51,10 @@
             });
         }, false);
     })();
-    /** buttonSubmit() function reloads the page when modal submits successfully **/
-    function buttonSubmit() {
 
+
+    /** buttonSubmit() function reloads the page when modal submits successfully **/
+    function loginSubmit() {
         sleep(500).then(() => {
 
             // reload the page on submit modal
@@ -68,6 +69,8 @@
         });
 
     }
+
+
     /** sleep() function creates a sleep before reloading **/
     function sleep(time) {
         return new Promise((resolve) => setTimeout(resolve, time));
