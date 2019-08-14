@@ -141,6 +141,7 @@ ga('create', 'UA-145593934-1', 'auto');
         for (let i = 0; i < decodedCookie.length; i++) {
             if (decodedCookie[i] === '{') {
                 cookieJson = decodedCookie.substring(i);
+                console.log(cookieJson);
                 return cookieJson;
 
             }
