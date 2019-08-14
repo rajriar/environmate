@@ -64,6 +64,8 @@
                 window.location.reload();
             }else{
                 updateAuthButtons();
+                $('#loginPopup').modal('hide');
+                $('.modal-backdrop').remove();
             }   
             
         });
