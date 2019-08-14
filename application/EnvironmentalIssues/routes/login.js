@@ -39,9 +39,9 @@ router.post('/', (req, res, next) => {
             res.status(401).json({ token: null, errorMessage: 'failed!' })
         } else {
             // set cookie for user
-            res.cookie("user", user.dataValues);
-
-            console.log("logged in as: ", user.dataValues);
+            var userJson = JSON.stringify({"userEmail" : user.userEmail,"firstName" : user.firstName,"lastName" : user.lastName,"RoleRoleId" : user.RoleRoleId});
+            console.log("logged in as: ", JSON.parse(userJson));
+            res.cookie("user", userJson );
         }
 
         res.status(204).send();
