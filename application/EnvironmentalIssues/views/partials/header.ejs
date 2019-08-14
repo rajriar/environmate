@@ -139,16 +139,20 @@ ga('create', 'UA-145593934-1', 'auto');
         var decodedCookie = decodeURIComponent(document.cookie);
         var cookieJson = [];
         var frontIndex;
-        var endIndex;
+        var endIndex = decodedCookie.length-1;
+        console.log(endIndex);
+        console.log(decodedCookie);
         for (let i = 0; i < decodedCookie.length; i++) {
-            if (decodedCookie[i] === '{') {
+            if (decodedCookie[i]=== "{") {
                 frontIndex = i;
+                console.log(frontIndex);
             }
-            else if(decodedCookie[i] === "}"){
-                endIndex = i;
+            else if(decodedCookie[i] ==="}"){
+                endIndex = i+1;
+                console.log(endIndex);
             }
         }
-
+        console.log(decodedCookie.substring(frontIndex, endIndex))
         return decodedCookie.substring(frontIndex, endIndex);
     }
 
