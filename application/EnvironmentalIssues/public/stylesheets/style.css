@@ -1,3 +1,56 @@
+@media screen and (max-width: 992px) {
+   .environmate-index {
+       font-size: 30%;
+   }
+ }
+ @media screen and (max-width: 992px) {
+
+    #about-nav{
+        top:15%;
+        left: 10%;
+    }
+
+
+    #post-button {
+       position:absolute;
+       top:60px;
+       min-width: 90px;
+       max-height: 38px;
+
+     }
+     #signup-nav-button {
+       top: 60px;
+       right: 113px;
+       min-width: 90px;
+       max-height: 38px;
+     }
+     #loginPopupButton {
+       position:absolute;
+       top: 60px;
+       right: 10px;
+       min-width: 90px;
+       max-height: 38px;
+
+     }
+     #signout {
+       position:absolute;
+       top: 47px;
+       right: 113px;
+       min-width: 90px;
+       max-height: 38px;
+
+     }
+
+    #welcomeMsg{
+    min-width: 250px;
+    left: 180px;
+}
+
+
+     .searchbar{display:none;}
+
+}
+
 body {
     font: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -67,6 +120,48 @@ html {
     overflow: auto;
 }
 
+.searchbar{
+    position:absolute;
+    left: 210px;
+    top: 9px;
+
+}
+
+.search_text{
+    min-width: 330px;
+}
+
+.post-button{
+    position:absolute;
+    right:215px;
+    top:13px;
+    min-width: 90px;
+    max-height: 38px;
+}
+
+#signoutButton{
+    position:absolute;
+    right:0px;
+    top: 13px;
+    min-width: 90px;
+    max-height: 38px;
+}
+
+#welcomeMsg{
+    position:absolute;
+    right:150px;
+    top: 14px;
+    width: 40px;
+}
+
+.signup-nav-button{
+    position: absolute;
+    right: 108px;
+    top:13px;
+    min-width: 90px;
+    max-height: 38px;
+}
+
 .dropdown-width {
     size: 50px;
 }
@@ -82,7 +177,7 @@ html {
 }
 
 .about-nav {
-    margin-left: 75px;
+    margin-left:20px;
 }
 
 .post-nav {
