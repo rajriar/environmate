@@ -302,7 +302,9 @@ router.get('/view/:incidentId', async function (req, res) {
     else
     {
       //If user is Admin, render the admin details page
-      if(req.cookies.user.RoleRoleId === ADMIN){
+      var cookie = JSON.parse(req.cookies.user);
+      console.log(cookie.RoleRoleId);
+      if(cookie.RoleRoleId === 2){
         res.render('../views/incidents/admin_details',{title: "results page", data: incident});
       }
       //If user is Registered user, display the incident details page
@@ -345,7 +347,9 @@ router.post('/view/:incidentId', async function (req, res) {
     ]
   }).then(incident => {
     //If user is Admin, status of the incident can be changed
-    if(req.cookies.user.RoleRoleId === ADMIN){
+
+    var cookie = JSON.parse(req.cookies.user);
+    if(cookie.RoleRoleId === 2){
       //Change the status field in the database and then display the same incident detail page
       incident.setStatus(req.body.idStatus);
       res.redirect('/incidents/view/'+incident.incidentId);
