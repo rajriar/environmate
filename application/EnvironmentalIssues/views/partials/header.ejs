@@ -128,8 +128,7 @@ ga('create', 'UA-145593934-1', 'auto');
         
     }
     
-    //calls to update search box
-    document.onchange = updateSearch();
+
 
 
     // get cookie from URI encoded cookie obj.
@@ -161,9 +160,6 @@ ga('create', 'UA-145593934-1', 'auto');
         } else {
             let parsed = JSON.parse(cookie);
             $(document).ready(function () {
-                //hide logged in controls until after cookie check
-                $('#authContainer').show();
-            });
             //set welcome message
             let welcomeMessage = "Welcome, " + parsed.firstName;
             $('#welcomeMsg').text(welcomeMessage);
@@ -171,9 +167,12 @@ ga('create', 'UA-145593934-1', 'auto');
             $('#authContainer').show();
             $('#unauthContainer').hide();
             // console.log(parsed.firstName);
+            });
+
         }
     }
     // each reloads update buttons
-    updateAuthButtons();
-    
+    //calls to update search box
+    document.onchange = updateSearch();
+    document.onchange = updateAuthButtons();
 </script>
