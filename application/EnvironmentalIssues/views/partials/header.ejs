@@ -75,17 +75,26 @@
 </nav>
 
 <script>
+    // To capture the search value from searchbar
     var captureSearch = function(searchValue){
         if(searchValue != null){
             console.log(searchValue);
             sessionStorage.setItem('search', searchValue)
         }
     }
-
+    // To update the search bar with value captured
     var updateSearch = function(){
         var search = sessionStorage.getItem('search');
         console.log(search);
-        document.getElementById('search_text').value = search;
+        //Display the search bar with the value only in results page and incident detail page
+        if( window.location.pathname == "/results" || window.location.pathname.substr(0,15)== "/incidents/view" ){
+            document.getElementById('search_text').value = search;
+        }
+        // If user navigates to home reset the search value
+        else if(window.location.pathname == "/"){
+            captureSearch("");
+        }
+        
     }
     
     //calls to update search box
