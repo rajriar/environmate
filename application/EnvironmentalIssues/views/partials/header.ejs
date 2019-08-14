@@ -138,15 +138,18 @@ ga('create', 'UA-145593934-1', 'auto');
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var cookieJson = [];
+        var frontIndex;
+        var endIndex;
         for (let i = 0; i < decodedCookie.length; i++) {
             if (decodedCookie[i] === '{') {
-                cookieJson = decodedCookie.substring(i);
-                console.log(cookieJson);
-                return cookieJson;
-
+                frontIndex = i;
+            }
+            else if(decodedCookie[i] === "}"){
+                endIndex = i;
             }
         }
-        return null;
+
+        return decodedCookie.substring(frontIndex, endIndex);
     }
 
     // function that update auth-related nav components/buttons
