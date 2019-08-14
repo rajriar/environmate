@@ -25,17 +25,15 @@ html {
 
 #content {
     text-align: center;
-    float: right;
-    margin-top: -30%;
-    margin-left: 50%;
+    
 }
 
 .environmate-index {
-    font-size: 8em;
+    font-size: 450%;
 }
 
 .mission-statement {
-    font-size: 1.5em;
+    font-size: 100%;
     color: black;
     font: sans-serif;
 }
@@ -43,7 +41,6 @@ html {
 .footer-text {
     color: black;
     font-size: 1em;
-    margin-top: 10%;
 }
 
 .results {
@@ -52,6 +49,10 @@ html {
     overflow: auto;
 }
 
+.index{
+    margin: 5%;
+    padding: 15px;
+}
 .container {
     margin: 30px;
     padding: 10px;
@@ -66,6 +67,29 @@ html {
     overflow: auto;
 }
 
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+  
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
+
+  @media (min-width: 993px) {
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        bottom: 5%;
+        top: 22%;
+        transform: translatex(-50%);
+    }
+    .welcome{
+        margin-left: 80%;
+    }
+}
+
 .dropdown-width {
     size: 50px;
 }
@@ -75,26 +99,22 @@ html {
 }
 
 .nav-search-bar {
-    margin-left: 20%;
-    margin-top: 10px;
     width: 100%;
 }
 
 .about-nav {
-    margin-left: 75px;
+    margin-left: auto;
 }
 
 .post-nav {
-    margin-right: 175px;
-}
-
-.login-nav {
-    margin-right: 20px;
+    margin-right: auto;
 }
 
 .most-recent {
-    max-width: 50%;
-    margin-top: 10%;
+    height: 440px;
+    width: 200px;
+    overflow: auto;
+    position: relative;
 }
 
 .post-incident-container {
@@ -105,6 +125,7 @@ html {
     padding: 25px;
     padding-bottom: 0px;
 }
+
 
 .post-incident-section {
     float: left;

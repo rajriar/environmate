@@ -1,5 +1,11 @@
-//const db = require('./dbConnection');
-//const fs = require('fs');
+/*
+* Author: Sandhya Sankaran
+* Author: Jonathan Julian
+* updated: 8.10.2019
+* Function -- router for posting/retrieving incident pages.
+*/
+
+
 const multer = require('multer')
 const upload = multer({})
 const imageThumbnail = require('image-thumbnail');
@@ -16,19 +22,16 @@ const ARCHIVED_STATUS = 4;
 
 
 
-// request to get report incident page
+// request to get all values in dropdown in the post incident page
 router.get('/report', function (req, res, next) {
+  // initialize arrays for each table in database
   let _zipcodes      = [];
   let _locations     = [];
   let _incidentTypes = [];
   let _status        = [];
-  let _userId        = null;
 
-  if (req.cookies && req.cookies.user){
-    _userId = req.cookies.user.id;
-  }
-
-  // fetch necessary stuff from db
+  // fetch necessary stuff from the database from each table
+  //fetch zipcodes from zipcode table
   models.zipCodes.findAll()
   .then( results => {
     results.forEach((zipcode) => {
@@ -36,6 +39,7 @@ router.get('/report', function (req, res, next) {
     });
     return models.location.findAll()
   })
+  //fetch locations from location table
   .then( results => {
     results.forEach((location) => {
       //console.log(location.dataValues);
@@ -43,27 +47,31 @@ router.get('/report', function (req, res, next) {
     });
     return models.incidentType.findAll();
   })
+  //fetch incident types from incidentType table
   .then( results => {
     results.forEach((incidentType) => {
       _incidentTypes.push(incidentType.dataValues);
     });
     return models.incidentType.findAll();
   })
+  //fetch status from status table
   .then(results => {
     results.forEach((incidentStatus) => {
       _status.push(incidentStatus.dataValues);
     });
-  }).then( () => {
-
+  })
+  // Display the post incident page, after getting the values from database
+  .then( () => {
     res.render('../views/incidents/report', { 
       title         : 'Post an incident.',
       zipcodes      : _zipcodes,
       locations     : _locations,
       incidentTypes : _incidentTypes,
-      status        : _status,
-      userId        : _userId // Todo use sessions
+      status        : _status
     })
-  }).catch( (err) => {
+  })
+  //catch statement for debugging
+  .catch( (err) => {
     console.log(`Error fetching data for report page. Details: ${err}`)
     res.send({
       msg: "Error getting data. Try reload."
@@ -76,27 +84,34 @@ router.get('/report', function (req, res, next) {
 // Request to create new incidents
 
 router.post('/report', upload.single('pic') ,function(req, res,next) {
-  console.log(req.body);
+//console.log("req.body of post"+req.body);
+//Convert the uploaded image to base64 string to store in the database
 
   const base64encodedImg = req.file.buffer.toString('base64'); 
-  const userId           = req.cookies.user.id;
+  const userId           = req.cookies.user.userId;
   const locationObj      = JSON.parse(req.body.location);
-
-  // create an incident 
+  
+  if(!req.cookies.user){
+  //To handle unregistered user
+    res.send({
+      msg: "Login to access this page if your a member. Otherwise join by signing up."
+    });
+  }
+  //Create an incident from the body parameters and store them in database 
   models.incidents.create({ 
     description      : req.body.description, 
   })
   .then(incident => {
       console.log("Incident's's auto-generated ID:", incident.incidentId);
+      //Set all foreign key values in the database
        incident.setType(req.body.idType);
        incident.setLocation(locationObj.locationId);
        incident.setUser(userId);
       //console.log(Object.keys(incident.__proto__));
-      incident.setStatus(RECEIVED_STATUS);
-      //return incident; 
+       incident.setStatus(RECEIVED_STATUS);
       return incident;
   })
-  //create new image and thumbnail of that image
+  //Create new image and thumbnail of that image
   .then(newIncident=>{
     imageThumbnail(base64encodedImg)
     .then(thumbnail => {
@@ -105,7 +120,8 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
     .then((img)=>{
       console.log("img id"+ img.imageId);
       //img.setincidentID(newIncident.incidentId); //possible error here
-      res.render('./index.ejs', {result :'new incident created '+newIncident.incidentId, title: 'CSC 648 Team 1 Home Page' })
+      // Redirect to incident detail page after creating the incident
+      res.redirect('/incidents/view/'+newIncident.incidentId);
     })  
     })
   })
@@ -121,17 +137,17 @@ router.post('/report', upload.single('pic') ,function(req, res,next) {
 
 
 
-// Request to update an incident     
-//change it to post
+//Request to update incident details through workbench by registered user and and admin   
+
 router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) {
   console.log('req.params');
-  //console.log(req.params.incidentId);
   const incident_id = parseInt(req.params.incidentId);
   const user_id = parseInt(req.params.idUser);
+  //Find the user in user database to check the role
   models.users.findByPk(user_id)
-   // Get the user role from userid
+   //Get the user role from userid
     .then(user => {
-      const userrole = user.idRole;
+      const userrole = user.RoleRoleId;
       //console.log("userrole");
       return userrole;
     })
@@ -139,30 +155,40 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
       console.log(userRole);
       return models.incidents.findByPk(incident_id)
         .then(incident => {
-          // Admin can change all fields including status
+          // ADMIN can change all fields including status
           if (userRole === ADMIN) {
             //console.log("admin");
+            //Change all fields in database including status for admin
             return models.incidents.update({
-              idType: req.body.idType, idLocation: req.body.idLocation, description: req.body.description,
-              idStatus: req.body.idStatus, reportedDateTime: new Date()
+              TypeTypeId: req.body.idType,
+              LocationLocationId: req.body.idLocation,
+              description: req.body.description,
+              StatusStatusId: req.body.idStatus,
+              createdAt: new Date()
             }, {
                 where: {
                   incidentId: incident.incidentId
                 }
               });
           }
+          // Edit incident details by registered users (through postman)
           else {
             // Registered user can change only incidents created by them and cannot change status
-            const incidentUserId = incident.idUser;
-            const status = incident.idStatus;
+            const incidentUserId = incident.UserUserId;
+            const status = incident.StatusStatusId;
+            //Check if the user has created the incident, else throw error
             if (incidentUserId === user_id) {
               console.log(status);
+              //If status is resolved or archived, registered user cannot edit them
               if (status === RESOLVED_STATUS || status === ARCHIVED_STATUS) {
                 throw "invalid status to change"
               }
+              // If status is received or reviewed, registered user can change location, type and description
               return models.incidents.update({
-                idType: req.body.idType, idLocation: req.body.idLocation, description: req.body.description,
-                reportedDateTime: new Date()
+                TypeTypeId: req.body.idType,
+                LocationLocationId: req.body.idLocation,
+                description: req.body.description,
+                createdAt: new Date()
               }, {
                   where: {
                     incidentId: incident.incidentId
@@ -173,12 +199,13 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
           }
         });
     })
+    //Print the rows that are updated
     .then((rows) => {
       console.log("Done updating" + rows + " rows");
       res.json({ updated: rows });
     })
+    // catch statement for debugging
     .catch(function (err) {
-      // catch statement for debugging
       console.log(`Something bad happened: ${err}`);
       res.json({
         updateIncident: "failed to update the incident: " + err
@@ -188,30 +215,32 @@ router.put("/edit/incident/:incidentId/user/:idUser", function (req, res, next) 
 
 
 
-// Request to archive an incident by admin
+// Request to delete an incident only by Admin (through Postman)
+
 router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
-  //console.log('req.params');
-  //console.log(req.params.incidentId);
   const incident_id = parseInt(req.params.incidentId);
   const user_id = parseInt(req.params.idUser);
   //console.log(user_id);
+  //find the user in user database to check the role
   models.users.findByPk(user_id)
     .then(user => {
-      const userRole = user.idRole;
-      // Only admin user can delete an incident
+      const userRole = user.RoleRoleId;
+      // Only admin user can delete an incident from incident table
       if (userRole === ADMIN) {
         models.incidents.destroy({
           where: {
             incidentId: incident_id
           }
         })
+        // Also delete the image from image table corresponding to that incident
           .then(() => {
             return models.image.destroy({
               where: {
-                idIncident: incident_id
+                incidentIncidentId: incident_id
               }
             })
           })
+          // print the rows that are deleted
           .then((rows) => {
             console.log("Done deleting" + rows + " rows");
             res.json({ deleted: rows });
@@ -222,8 +251,8 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
       }
 
     })
+    // catch statement for debugging
     .catch(function (err) {
-      // catch statement for debugging
       console.log(`Something bad happened: ${err}`);
       res.json({
         deleteIncident: `${err}`
@@ -233,75 +262,100 @@ router.delete('/delete/incident/:incidentId/user/:idUser', function (req, res) {
 });
 
 
-// Request to view a specific incident
+//Request to view a specific incident by incident ID
+
 router.get('/view/:incidentId', async function (req, res) {
-  const incident_id = parseInt(req.params.incidentId);
-  // find the incident from the database 
-  const resultP = models.incidents.findByPk(incident_id)
-  .then(incident => {
-    //Get image of the incident
-    const imageP = models.image.findOne({
-      where: {
-        incidentIDIncidentId: incident.incidentId
+  models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    //If user is Unregistered , display the incident details page
+    if(!req.cookies.user){
+      console.log("req.cokkie"+req.cookies.user);
+      res.render('../views/incidents/details',{title: "results page", data: incident});
+    }
+    //console.log("req.cookies.role"+ req.cookies.user.RoleRoleId)
+    else
+    {
+      //If user is Admin, render the admin details page
+      if(req.cookies.user.RoleRoleId === ADMIN){
+        res.render('../views/incidents/admin_details',{title: "results page", data: incident});
       }
-    })
-    // create promises of all response values needed
-      .then(img => {
-        console.log(img);
-        return {image: img.image, thumbnail: img.thumbnail};
-      });
-
-      const locationP =  incident.getLocation()
-      .then(resolvedLoc => {
-        return resolvedLoc.getZipcode()
-          .then(resolvedZip => {
-            return {location: resolvedLoc.locationName, zipCode: resolvedZip.zipCode};
-          })
-      });
-
-    const statusP = incident.getStatus()
-          .then(status =>{
-              return {status: status.statusName};
-          });
-
-    const typeP = incident.getType()
-          .then(types =>{
-            //console.log(locations.locationName);
-              return {type: types.typeName};
-          });
-          
-    const userP = incident.getUser()
-          .then(users =>{
-            //console.log(locations.locationName);
-            return {user: users.userEmail}
-          });
-      // return the promise of all promises created
-      return Promise.all([Promise.resolve(incident), imageP, locationP, statusP, typeP, userP]);
-  })
-  // create the json object for response
-  .then( incidentFieldsP => {
-    return {
-      incidentId: incidentFieldsP[0].incidentId, 
-      incidentDescription: incidentFieldsP[0].description,
-      image: incidentFieldsP[1].image,
-      thumbnailImage: incidentFieldsP[1].thumbnail,
-      location: incidentFieldsP[2].location,
-      zipCode: incidentFieldsP[2].zipCode,
-      status: incidentFieldsP[3].status,
-      type: incidentFieldsP[4].type,
-      user: incidentFieldsP[5].user
-    };
-  })
-  .catch(function (err) {
-    // catch statement for debugging
-    console.log(`Something bad happened: ${err}`);
-    res.json({
-      viewIncident: `${err}`
-    });
+      //If user is Registered user, display the incident details page
+      else{
+        res.render('../views/incidents/details',{title: "results page", data: incident});
+      }
+    }
   });
+});
 
-  res.json(await resultP);
+// Request to change the status of an incident only by Admin
 
+router.post('/view/:incidentId', async function (req, res) {
+   models.incidents.findOne({
+      where: {incidentId: req.params.incidentId},
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident => {
+    //If user is Admin, status of the incident can be changed
+    if(req.cookies.user.RoleRoleId === ADMIN){
+      //Change the status field in the database and then display the same incident detail page
+      incident.setStatus(req.body.idStatus);
+      res.redirect('/incidents/view/'+incident.incidentId);
+    }
+    else{
+      //If user is not admin, display error
+      res.render('../views/error.ejs', {message: "Sorry you do not have sufficient permissions to edit this post"})
+    }
+
+  });
 });
 
 // for details incident page
@@ -310,73 +364,44 @@ router.get('/details', function (req, res) {
 });
 
 
-// Request to view all incidents
-router.get('/view',async function(req, res) {
-// find all incidents from database
-  const resultP = models.incidents.findAll()
-    .map( incident => {
-        const imagePromise = models.image.findAll({  
-          where: {
-            incidentIDIncidentId: incident.incidentId
-          }
-        })
-        // create all promises needed for the response object
-        .then(resolvedImages => { 
-          const img = resolvedImages[0].image;
-          const tNail = resolvedImages[0].thumbnail;
-          return Promise.resolve({image: img, thumbnail: tNail});
-        });
-  
-        const locationPromise =  incident.getLocation()
-          .then(resolvedLoc => {
-            return resolvedLoc.getZipcode()
-              .then(resolvedZip => {
-                return Promise.resolve({location: resolvedLoc.locationName, zipCode: resolvedZip.zipCode});
-              })
-          });
 
-        const statusPromise =  incident.getStatus()
-          .then(resolvedStatus => {
-            return Promise.resolve({status: resolvedStatus.statusName});
-          });
 
-        const typePromise =  incident.getType()
-          .then(resolvedType => {
-            return Promise.resolve({type: resolvedType.typeName});
-          });
-      
-        const userPromise = incident.getUser()
-          .then(resolvedUser => {
-            return Promise.resolve({user: resolvedUser.userEmail});
-          });
-        // create a promise.all to resolve all promises
-        return Promise.all([Promise.resolve(incident), imagePromise, locationPromise, statusPromise, typePromise, userPromise]);
-      }).map(incidentFieldsP => {
-        console.log(incidentFieldsP);
-        // return the json object for the response
-        return {
-            incidentId: incidentFieldsP[0].incidentId, 
-            incidentDescription: incidentFieldsP[0].description,
-            image: incidentFieldsP[1].image,
-            thumbnailImage: incidentFieldsP[1].thumbnail,
-            location: incidentFieldsP[2].location,
-            zipCode: incidentFieldsP[2].zipCode,
-            status: incidentFieldsP[3].status,
-            type: incidentFieldsP[4].type,
-            user: incidentFieldsP[5].user
-          };
-      })
-      .catch(function (err) {
-        // catch statement for debugging
-        console.log(`Something bad happened: ${err}`);
-        res.json({
-          viewIncident: `${err}`
-        });
-      });
-  
-    res.json(await resultP);
+// Request to view  all incidents
 
+router.get('/view', async function (req, res) {
+  models.incidents.findAll({
+      include: [ //includes associations defined in models
+        {
+            association: 'Location',
+            include:[ //2nd level association in location model
+                { 
+                    association: 'Zipcode',
+                    required: true
+                }
+
+            ],
+            required: true //required true == inner join 
+        },
+        {
+            association: 'Status',
+            required: true
+        },
+        {
+            association: 'Type',
+            required: true
+        },
+        {
+            model: models.image,
+            required: false //return false == left outter join
+        }
+    ]
+  }).then(incident =>{
+    // Display all the incidents with all the details
+      res.json({data: incident});
+    
+  });
 });
+
 
 
 module.exports = router;

@@ -83,7 +83,20 @@
 							  <li class="list-group-item">
 							  	<div class="d-flex flex-row justify-content-center">
 								  <div class="col-md-4 pr-3" style="text-align: right;"><b>Status</b></div>
-								  <div class="col-md-8 px-0"><%= data.Status.statusName %></div>
+								  <div class="col-md-8 px-0">
+
+								  	<form name="selectStatus" action="" method="POST" >
+								  	 <select class="form-control-sm" id="incidentStatusSelect" name="idStatus" required>
+								  	  <option selected disabled> <%= data.Status.statusName %></option>
+						              <option value="1">Received</option>
+						              <option value="2">Reviewed</option>
+						              <option value="3">Resolved</option>
+						              <option value="4">Archived</option>
+						            </select>
+						            <button class="btn btn-primary" type="submit">Save Changes</button>
+      								</form>
+
+								  </div>
 								</div>
 							  </li>
 							  <li class="list-group-item">
@@ -127,7 +140,7 @@
       }
 
       function geocodeAddress(geocoder, resultsMap) {
-        var address = '<%= data.Location.locationName %> San Francisco, CA <%= data.Location.Zipcode.zipCode %>';
+        var address = "<%= data.Location.locationName %> San Francisco, CA <%= data.Location.Zipcode.zipCode %>";
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -148,8 +161,4 @@
     </script>
 
 </body>
-<footer>
-    <%-include ../../views/partials/footer.ejs%>
-</footer>
-
 </html>

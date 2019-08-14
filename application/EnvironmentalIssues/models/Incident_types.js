@@ -1,4 +1,8 @@
-/* jshint indent: 1 */
+/*
+* Author: Johnathan Lee
+* updated: 8.8.2019
+* Function -- db model for incident types.
+*/
 
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('incidentType', {

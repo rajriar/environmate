@@ -1,4 +1,9 @@
-/* jshint indent: 1 */
+/*
+* Author: Johnathan Lee
+* Author: Jonthan Julian
+* updated: 8.8.2019
+* Function -- db model for images.
+*/
 const models = require('../models');
 module.exports = function(sequelize, DataTypes) {
 	const image =  sequelize.define('image', {

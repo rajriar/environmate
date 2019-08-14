@@ -1,3 +1,8 @@
+<!--
+    Author: Rajdeep Riar
+    Purpose/Function: Home page to application
+    Date: 8/8/2019
+ -->
 <!DOCTYPE html>
 
 <head>
@@ -8,36 +13,65 @@
     <% include ../views/partials/header.ejs%>
 </header>
 <script>
-
 </script>
+
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 rounded">
-                <div class="rounded  most-recent" style="border: 2px solid black">
-                    <h3></h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                    <h3>test</h3>
-                </div>
+    <div class="container-fluid">
+        <div class="row index">
+            <div class="col-md-8" id="content">
+                <h1 class="environmate-index">EnvironMate</h1>
+                <hr>
+                <h3 class="mission-statement">
+                    <p>A clean environment is essential for healthy living. Our goal at EnvironMate is to provide the
+                        community with the most up to date environmental information to keep our communities safe and
+                        healthy.
+                        We provide a medium for members of the community to report environmental defects in real time to
+                        the city's trained
+                        environmental clean up crews.</p>
+                    <p>From our website you won't need an account to browse potential defects in your area. We welcome
+                        anyone to stay informed
+                        on the defects that may be present in any community park or gathering place. Make EnvironMate
+                        your first step in planning
+                        an outing whether it is a date, a playdate, or a casual stroll through the park. A cleaner
+                        environment starts with our
+                        Environ-Mates! Sign up today to start making a difference!
+                    </p>
+                </h3>
+                <hr>
+            </div>
+            <div class="col-md-4 rounded most-recent" style="border: 2px solid black">
+                <p style="text-align: center">Most Recent Incidents</p>
+                <% for(var i=0; i < data.length; i++) { %>
+                <a href="/incidents/view/<%=data[i].incidentId%>" style="color: black; text-decoration: none">
+                    <div class="row rounded cardView" style="border: 2px solid black; margin: 8px">
+                        <div class="col-sm-6" id="incidentPicture">
+                            <br />
+                            <img src="data:image/jpg;charset=utf-8;base64,<%= data[i].images[0].thumbnail %>" alt="..."
+                                class="img-thumbnail  m-1" style="width: max-content; height: inherit" />
+                        </div>
+                        <div class="col-sm-6">
+                            <br />
+                            <i class="material-icons" style="vertical-align: bottom">pin_drop</i>
+                            <span style="text-align: left"
+                                class="locationCheck"><%= data[i].Location.locationName %></span>
+                            <span> |</span>
+                            <span id="zip" class="zipCheck"><%= data[i].Location.Zipcode.zipCode %></span>
+                            <hr class="m-1" />
+                            <i class="material-icons" style="vertical-align: bottom">
+                                report
+                            </i>
+                            <span style="text-align: left" class="typeCheck"><%= data[i].Type.typeName %></span>
+                            <!-- <span style="color: gray">(Type) </span> -->
+                            <hr class="m-1" />
+
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </a>
+                <% } %>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 content">
-                <div id="content">
-                    <h1 class="environmate-index">EnvironMate</h1>
-                    <h3 class="mission-statement">A clean environment is essential for healthy living <br>EnvironMate
-                        provides an application to the community to where if you see an environmental defect, you can
-                        post it to our website <br>You may also view incidents posted from users</h3>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     <footer>
         <%-include ../views/partials/footer.ejs%>

@@ -1,5 +1,8 @@
-/* jshint indent: 1 */
-
+/*
+* Author: Johnathan Lee
+* updated: 8.8.2019
+* Function -- Model for incident table
+*/
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('zipCodes', {
 		zipId: {

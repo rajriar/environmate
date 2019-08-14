@@ -1,3 +1,9 @@
+/*
+* Author: Johnathan Lee
+* updated: 8.8.2019
+* Function -- Model for incident table
+*/
+
 const bcrypt = require('bcrypt');
 const models = require('../models');
 
