@@ -129,13 +129,26 @@ ga('create', 'UA-145593934-1', 'auto');
     }
     
 
-
+    function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
 
     // get cookie from URI encoded cookie obj.
     // @param cname is the name of a cookie (ie. 'user')
     // @return string representation of cookie object that was set.
     var getCookie = function (cname) {
-        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookie = readCookie(cname);
+        if(cookie === null){
+            return null;
+        }
+        var decodedCookie = decodeURIComponent(cookie);
         var cookieJson = [];
         var frontIndex;
         var endIndex = decodedCookie.length-1;
