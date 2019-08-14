@@ -135,7 +135,6 @@ ga('create', 'UA-145593934-1', 'auto');
     // @param cname is the name of a cookie (ie. 'user')
     // @return string representation of cookie object that was set.
     var getCookie = function (cname) {
-        var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var cookieJson = [];
         var frontIndex;

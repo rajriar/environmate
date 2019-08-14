@@ -26,24 +26,22 @@ router.use(function(req, res, next) {
 })
 
 router.post('/', (req, res, next) => {
-    console.log('req.body');
-    console.log(req.body);
     models.users.findOne({
         where: {
             USER_EMAIL: req.body.userEmail
         }
     }).then(user => {
-
+        var userJson;
         if (!user.comparePassword(req.body.password) || user === null) {
             res.status(401).json({ token: null, errorMessage: 'failed!' })
         } else {
             // set cookie for user
-            var userJson = JSON.stringify({"userEmail" : user.userEmail,"firstName" : user.firstName,"lastName" : user.lastName,"RoleRoleId" : user.RoleRoleId});
+            userJson = JSON.stringify({"userEmail" : user.userEmail,"firstName" : user.firstName,"lastName" : user.lastName,"RoleRoleId" : user.RoleRoleId});
             console.log("logged in as: ", JSON.parse(userJson));
             res.cookie("user", userJson );
         }
 
-        res.status(204).send();
+        res.status(204).send(userJson);
     });
 });
 
