@@ -25,7 +25,6 @@
     (function () {
         'use strict';
         window.addEventListener('load', function () {
-            updateAuthButtons();
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
             // Loop over them and prevent submission
@@ -44,7 +43,6 @@
                     }
                     form.classList.add('was-validated');
                     if (form.checkValidity()) {
-                        $('#signupPopup').modal('hide');
                         $('#loginPopup').modal('hide');
                         $('.modal-backdrop').remove();
                         buttonSubmit();
