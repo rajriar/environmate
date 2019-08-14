@@ -45,7 +45,7 @@
                     if (form.checkValidity()) {
                         $('#loginPopup').modal('hide');
                         $('.modal-backdrop').remove();
-                        buttonSubmit();
+                        form.submit();
                     }
                 }, false);
             });

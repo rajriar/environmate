@@ -10,7 +10,6 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/', (req, res, next) => {
-    console.log("/signout")
     res.clearCookie("user");
     return res.redirect('/');
 });

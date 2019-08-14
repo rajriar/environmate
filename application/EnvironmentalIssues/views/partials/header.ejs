@@ -141,9 +141,9 @@ ga('create', 'UA-145593934-1', 'auto');
         var frontIndex;
         var endIndex = decodedCookie.length-1;
         console.log(endIndex);
-        console.log(decodedCookie);
+        console.log("decoded cookie : " + decodedCookie);
         for (let i = 0; i < decodedCookie.length; i++) {
-            if (decodedCookie[i]=== "{") {
+            if (decodedCookie[i] === "{") {
                 frontIndex = i;
                 console.log(frontIndex);
             }
@@ -152,33 +152,44 @@ ga('create', 'UA-145593934-1', 'auto');
                 console.log(endIndex);
             }
         }
-        console.log(decodedCookie.substring(frontIndex, endIndex))
+        console.log(decodedCookie.substring(frontIndex, endIndex));
         return decodedCookie.substring(frontIndex, endIndex);
     }
 
     // function that update auth-related nav components/buttons
     var updateAuthButtons = () =>{
+        
         var cookie = getCookie('user');
-        if (!cookie) {
-            //hide authContainer
-            $('#authContainer').hide();
-            //show authContainer
-            $('#unauthContainer').show();
-            // loginUnsuccessful(); undefined function?
-        } else {
-            let parsed = JSON.parse(cookie);
-            $(document).ready(function () {
-            //set welcome message
-            let welcomeMessage = "Welcome, " + parsed.firstName;
-            $('#welcomeMsg').text(welcomeMessage);
-            //show authContainer
-            $('#authContainer').show();
-            $('#unauthContainer').hide();
-            // console.log(parsed.firstName);
-            });
-
+            if (!cookie) {
+                //hide authContainer
+                $('#authContainer').hide();
+                //show authContainer
+                $('#unauthContainer').show();
+                // loginUnsuccessful(); undefined function?
+            } 
+            else {
+                try{
+                    let parsed = JSON.parse(cookie);
+                    $(document).ready(function () {
+                    //set welcome message
+                    let welcomeMessage = "Welcome, " + parsed.firstName;
+                    $('#welcomeMsg').text(welcomeMessage);
+                    //show authContainer
+                    $('#authContainer').show();
+                    $('#unauthContainer').hide();
+                    // console.log(parsed.firstName);
+                    });
+                }
+                catch(error){
+                    console.log(error);
+                    //hide authContainer
+                    $('#authContainer').hide();
+                    //show authContainer
+                    $('#unauthContainer').show();
+                    // loginUnsuccessful(); undefined function?
+                }
+            }
         }
-    }
     // each reloads update buttons
     //calls to update search box
     document.onchange = updateSearch();
