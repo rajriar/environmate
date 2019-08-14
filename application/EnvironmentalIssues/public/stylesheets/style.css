@@ -67,6 +67,29 @@ html {
     overflow: auto;
 }
 
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+  
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
+
+  @media (min-width: 993px) {
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        bottom: 5%;
+        top: 22%;
+        transform: translatex(-50%);
+    }
+    .welcome{
+        margin-left: 80%;
+    }
+}
+
 .dropdown-width {
     size: 50px;
 }
@@ -76,17 +99,15 @@ html {
 }
 
 .nav-search-bar {
-    margin-left: 20%;
-    margin-top: 10px;
     width: 100%;
 }
 
 .about-nav {
-    margin-left: 75px;
+    margin-left: auto;
 }
 
 .post-nav {
-    margin-right: 50px;
+    margin-right: auto;
 }
 
 .most-recent {
@@ -104,6 +125,7 @@ html {
     padding: 25px;
     padding-bottom: 0px;
 }
+
 
 .post-incident-section {
     float: left;

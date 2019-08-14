@@ -26,72 +26,83 @@ ga('create', 'UA-145593934-1', 'auto');
 <% include modals.ejs%>
 <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand mx-1 my-1" href="/">EnvironMate</a>
+    <a class="navbar text-secondary" href="/about">About</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    
     <div class="collapse navbar-collapse mx-0 my-1" id="navbarSupportedContent">
-        <ul class="navbar-nav ">
-            <li class="nav-item">
-                <a class="nav-link about-nav" href="/about">About</a>
-            </li>
-        </ul>
-        
-        <form name="search" action="/results" class="form-inline my-1 mx-4">
 
-                <input name="search_text" type="text" class="form-control mr-sm-2" aria-label="Text input with dropdown button"
-                    placeholder="Search" maxlength="50" id="search_text">
-                <div class="input-group-append">
-                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" 
-                            onclick="captureSearch(document.getElementById('search_text').value)">
-                </div>
-
-        </form>
-
-         <ul class="navbar-nav mx-1 my-1">
-            <div class="nav-item post-nav">
-                <a href="/incidents/report"><button class="btn btn-outline-danger btn-md">Post Incident</button></a>
-                <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
-            </div>
-        </ul>
-
-    </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       
-        <div id="authContainer">
-            <div class="pt-1" id="welcomeMsgCont">
-                <span id="welcomeMsg" style="color: white"></span>
-            </div>
-            <div class="px-3" id="signoutButton">
-                <form action="/signout" method="post">
-                    <button type="submit" id="signout" class="btn btn-outline-primary btn-md">
-                        Log Out
-                    </button>
-                </form>
-            </div>
+        <div>
+            <ul class="navbar-nav">
+                    <div class="nav-item post-nav my-1">
+                        <a href="/incidents/report"><button class="btn btn-outline-danger btn-md">Post Incident</button></a>
+                        <!-- <a class="nav-link post-nav" href="/incidents/report">Post Incident</a> -->
+                    </div>
+            </ul>
         </div>
-            <ul class="navbar-nav ml-auto">
+        <div>
+            <ul class="navbar-nav navbar-center">
+                <div class="nav-item">
+                    <form name="search" action="/results" class="form-inline">
+                        <input name="search_text" type="text" class="form-control mr-sm-2" aria-label="Text input with dropdown button"
+                            placeholder="Search" maxlength="50" id="search_text">
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" 
+                                    onclick="captureSearch(document.getElementById('search_text').value)">
+                        </div>
+
+                    </form>
+                </div>
+            </ul>
+        </div>
+        
+        <ul class="navbar-nav welcome">
+            <div id="authContainer">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Button trigger for log in -->
+                        <li class="nav-item post-nav" id="welcomeMsgCont">
+                            <span id="welcomeMsg" style="color: white"></span>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                    <!-- Button trigger for sign up -->
+                        <li class="nav-item signup-nav mx-1 my-1">
+                            <form action="/signout" method="post">
+                                <button type="submit" id="signout" class="btn btn-outline-primary btn-md">
+                                    Log Out
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+
+            </div>
+        </ul>
+        <ul class="navbar-nav ml-auto">
             <div id="unauthContainer">
                 <ul class="navbar-nav ml-auto">
                     <!-- Button trigger for log in -->
                     <li class="nav-item post-nav mx-1 my-1">
                         <button type="button" id="loginPopupButton" class="btn btn-outline-primary btn-md login-nav" data-toggle="modal" data-target="#loginPopup" value="signout">
-
                         Log In
-                    </button>
-                </li>
-
+                        </button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
                 <!-- Button trigger for sign up -->
-                <li class="nav-item signup-nav mx-1 my-1">
-                    <button type="button" class="btn btn-outline-primary btn-md signup-nav" data-toggle="modal"
-                        data-target="#signupPopup">
-                        Sign Up
-                    </button>
-                </li>
-            </ul>
-        </div>
+                    <li class="nav-item signup-nav mx-1 my-1">
+                        <button type="button" class="btn btn-outline-primary btn-md signup-nav" data-toggle="modal"
+                            data-target="#signupPopup">
+                            Sign Up
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </ul>
     </div>
+
 </nav>
 
 <script>
