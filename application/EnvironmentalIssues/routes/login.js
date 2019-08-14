@@ -30,12 +30,11 @@ router.post('/', (req, res, next) => {
     console.log(req.body);
     models.users.findOne({
         where: {
-            userEmail: req.body.userEmail
+            USER_EMAIL: req.body.userEmail
         }
     }).then(user => {
-        console.log("compare password: " + user.comparePassword(req.body.password));
-        console.log(!user);
-        if (!user.comparePassword(req.body.password) || user == null) {
+
+        if (!user.comparePassword(req.body.password) || user === null) {
             res.status(401).json({ token: null, errorMessage: 'failed!' })
         } else {
             // set cookie for user
