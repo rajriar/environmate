@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
         where: {
             USER_EMAIL: req.body.userEmail
         }
-    }).then(user => {
+    }).then(user =>  {
         var userJson;
         if (!user.comparePassword(req.body.password) || user === null) {
             res.status(401).json({ token: null, errorMessage: 'failed!' })
