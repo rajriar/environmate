@@ -1,12 +1,14 @@
-# csc648-su19-Team01
-
-## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
-
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repository from csc648-su19-TeamNN. All that needs to change is the NN to your respective team number. Team numbers whose value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repository as well. Teams with incorrectly name repository will have points deducted from their milestone 0 grades.
-
-1. PLEASE REMOVE THE USERNAME FROM THE REPOSITORY NAME!!!
-
-2. Add ALL members of your team to this repository. For it to count, they must ACCEPT the invite.
-
-## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
+<p>A clean environment is essential for healthy living. Our goal at EnvironMate is to provide the
+                        community with the most up to date environmental information to keep our communities safe and
+                        healthy.
+                        We provide a medium for members of the community to report environmental defects in real time to
+                        the city's trained
+                        environmental clean up crews.</p>
+                    <p>From our website you won't need an account to browse potential defects in your area. We welcome
+                        anyone to stay informed
+                        on the defects that may be present in any community park or gathering place. Make EnvironMate
+                        your first step in planning
+                        an outing whether it is a date, a playdate, or a casual stroll through the park. A cleaner
+                        environment starts with our
+                        Environ-Mates! Sign up today to start making a difference!
+                    </p>
